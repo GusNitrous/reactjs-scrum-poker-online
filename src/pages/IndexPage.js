@@ -4,65 +4,50 @@ import {
   Switch,
   Route,
 } from "react-router-dom";
-import { Link as RouterLink } from 'react-router-dom';
-import Link from '@material-ui/core/Link';
 import { Home } from './Home/Home';
+import { VotingRoom } from './VotingRoom/VotingRoom';
+import { NotFound } from './Errors/NotFound';
+
+import CssBaseline  from '@material-ui/core/CssBaseline';
+import Container from '@material-ui/core/Container';
+import Header from '../components/Header/Header';
+import Footer from '../components/Footer/Footer';
 
 /**
  * IndexPage.
  */
 export function IndexPage() {
+  // const classes = useStyles();
+  const sections = [
+      { title: 'CreateRoom', url: '/' },
+      { title: 'JoinRoom', url: '/room' },
+    ];
+
   return (
-    <Router>
-      <div>
-        <ul>
-          <li>
-            <Link component={RouterLink} to='/'>
-              Home
-            </Link>
-          </li>
-          <li>
-            <Link component={RouterLink} to="/about">
-              About
-            </Link>
-          </li>
-          <li>
-            <Link component={RouterLink} to="/dashboard">
-              Dashboard
-            </Link>
-          </li>
-        </ul>
-
-        <hr />
-
-        <Switch>
-          <Route exact path="/">
-            <Home />
-          </Route>
-          <Route path="/about">
-            <About />
-          </Route>
-          <Route path="/dashboard">
-            <Dashboard />
-          </Route>
-        </Switch>
-      </div>
-    </Router>
-  );
-}
-
-function About() {
-  return (
-    <div>
-      <h2>About</h2>
-    </div>
-  );
-}
-
-function Dashboard() {
-  return (
-    <div>
-      <h2>Dashboard</h2>
-    </div>
+    <React.Fragment>
+      <Router>
+        <CssBaseline />
+        <Container maxWidth="lg">
+          <Header title="ScrumPokerOnline" sections={sections} />
+            <main>
+              <Switch>
+                <Route exact path="/">
+                  <Home />
+                </Route>
+                <Route path="/room">
+                  <VotingRoom />
+                </Route>
+                <Route path="/">
+                  <NotFound />
+                </Route>
+              </Switch>
+            </main>
+        </Container>
+        <Footer 
+          title="Footer" 
+          description="Something here to give the footer a purpose!" 
+        />
+       </Router>
+    </React.Fragment>
   );
 }
