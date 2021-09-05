@@ -46,6 +46,6 @@ export default function Footer(props) {
 }
 
 Footer.propTypes = {
-  description: PropTypes.string,
-  title: PropTypes.string,
+    description: PropTypes.string,
+    title: PropTypes.string,
 };
