@@ -1,13 +1,16 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
+import { QuickStart } from '../../components/QuickStart/QuickStart';
 import './Home.css';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
+  },
+  mainGrid: {
+    padding: 15,
+    textAlign: 'center'
   },
   paper: {
     padding: theme.spacing(2),
@@ -24,19 +27,11 @@ export function Home() {
   return (
       <Grid
         container 
-        spacing={5} 
         direction="column" 
         justifyContent="center"
         alignItems="center"
         className={classes.mainGrid}>
-          <div>Join to the room</div>
-          <TextField label="Room id" variant="outlined"/>
-          <div>or</div>   
-          <div>  
-            <Button variant="outlined" size="medium">
-              Create new room
-            </Button>
-          </div>
+            <QuickStart />
       </Grid>
   );
 }
