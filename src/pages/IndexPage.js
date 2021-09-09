@@ -42,13 +42,13 @@ export function IndexPage() {
                 <main>
                 <Switch>
                     <Route exact path="/">
-                    <Home />
+                        <Home />
                     </Route>
-                    <Route path="/room">
-                    <VotingRoom />
+                    <Route path="/room/:id">
+                        <VotingRoom />
                     </Route>
                     <Route path="/">
-                    <NotFound />
+                        <NotFound />
                     </Route>
                 </Switch>
                 </main>
