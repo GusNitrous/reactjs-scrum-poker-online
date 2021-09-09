@@ -1,10 +1,4 @@
-export function http() {
-	return {
-		get() {
-			return new Promise.resolve([]);
-		},
-		post() {
-			return new Promise.resolve([]);
-		}
-	};
-}
+import axios from 'axios';
+export const http = axios.create({
+    baseURL: 'http://localhost:9000'
+});
