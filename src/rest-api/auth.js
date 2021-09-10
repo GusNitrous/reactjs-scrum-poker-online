@@ -1,3 +1,4 @@
+import { HttpError } from '../errors/http.error';
 import { http } from '../utils/http';
 import { setAuthData } from '../utils/storage';
 import { createWebSocket } from '../utils/ws';
@@ -21,5 +22,7 @@ export function auth(userName) {
                         resolve({ws, roomId});
                     });
             });
+        }).catch((err) => {
+            return Promise.reject(HttpError.fromAxios(err));
         });
 }

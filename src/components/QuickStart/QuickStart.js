@@ -50,15 +50,17 @@ export const QuickStart = () => {
         AuthAPI.auth(userName)
             .then(({ws, roomId}) => {
                 console.log({ws, roomId});
-
                 history.push(`/room/${roomId}`);
-            }).catch((err) => {
-                console.log(err);
-                setErrors(err);
-            }).finally(() => {
+            }).catch(handleHttpError).finally(() => {
                 setIsLoading(false);
             });
     };
+
+    const handleHttpError = (err) => {
+        if (err.status === 400) {
+            setErrors({userName: err.data.message});
+        }
+    }
 
     const joinRoom = () => {
         console.log(roomId);
