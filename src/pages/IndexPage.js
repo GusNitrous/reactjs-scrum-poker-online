@@ -27,30 +27,25 @@ const useStyles = makeStyles(() => ({
  */
 export function IndexPage() {
   const classes = useStyles();
-  const sections = [
-      { title: 'CreateRoom', url: '/' },
-      { title: 'JoinRoom', url: '/room' },
-    ];
-
   return (
     <React.Fragment>
       <Router>
         <div className={classes.root}>
             <CssBaseline />
             <Container maxWidth="lg">
-            <Header title="ScrumPokerOnline" sections={sections} />
+            <Header title="ScrumPokerOnline" />
                 <main>
-                <Switch>
-                    <Route exact path="/">
-                        <Home />
-                    </Route>
-                    <Route path="/room/:id">
-                        <VotingRoom />
-                    </Route>
-                    <Route path="/">
-                        <NotFound />
-                    </Route>
-                </Switch>
+                    <Switch>
+                        <Route exact path="/">
+                            <Home />
+                        </Route>
+                        <Route path="/room/:id">
+                            <VotingRoom />
+                        </Route>
+                        <Route path="/">
+                            <NotFound />
+                        </Route>
+                    </Switch>
                 </main>
             </Container>
             <Footer 
