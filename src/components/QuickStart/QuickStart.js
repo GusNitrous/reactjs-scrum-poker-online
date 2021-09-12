@@ -47,20 +47,17 @@ export const QuickStart = () => {
 
     const createRoom = () => {
         setIsLoading(true);
-        AuthAPI.auth(userName)
-            .then(({ws, roomId}) => {
-                console.log({ws, roomId});
-                history.push(`/room/${roomId}`);
-            }).catch(handleHttpError).finally(() => {
+        AuthAPI.register(userName)
+            .then(() => {
+                history.push('/room/create');
+            }).catch((err) => {
+                if (err.status === 400) {
+                    setErrors({userName: err.data.message});
+                }
+            }).finally(() => {
                 setIsLoading(false);
             });
     };
-
-    const handleHttpError = (err) => {
-        if (err.status === 400) {
-            setErrors({userName: err.data.message});
-        }
-    }
 
     const joinRoom = () => {
         console.log(roomId);
