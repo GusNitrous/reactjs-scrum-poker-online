@@ -1,5 +1,5 @@
 /**
- * Auth error.
+ * HttpError.
  */
 export class HttpError extends Error {
     static fromAxios({response}) {
