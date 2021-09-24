@@ -1,14 +1,13 @@
 import { io } from 'socket.io-client';
 import { getAuthData } from './storage';
-
+import { MissingAuthDataError } from '../errors/missing-auth-data.error';
 
 let ws = null;
 
-
 export function getSocket(recreate = false) {
-    const {jwtToken} = getAuthData();
+    const {jwtToken} = getAuthData() ?? {};
     if (!jwtToken) {
-        throw new Error('Auth token is missing');
+        throw new MissingAuthDataError();
     }
 
     if (recreate || !ws) {
