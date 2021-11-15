@@ -1,5 +1,5 @@
 import { io } from 'socket.io-client';
-import { getAuthData } from './storage';
+import { getAuthData } from './auth';
 import { MissingAuthDataError } from '../errors/missing-auth-data.error';
 
 let ws = null;
