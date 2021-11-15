@@ -1,8 +1,13 @@
-export function setAuthData(data) {
-	sessionStorage.setItem('auth', JSON.stringify(data));
+
+export function setItem(key, data) {
+	localStorage.setItem(key, JSON.stringify(data));
 }
 
-export function getAuthData() {
-	const authData = sessionStorage.getItem('auth');
-	return !authData ? null : JSON.parse(authData);
+export function getItem(key) {
+	const item = localStorage.getItem(key);
+	return !item ? null : JSON.parse(item);
+}
+
+export function clear() {
+	localStorage.clear();
 }
