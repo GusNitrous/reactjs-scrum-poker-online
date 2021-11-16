@@ -8,7 +8,7 @@ import * as AuthAPI from '../../rest-api/auth';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import {BAD_REQUEST} from '../../constants/http-status';
 import {isLoggedIn} from "../../utils/auth";
-import {Redirect} from "react-router-dom";
+import {Redirect, withRouter} from "react-router-dom";
 import {AuthStyles} from "./AuthStyles";
 
 /**
@@ -39,11 +39,9 @@ class Auth extends Component {
         this.setIsLoading(true);
         AuthAPI.register(userName)
             .then(() => {
-                // Проверяем referer ссылку с которой пришли на этот адрес
-                // Если ссылка есть, то после регистрации
-                // делаем редирект на referer cсылку, иначе делаем редирект на
-                // quickstart
-                history.push('/quickstart');
+                const {location} = this.props;
+                const path = location.state?.referer ?? '/quickstart';
+                history.replace(path);
             })
             .catch((err) => {
                 this.setIsLoading(false);
@@ -105,4 +103,4 @@ class Auth extends Component {
     }
 }
 
-export default withStyles(AuthStyles)(Auth);
+export default withRouter(withStyles(AuthStyles)(Auth));
