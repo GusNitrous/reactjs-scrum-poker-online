@@ -3,11 +3,10 @@ import {Button, Container, TextField} from '@material-ui/core';
 // import {getSocket} from '../../utils/ws';
 // import {CREATE_ROOM, ROOM_CREATED, EXCEPTION, JOIN_USER, USER_JOINED, USER_JOINED_TO_ROOM, RECEIVE_MESSAGE, SEND_MESSAGE} from '../../constants/ws-events';
 // import { MissingAuthDataError } from '../../errors/missing-auth-data.error';
-import {UNAUTHORIZED} from '../../constants/http-status';
-import {clearAuthData, isLoggedIn} from '../../utils/auth';
+import {isLoggedIn} from '../../utils/auth';
 import {withStyles} from "@material-ui/core/styles";
 import {VotingRoomStyles} from "./VotingRoomStyles";
-import {Redirect, withRouter} from "react-router-dom";
+import {withRouter} from "react-router-dom";
 
 /**
  * VotingRoom page component.
@@ -22,13 +21,31 @@ class VotingRoom extends Component {
         error: {},
     };
 
-    handleException = (err) => {
-        if (err.status === UNAUTHORIZED) {
-            clearAuthData();
-            this.props.history.replace('/auth');
-        } else {
-            console.log(err);
+    componentDidMount() {
+        if (!isLoggedIn()) {
+            this.redirectToAuth();
+            return;
         }
+        this.init();
+    }
+
+    init = () => {
+        const {match} = this.props;
+        // 1. Забираем room id к которому хотим подключиться
+        const roomId = match.params.id;
+        // 2. Пробуем подключаться к комнате с указанным id
+        // Если подключиться не получается, то обрабатываем ошибку
+        // Если подключение прошло успешно, то инициализируем интерфейс комнаты:
+        // - загружаем состояние комнаты
+        // - загружаем участников комнаты
+        console.log('--- init_connection ---', this.props);
+    }
+
+    redirectToAuth = () => {
+        const {history, location} = this.props;
+        history.push('/auth', {
+            referer: location?.pathname
+        });
     }
 
     setMessage = (message) => {
@@ -85,16 +102,6 @@ class VotingRoom extends Component {
     }
 
     render() {
-        const {location} = this.props;
-        console.log('--- voting_room_location ---', this.props);
-
-        if (!isLoggedIn()) {
-            return <Redirect to={{
-                pathname: '/auth',
-                state: {referer: location?.pathname}
-            }}/>;
-        }
-
         const {createdRoom, joinedRoom} = this.state;
         if (createdRoom) {
             return this.renderCreatedRoom(createdRoom);
