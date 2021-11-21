@@ -3,17 +3,21 @@ import PropTypes from 'prop-types';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import {useStyles} from "./HeaderStyles";
-import {useHistory} from "react-router-dom";
-import {isLoggedIn} from "../../utils/auth";
+import {history} from '../../utils/routing';
+import {AuthButton} from "./AuthButton";
+import {useStore} from "effector-react";
+import {$authUser} from "../../models/auth";
 
 /**
  * Header component
  */
-export default function Header(props) {
+export default function Header({title}) {
     const classes = useStyles();
-    const history = useHistory();
-    const isAuth = isLoggedIn();
-    const {title, render: renderButtons} = props;
+    const authUser = useStore($authUser);
+
+    console.log('--- authUser ---', authUser);
+
+    const isLoggedIn = !!authUser?.userName;
 
     return (
         <React.Fragment>
@@ -28,7 +32,7 @@ export default function Header(props) {
                 >
                     {title}
                 </Typography>
-                {renderButtons({isAuth, history})}
+                <AuthButton isAuth={isLoggedIn} history={history}/>
             </Toolbar>
         </React.Fragment>
     );
