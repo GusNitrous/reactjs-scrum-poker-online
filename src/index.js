@@ -4,6 +4,8 @@ import reportWebVitals from './reportWebVitals';
 import { IndexPage } from './pages/IndexPage';
 import './index.css';
 
+// Only in dev mode
+import 'effector-logger/inspector';
 
 ReactDOM.render(
   <React.StrictMode>

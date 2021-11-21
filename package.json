@@ -10,6 +10,7 @@
     "@testing-library/user-event": "^12.1.10",
     "axios": "^0.21.4",
     "effector": "^22.1.2",
+    "effector-logger": "^0.13.1",
     "effector-react": "^22.0.4",
     "history": "4.10.1",
     "prop-types": "^15.7.2",
