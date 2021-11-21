@@ -1,4 +1,6 @@
-export const AuthStyles = {
+import {makeStyles} from "@material-ui/core/styles";
+
+export const useStyles = makeStyles(() => ({
     card: {
         marginTop: '25px',
     },
@@ -14,4 +16,4 @@ export const AuthStyles = {
     submit: {
         margin: '2, 0, 2'
     },
-}
+}));
