@@ -1,5 +1,5 @@
 import {HttpError} from '../errors/http.error';
-import {clearAuthData, setAuthData} from '../utils/auth';
+import {clearAuthData} from '../utils/auth';
 import * as http from "../utils/http";
 
 const {withAuth} = http;
@@ -9,9 +9,7 @@ const {withAuth} = http;
  */
 export function register(userName) {
     return http.post({url: '/auth/register', data: {userName}})
-        .then(({data}) => {
-            setAuthData(data);
-        }).catch((err) => Promise.reject(HttpError.fromAxios(err)));
+        .catch((err) => Promise.reject(HttpError.fromAxios(err)));
 }
 
 /**

@@ -3,13 +3,14 @@ import ReactDOM from 'react-dom';
 import reportWebVitals from './reportWebVitals';
 import { IndexPage } from './pages/IndexPage';
 import './index.css';
+import './models/init';
 
 // Only in dev mode
 import 'effector-logger/inspector';
 
 ReactDOM.render(
   <React.StrictMode>
-    <IndexPage />
+      <IndexPage />
   </React.StrictMode>,
   document.getElementById('root')
 );
