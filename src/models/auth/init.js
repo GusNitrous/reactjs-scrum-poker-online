@@ -1,8 +1,18 @@
-import {$authErrors, $authForm, $authUser, doLogin, doLogout, loginRequestFx, updateAuthForm, updateAuthUser} from './';
+import {
+    $authErrors,
+    $authForm,
+    $authUser,
+    doLogin,
+    doLogout,
+    loginRequestFx,
+    logoutRequestFx,
+    updateAuthForm,
+    updateAuthUser
+} from './';
 import {forward} from "effector";
 import {BAD_REQUEST} from "../../constants/http-status";
 import {Routes, history} from "../../utils/routing";
-import {setAuthData} from "../../utils/auth";
+import {clearAuthData, setAuthData} from "../../utils/auth";
 import * as AuthAPI from '../../rest-api/auth';
 
 loginRequestFx.use(AuthAPI.register).doneData.watch(({data}) => {
@@ -17,6 +27,11 @@ loginRequestFx.use(AuthAPI.register).doneData.watch(({data}) => {
     }
 });
 
+logoutRequestFx.use(AuthAPI.logout).finally.watch(() => {
+    clearAuthData();
+    history.replace(Routes.AUTH);
+});
+
 $authErrors.on(loginRequestFx.failData, (errors, {status, data}) => {
     if (status === BAD_REQUEST) {
         errors.inputError = {userName: data.message};
@@ -26,7 +41,7 @@ $authErrors.on(loginRequestFx.failData, (errors, {status, data}) => {
     return errors;
 });
 
-$authForm.on(updateAuthForm, (form, {key, value}) => ({
+$authForm.reset(doLogin).on(updateAuthForm, (form, {key, value}) => ({
     ...form,
     [key]: value
 }));
@@ -36,6 +51,11 @@ $authUser.reset(doLogout).on(updateAuthUser, (_, userData) => userData);
 forward({
    from: doLogin,
    to: loginRequestFx
+});
+
+forward({
+    from: doLogout,
+    to: logoutRequestFx
 });
 
 

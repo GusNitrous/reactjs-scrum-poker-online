@@ -1,5 +1,4 @@
 import {HttpError} from '../errors/http.error';
-import {clearAuthData} from '../utils/auth';
 import * as http from "../utils/http";
 
 const {withAuth} = http;
@@ -17,11 +16,5 @@ export function register(userName) {
  */
 export function logout() {
     return withAuth(http.post)({url: '/auth/logout'})
-        .catch((err) => {
-            const httpError = HttpError.fromAxios(err);
-            console.log(httpError);
-        })
-        .finally(() => {
-            clearAuthData();
-        });
+        .catch((err) => Promise.reject(HttpError.fromAxios(err)));
 }

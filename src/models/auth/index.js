@@ -1,4 +1,4 @@
-import {createEvent, createEffect, createStore} from 'effector';
+import {createEffect, createEvent, createStore} from 'effector';
 
 export const updateAuthForm = createEvent();
 
@@ -25,4 +25,5 @@ export const $authForm = createStore({
     userName: '',
 });
 
+// FIXME сделать грамотную привязку к local storage, чтобы после перезагрузки страницы всё восстанавливалось
 export const $authUser = createStore({});
