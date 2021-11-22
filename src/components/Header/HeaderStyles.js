@@ -7,12 +7,4 @@ export const useStyles = makeStyles((theme) => ({
     toolbarTitle: {
         flex: 1,
     },
-    toolbarSecondary: {
-        justifyContent: 'space-between',
-        overflowX: 'auto',
-    },
-    toolbarLink: {
-        padding: theme.spacing(1),
-        flexShrink: 0,
-    },
 }));

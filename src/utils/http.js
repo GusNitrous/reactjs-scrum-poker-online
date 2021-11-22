@@ -5,13 +5,9 @@ export const request = axios.create({
     baseURL: 'http://localhost:9000'
 });
 
-export const get = ({url, config}) => {
-    return request.get(url, config);
-}
+export const get = ({url, config}) => request.get(url, config);
 
-export const post = ({url, data, config}) => {
-    return request.post(url, data, config);
-}
+export const post = ({url, data, config}) => request.post(url, data, config);
 
 export const withAuth = (httpMethod) => {
     return (opt) => {
