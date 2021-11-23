@@ -7,6 +7,7 @@ import {isLoggedIn} from '../../utils/auth';
 import {withStyles} from "@material-ui/core/styles";
 import {VotingRoomStyles} from "./VotingRoomStyles";
 import {withRouter} from "react-router-dom";
+import {Routes} from "../../utils/routing";
 
 /**
  * VotingRoom page component.
@@ -43,7 +44,7 @@ class VotingRoom extends Component {
 
     redirectToAuth = () => {
         const {history, location} = this.props;
-        history.push('/auth', {
+        history.push(Routes.AUTH, {
             referer: location?.pathname
         });
     }
