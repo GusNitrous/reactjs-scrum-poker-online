@@ -17,43 +17,49 @@ export const AuthForm = () => {
     const isLoading = useStore(loginRequestFx.pending);
     const {inputError} = useStore($authErrors);
 
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        doLogin(userName);
+    }
+
     return <Card className={styles.card}>
         {isLoading && <LinearProgress/>}
         <CardContent>
-            <div className={styles.content}>
-                <Avatar className={styles.avatar}>
-                    <SupervisedUserCircleRoundedIcon/>
-                </Avatar>
-                <Typography component="h1" variant="h5">
-                    Авторизация
-                </Typography>
-                <TextField
-                    error={!!inputError.userName}
-                    helperText={inputError.userName}
-                    value={userName}
-                    onChange={(e) => updateAuthForm({
-                        key: 'userName',
-                        value: e.target.value
-                    })}
-                    variant="outlined"
-                    margin="normal"
-                    fullWidth
-                    label="UserName"
-                    name="userName"
-                    autoFocus
-                />
-                <Button
-                    disabled={!userName || isLoading}
-                    type="button"
-                    onClick={() => doLogin(userName)}
-                    fullWidth
-                    variant="contained"
-                    color="primary"
-                    className={styles.submit}
-                >
-                    Войти
-                </Button>
-            </div>
+            <form onSubmit={handleSubmit}>
+                <div className={styles.content}>
+                    <Avatar className={styles.avatar}>
+                        <SupervisedUserCircleRoundedIcon/>
+                    </Avatar>
+                    <Typography component="h1" variant="h5">
+                        Авторизация
+                    </Typography>
+                    <TextField
+                        error={!!inputError.userName}
+                        helperText={inputError.userName}
+                        value={userName}
+                        onChange={(e) => updateAuthForm({
+                            key: 'userName',
+                            value: e.target.value
+                        })}
+                        variant="outlined"
+                        margin="normal"
+                        fullWidth
+                        label="UserName"
+                        name="userName"
+                        autoFocus
+                    />
+                    <Button
+                        disabled={!userName || isLoading}
+                        type="button"
+                        fullWidth
+                        variant="contained"
+                        color="primary"
+                        className={styles.submit}
+                    >
+                        Войти
+                    </Button>
+                </div>
+            </form>
         </CardContent>
     </Card>
 };
