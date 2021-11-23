@@ -23,7 +23,7 @@ loginRequestFx.use(AuthAPI.register).doneData.watch(({data}) => {
         history.replace(path);
         updateAuthUser(data);
     } catch (err) {
-        console.log('--- handleSuccessLoginFx_err ---', err);
+        console.log('--- LOGIN_REQUEST_FX_ERROR ---', err);
     }
 });
 
