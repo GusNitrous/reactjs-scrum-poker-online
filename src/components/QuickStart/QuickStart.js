@@ -12,19 +12,8 @@ import {
     Typography
 } from '@material-ui/core';
 import {useHistory, useParams} from "react-router-dom";
-import {getSocket} from '../../api/websocket/ws';
-import {
-    CREATE_ROOM,
-    EXCEPTION,
-    JOIN_USER,
-    RECEIVE_MESSAGE,
-    ROOM_CREATED,
-    USER_JOINED,
-    USER_JOINED_TO_ROOM
-} from '../../api/websocket/ws-events';
-import {MissingAuthDataError} from '../../api/ws/errors/missing-auth-data.error';
-import {UNAUTHORIZED} from '../../api/rest/http-status';
-import {clearAuthData} from '../../utils/auth';
+import {getSocket} from '../../api/ws';
+import {CREATE_ROOM, JOIN_USER, ROOM_CREATED, USER_JOINED, USER_JOINED_TO_ROOM} from '../../api/websocket/ws-events';
 import {useStyles} from "./QuickStartStyles";
 
 /**
@@ -37,43 +26,11 @@ export const QuickStart = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [roomId, setRoomId] = useState('');
 
-    const handleException = (err) => {
-        if (err.status === UNAUTHORIZED) {
-            clearAuthData();
-            history.replace('/');
-        } else {
-            console.log(err.message);
-        }
-    }
-
     const socket = () => {
-        try {
-            return getSocket()
-                .on('error', (err) => {
-                    if (err?.messgae) {
-                        console.log(err?.message);
-                    }
-                })
-                .on(EXCEPTION, handleException)
-                .on('connection', (ws) => {
-                    console.log('connection', ws);
-                })
-                .on(USER_JOINED_TO_ROOM, (userId) => {
-                    console.log('User joined to room', userId);
-                }).on(RECEIVE_MESSAGE, (message) => {
-                    console.log('RECEIVE_MESSAGE =>', message);
-                });
-        } catch (err) {
-            console.log(err);
-            if (err instanceof MissingAuthDataError) {
-                history.replace('/auth');
-            }
-        }
+        return getSocket();
     }
 
     const createRoom = () => {
-        console.log('create room');
-
         const ws = socket();
         ws?.on(ROOM_CREATED, (roomId) => {
             history.push(`/room/${roomId}`);
