@@ -10,10 +10,10 @@ import {
     updateAuthUser
 } from './';
 import {forward} from "effector";
-import {BAD_REQUEST} from "../../constants/http-status";
+import {BAD_REQUEST} from "../../api/rest/http-status";
 import {Routes, history} from "../../utils/routing";
 import {clearAuthData, setAuthData} from "../../utils/auth";
-import * as AuthAPI from '../../rest-api/auth';
+import * as AuthAPI from '../../api/rest-api/auth';
 
 loginRequestFx.use(AuthAPI.register).doneData.watch(({data}) => {
     try {

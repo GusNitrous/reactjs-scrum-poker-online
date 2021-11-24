@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {getAuthData} from "./auth";
+import {getAuthData} from "../../utils/auth";
 
 export const request = axios.create({
     baseURL: 'http://localhost:9000'

@@ -1,5 +1,5 @@
 import {HttpError} from '../errors/http.error';
-import * as http from "../utils/http";
+import * as http from "../http-client";
 
 const {withAuth} = http;
 
