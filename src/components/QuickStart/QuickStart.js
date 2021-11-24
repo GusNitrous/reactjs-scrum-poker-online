@@ -12,8 +12,7 @@ import {
     Typography
 } from '@material-ui/core';
 import {useHistory, useParams} from "react-router-dom";
-import {getSocket} from '../../utils/ws';
-import {makeStyles} from '@material-ui/core/styles';
+import {getSocket} from '../../api/websocket/ws';
 import {
     CREATE_ROOM,
     EXCEPTION,
@@ -22,33 +21,11 @@ import {
     ROOM_CREATED,
     USER_JOINED,
     USER_JOINED_TO_ROOM
-} from '../../constants/ws-events';
-import {MissingAuthDataError} from '../../errors/missing-auth-data.error';
-import {UNAUTHORIZED} from '../../constants/http-status';
+} from '../../api/websocket/ws-events';
+import {MissingAuthDataError} from '../../api/ws/errors/missing-auth-data.error';
+import {UNAUTHORIZED} from '../../api/rest/http-status';
 import {clearAuthData} from '../../utils/auth';
-
-const useStyles = makeStyles((theme) => ({
-    paper: {
-        marginTop: theme.spacing(0),
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-    },
-    avatar: {
-        margin: theme.spacing(1),
-        backgroundColor: theme.palette.secondary.main,
-    },
-    form: {
-        width: '100%',
-        marginTop: theme.spacing(1),
-    },
-    submit: {
-        margin: theme.spacing(2, 0, 2),
-    },
-    splitter: {
-        margin: theme.spacing(2, 0, 2),
-    }
-}));
+import {useStyles} from "./QuickStartStyles";
 
 /**
  * QuickStart page component.
