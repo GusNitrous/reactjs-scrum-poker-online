@@ -1,12 +1,20 @@
 import {createEffect, createEvent, createStore} from "effector";
 
+export const wsConnection = createEvent();
+
 export const wsError = createEvent();
 
 export const wsException = createEvent();
 
-export const handleExceptionFx = createEffect();
+export const handleWsConnectionFx = createEffect();
 
-export const handleErrorFx = createEffect();
+export const handleWsExceptionFx = createEffect();
 
-export const $wsErrors = createStore({});
+export const handleWsErrorFx = createEffect();
+
+export const $wsState = createStore({
+    isConnected: false,
+    error: null,
+    exception: null
+});
 
