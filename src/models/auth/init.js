@@ -10,10 +10,10 @@ import {
     updateAuthUser
 } from './';
 import {forward} from "effector";
-import {BAD_REQUEST} from "../../api/rest/http-status";
 import {Routes, history} from "../../utils/routing";
 import {clearAuthData, setAuthData} from "../../utils/auth";
-import * as AuthAPI from '../../api/rest-api/auth';
+import * as AuthAPI from '../../api/http/requests';
+import {HttpStatus} from "../../api/http";
 
 loginRequestFx.use(AuthAPI.register).doneData.watch(({data}) => {
     try {
@@ -33,7 +33,7 @@ logoutRequestFx.use(AuthAPI.logout).finally.watch(() => {
 });
 
 $authErrors.on(loginRequestFx.failData, (errors, {status, data}) => {
-    if (status === BAD_REQUEST) {
+    if (status === HttpStatus.BAD_REQUEST) {
         errors.inputError = {userName: data.message};
     } else {
         errors.commonError = data.message;

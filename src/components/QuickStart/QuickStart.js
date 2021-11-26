@@ -13,7 +13,7 @@ import {
 } from '@material-ui/core';
 import {useHistory, useParams} from "react-router-dom";
 import {getSocket} from '../../api/ws';
-import {CREATE_ROOM, JOIN_USER, ROOM_CREATED, USER_JOINED, USER_JOINED_TO_ROOM} from '../../api/websocket/ws-events';
+import {CREATE_ROOM, JOIN_USER, ROOM_CREATED, USER_JOINED, USER_JOINED_TO_ROOM} from '../../api/ws/events';
 import {useStyles} from "./QuickStartStyles";
 
 /**
