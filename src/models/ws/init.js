@@ -1,20 +1,25 @@
-import {createEffect, createEvent, createStore} from "effector";
+import {
+    $wsState,
+    handleWsConnectionFx,
+    handleWsErrorFx,
+    handleWsExceptionFx,
+    wsConnection,
+    wsError,
+    wsException
+} from "./index";
 
-export const wsConnection = createEvent();
-
-export const wsError = createEvent();
-
-export const wsException = createEvent();
-
-export const handleWsConnectionFx = createEffect();
-
-export const handleWsExceptionFx = createEffect();
-
-export const handleWsErrorFx = createEffect();
-
-export const $wsState = createStore({
-    isConnected: false,
-    error: null,
-    exception: null
+handleWsExceptionFx.use((err) => {
+    console.err('WS_EXCEPTION', err);
 });
 
+handleWsErrorFx.use((err) => {
+    console.err('WS_ERROR', err);
+});
+
+handleWsConnectionFx.use((ws) => {
+    console.log('CONNECTION', ws);
+});
+
+$wsState.on(wsError, (state, error) => ({...state, error}));
+$wsState.on(wsException, (state, exception) => ({...state, exception}));
+$wsState.on(wsConnection, (state, ws) => ({...state, isConnected: ws?.connected}));

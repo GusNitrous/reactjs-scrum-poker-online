@@ -1,7 +1,7 @@
 import {io} from 'socket.io-client';
 import {getAuthData} from '../../utils/auth';
 import {MissingAuthDataError} from './errors/missing-auth-data.error';
-import {wsConnection, wsError, wsException} from "../../models/ws/init";
+import {wsConnection, wsError, wsException} from "../../models/ws";
 import {CONNECTION, ERROR, EXCEPTION} from "./events";
 
 let ws = null;
