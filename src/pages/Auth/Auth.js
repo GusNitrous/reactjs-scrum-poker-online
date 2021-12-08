@@ -1,21 +1,20 @@
 import {Container, CssBaseline} from '@material-ui/core';
-import React, {Component} from 'react';
-import {isLoggedIn} from "../../utils/auth";
-import {Redirect, withRouter} from "react-router-dom";
+import React from 'react';
+import {Redirect} from "react-router-dom";
 import {AuthForm} from "../../components/AuthForm/AuthForm";
+import {useStore} from "effector-react";
+import {$authUser} from "../../models/auth";
 
 /**
  * Auth page component.
  */
-class Auth extends Component {
-    render() {
-        return isLoggedIn() ?
-            <Redirect to='/quickstart'/> :
-            <Container component="main" maxWidth="xs">
-                <CssBaseline/>
-                <AuthForm />
-            </Container>
-    }
+export const Auth = () => {
+    const authUser = useStore($authUser);
+    const isLoggedIn = !!authUser?.userName;
+    return isLoggedIn ?
+        <Redirect to='/quickstart'/> :
+        <Container component="main" maxWidth="xs">
+            <CssBaseline/>
+            <AuthForm />
+        </Container>
 }
-
-export default withRouter(Auth);
