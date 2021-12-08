@@ -13,7 +13,7 @@ export function clearAuthData() {
 }
 
 export function isLoggedIn() {
-    return !!getAuthData();
+    return getAuthData()?.userName;
 }
 
 

@@ -10,25 +10,20 @@ import {
     updateAuthUser
 } from './';
 import {forward} from "effector";
-import {Routes, history} from "../../utils/routing";
-import {clearAuthData, setAuthData} from "../../utils/auth";
+import {history, Routes} from "../../utils/routing";
 import * as AuthAPI from '../../api/http/requests';
 import {HttpStatus} from "../../api/http";
+import {persist} from 'effector-storage/local'
+
 
 loginRequestFx.use(AuthAPI.register).doneData.watch(({data}) => {
-    try {
-        setAuthData(data);
-        const {location} = history;
-        const path = location.state?.referer ?? Routes.HOME;
-        history.replace(path);
-        updateAuthUser(data);
-    } catch (err) {
-        console.log('--- LOGIN_REQUEST_FX_ERROR ---', err);
-    }
+    updateAuthUser(data);
+    const {location} = history;
+    const path = location.state?.referer ?? Routes.HOME;
+    history.replace(path);
 });
 
 logoutRequestFx.use(AuthAPI.logout).finally.watch(() => {
-    clearAuthData();
     history.replace(Routes.AUTH);
 });
 
@@ -47,6 +42,11 @@ $authForm.reset(doLogin).on(updateAuthForm, (form, {key, value}) => ({
 }));
 
 $authUser.reset(doLogout).on(updateAuthUser, (_, userData) => userData);
+
+persist({
+    store: $authUser,
+    key: 'auth'
+});
 
 forward({
    from: doLogin,
