@@ -25,7 +25,7 @@ export const AuthForm = () => {
     return <Card className={styles.card}>
         {isLoading && <LinearProgress/>}
         <CardContent>
-            <form onSubmit={handleSubmit}>
+            <form id="authForm" onSubmit={handleSubmit}>
                 <div className={styles.content}>
                     <Avatar className={styles.avatar}>
                         <SupervisedUserCircleRoundedIcon/>
@@ -50,7 +50,8 @@ export const AuthForm = () => {
                     />
                     <Button
                         disabled={!userName || isLoading}
-                        type="button"
+                        form="authForm"
+                        type="submit"
                         fullWidth
                         variant="contained"
                         color="primary"
