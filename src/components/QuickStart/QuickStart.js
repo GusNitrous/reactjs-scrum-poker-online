@@ -13,7 +13,7 @@ import {
 import {QuickStartStyles} from "./QuickStartStyles";
 import {withStyles} from "@material-ui/core/styles";
 import {createRoom, joinToRoom} from "../../models/room";
-import {getSocket} from "../../api/ws";
+import {socketInit} from "../../models/ws";
 
 /**
  * QuickStart page component.
@@ -23,17 +23,21 @@ class QuickStart extends Component {
         roomId: '',
     };
 
-    constructor(props) {
-        super(props);
-        this.ws = getSocket();
+    componentDidMount() {
+        console.log('--- quick_start_mount ---', this.props.socket);
+        socketInit();
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        console.log('--- quick_start_update ---', this.props.socket);
     }
 
     createRoom = () => {
-        createRoom(this.ws);
+        createRoom(this.props.socket);
     }
 
     joinToRoom = () => {
-        joinToRoom({ws: this.ws, roomId: this.state.roomId});
+        joinToRoom({ws: this.props.socket, roomId: this.state.roomId});
     }
 
     setRoomId = (roomId) => {

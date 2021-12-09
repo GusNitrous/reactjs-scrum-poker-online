@@ -4,13 +4,12 @@ import {CONNECT, ERROR, EXCEPTION} from "./events";
 
 let ws = null;
 
-export function getSocket(recreate = false) {
-    if (recreate || !ws) {
+export function getSocket(token = null) {
+    const hasToken = Boolean(token);
+    if (hasToken || !ws) {
         ws = io('http://localhost:9000', {
-                autoConnect: false,
-                auth: {
-                    token: null
-                },
+                autoConnect: hasToken,
+                auth: {token},
             })
             .on(ERROR, (err) => {
                 wsError(err);
@@ -22,6 +21,5 @@ export function getSocket(recreate = false) {
                 wsException(e);
             });
     }
-
     return ws;
 }

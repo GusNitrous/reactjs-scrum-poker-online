@@ -2,11 +2,26 @@ import {
     $wsState,
     handleWsConnectionFx,
     handleWsErrorFx,
-    handleWsExceptionFx,
+    handleWsExceptionFx, socketInit, socketInitFx,
     wsConnection,
     wsError,
     wsException
 } from "./index";
+import {forward, sample} from "effector";
+import {$authUser} from "../auth";
+import {getSocket} from "../../api/ws";
+
+socketInitFx.use(({socket, token}) => {
+    if (socket && socket.connected) {
+        return socket;
+    }
+    if (!token) {
+        throw new Error('Socket init error');
+    }
+    return getSocket(token);
+}).doneData.watch((result) => {
+    console.log('--- socket_init_fx_done ---', result);
+});
 
 handleWsExceptionFx.use((err) => {
     console.err('WS_EXCEPTION', err);
@@ -22,4 +37,21 @@ handleWsConnectionFx.use((ws) => {
 
 $wsState.on(wsError, (state, error) => ({...state, error}));
 $wsState.on(wsException, (state, exception) => ({...state, exception}));
-$wsState.on(wsConnection, (state, ws) => ({...state, isConnected: ws?.connected}));
+$wsState.on(wsConnection, (state, ws) => ({...state, ws}));
+
+sample({
+    source: {$wsState, $authUser},
+    clock: socketInit,
+    fn: ({$wsState, $authUser}) => {
+        return {
+            socket: $wsState.ws,
+            token: $authUser.jwtToken
+        }
+    },
+    target: socketInitFx
+})
+
+forward({
+    from: wsConnection,
+    to: handleWsConnectionFx
+});
