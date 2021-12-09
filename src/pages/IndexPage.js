@@ -9,8 +9,8 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 import Header from '../components/Header/Header';
 import Footer from '../components/Footer/Footer';
-import Auth from './Auth/Auth';
 import {history, Routes} from '../utils/routing';
+import {Auth} from "./Auth/Auth";
 
 const useStyles = makeStyles(() => ({
     root: {

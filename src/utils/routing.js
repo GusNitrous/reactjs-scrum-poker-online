@@ -4,9 +4,9 @@ export const history = createBrowserHistory({
     basename: '/'
 });
 
-export const Routes = {
-    ROOT: '/',
-    AUTH: '/auth',
-    HOME: '/quickstart',
-    VOTING_ROOM: '/room/:id',
-};
+export class Routes {
+    static ROOT = '/';
+    static AUTH = '/auth';
+    static HOME = '/quickstart';
+    static VOTING_ROOM = '/room/:id';
+}
