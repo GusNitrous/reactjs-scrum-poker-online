@@ -4,17 +4,17 @@ import * as http from "../http-client";
 const {withAuth} = http;
 
 /**
- * Authorize user and create voting room.
+ * Register and authorize user.
  */
-export function register(userName) {
-    return http.post({url: '/auth/register', data: {userName}})
+export const register = (userName) =>
+     http.post({url: '/auth/register', data: {userName}})
         .catch((err) => Promise.reject(HttpError.fromAxios(err)));
-}
+
 
 /**
  * Doing logout user.
  */
-export function logout() {
-    return withAuth(http.post)({url: '/auth/logout'})
+export const logout = () =>
+    withAuth(http.post)({url: '/auth/logout'})
         .catch((err) => Promise.reject(HttpError.fromAxios(err)));
-}
+
