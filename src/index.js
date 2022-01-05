@@ -5,9 +5,6 @@ import { IndexPage } from './pages/IndexPage';
 import './index.css';
 import './models/init';
 
-// Only in dev mode
-import 'effector-logger/inspector';
-
 ReactDOM.render(
   <React.StrictMode>
       <IndexPage />
