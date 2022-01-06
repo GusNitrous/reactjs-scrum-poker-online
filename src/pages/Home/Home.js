@@ -1,6 +1,6 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
-import QuickStart from '../../components/QuickStart/QuickStart';
+import {QuickStart} from '../../components/QuickStart/QuickStart';
 import {Redirect} from "react-router-dom";
 import {useStyles} from "./HomeStyles";
 import {useStore} from "effector-react";
@@ -26,8 +26,12 @@ export const Home = () => {
                 alignItems="center"
                 className={classes.mainGrid}>
                 <QuickStart />
-                <div>{error && error?.message}</div>
-                <div>{ws?.connected ? 'connected' : 'disconnected'}</div>
+                <div>
+                    {error && error?.message}
+                </div>
+                <div>
+                    {ws?.connected ? 'connected' : 'disconnected'}
+                </div>
             </Grid> : <Redirect to={Routes.AUTH}/>
     );
 }
