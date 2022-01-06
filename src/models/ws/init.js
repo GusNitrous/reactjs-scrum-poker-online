@@ -19,8 +19,6 @@ socketInitFx.use(({socket, token}) => {
         throw new Error('Socket init error');
     }
     return getSocket(token);
-}).doneData.watch((result) => {
-    console.log('--- socket_init_fx_done ---', result);
 });
 
 handleWsExceptionFx.use((err) => {
@@ -42,14 +40,12 @@ $wsState.on(wsConnection, (state, ws) => ({...state, ws}));
 sample({
     source: {$wsState, $authUser},
     clock: socketInit,
-    fn: ({$wsState, $authUser}) => {
-        return {
-            socket: $wsState.ws,
-            token: $authUser.jwtToken
-        }
-    },
+    fn: ({$wsState, $authUser}) => ({
+        socket: $wsState.ws,
+        token: $authUser.jwtToken
+    }),
     target: socketInitFx
-})
+});
 
 forward({
     from: wsConnection,

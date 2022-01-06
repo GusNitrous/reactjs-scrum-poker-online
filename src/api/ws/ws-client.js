@@ -5,17 +5,16 @@ import {CONNECT, ERROR, EXCEPTION} from "./events";
 let ws = null;
 
 export function getSocket(token = null) {
-    const hasToken = Boolean(token);
-    if (hasToken || !ws) {
+    if (!ws) {
         ws = io('http://localhost:9000', {
-                autoConnect: hasToken,
+                autoConnect: Boolean(token),
                 auth: {token},
-            })
-            .on(ERROR, (err) => {
-                wsError(err);
             })
             .on(CONNECT, () => {
                 wsConnection(ws);
+            })
+            .on(ERROR, (err) => {
+                wsError(err);
             })
             .on(EXCEPTION, (e) => {
                 wsException(e);
