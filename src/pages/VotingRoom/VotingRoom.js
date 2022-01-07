@@ -6,6 +6,7 @@ import {$authUser} from "../../models/auth";
 import {Redirect} from "react-router-dom";
 import {$room, joinToRoom} from "../../models/room";
 import {$wsState, socketInit} from "../../models/ws";
+import {UserList} from "../../components/UserList/UserList";
 
 /**
  * VotingRoom page component.
@@ -46,8 +47,6 @@ export const VotingRoom = () => {
             <h2>RoomID: {room?.uid || 'Нет созданных или присоединённых комнат'}</h2>
             <p>OwnerID: {room?.ownerId || ''}</p>
             <p>CreatedAt: {room?.createdAt || ''}</p>
-            <ul>
-                {room.users.map(({_id, name}) => <li key={_id}>{`${name} => ${_id}`}</li>)}
-            </ul>
+            <UserList users={room.users}/>
         </div>
 }
