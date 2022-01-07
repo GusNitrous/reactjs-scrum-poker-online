@@ -40,7 +40,7 @@ export const VotingRoom = () => {
     return !isLoggedIn
         ? <Redirect to={{
             pathname: Routes.AUTH,
-            state: {referer: pathname}
+            state: {referrer: pathname}
         }}/>
         : <div>
             <h2>RoomID: {room?.uid || 'Нет созданных или присоединённых комнат'}</h2>

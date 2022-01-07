@@ -7,6 +7,7 @@ import Card from "@material-ui/core/Card";
 import React from "react";
 import {useStyles} from "./AuthFormStyles";
 import {useStore} from "effector-react";
+import {useLocation} from "react-router";
 
 /**
  * AuthForm.
@@ -14,12 +15,13 @@ import {useStore} from "effector-react";
 export const AuthForm = () => {
     const styles = useStyles();
     const { userName } = useStore($authForm);
+    const { state } = useLocation();
     const isLoading = useStore(loginRequestFx.pending);
     const {inputError} = useStore($authErrors);
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        doLogin(userName);
+        doLogin({userName, referrer: state?.referrer});
     }
 
     return <Card className={styles.card}>

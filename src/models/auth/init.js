@@ -16,10 +16,12 @@ import {HttpStatus} from "../../api/http";
 import {persist} from 'effector-storage/local'
 
 
-loginRequestFx.use(AuthAPI.register).doneData.watch(({data}) => {
+loginRequestFx.use(async ({userName, referrer}) => {
+    const {data} = await AuthAPI.register(userName);
+    return {data, referrer};
+}).doneData.watch(({data, referrer}) => {
     updateAuthUser(data);
-    const {location} = history;
-    const path = location.state?.referer ?? Routes.HOME;
+    const path = referrer ?? Routes.HOME;
     history.replace(path);
 });
 
