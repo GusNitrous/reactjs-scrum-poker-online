@@ -1,119 +1,53 @@
-import React, {Component} from 'react';
-import {Button, Container, TextField} from '@material-ui/core';
-// import {getSocket} from '../../utils/ws';
-// import {CREATE_ROOM, ROOM_CREATED, EXCEPTION, JOIN_USER, USER_JOINED, USER_JOINED_TO_ROOM, RECEIVE_MESSAGE, SEND_MESSAGE} from '../../constants/ws-events';
-// import { MissingAuthDataError } from '../../errors/missing-auth-data.error';
-import {isLoggedIn} from '../../utils/auth';
-import {withStyles} from "@material-ui/core/styles";
-import {VotingRoomStyles} from "./VotingRoomStyles";
-import {withRouter} from "react-router-dom";
+import React, {useEffect} from 'react';
 import {Routes} from "../../utils/routing";
+import {useLocation, useParams} from "react-router";
+import {useStore} from "effector-react";
+import {$authUser} from "../../models/auth";
+import {Redirect} from "react-router-dom";
+import {$room, joinToRoom} from "../../models/room";
+import {$wsState, socketInit} from "../../models/ws";
 
 /**
  * VotingRoom page component.
  */
-class VotingRoom extends Component {
-    state = {
-        isLoading: false,
-        createdRoom: '',
-        joinedRoom: '',
-        roomId: '',
-        message: '',
-        error: {},
-    };
+export const VotingRoom = () => {
+    const { id } = useParams();
+    const {pathname} = useLocation();
+    const authUser = useStore($authUser);
+    const {ws, error, exception} = useStore($wsState);
+    const room = useStore($room);
+    const isLoggedIn = !!authUser?.userName;
 
-    componentDidMount() {
-        if (!isLoggedIn()) {
-            this.redirectToAuth();
-            return;
+    useEffect( () => {
+        if (!ws) {
+            socketInit();
         }
-        this.init();
+
+        if (id && ws) {
+            joinToRoom(id);
+        }
+    }, [ws]);
+
+    if (error) {
+        return <h3>{error.message}</h3>
     }
 
-    init = () => {
-        const {match} = this.props;
-        // 1. Забираем room id к которому хотим подключиться
-        const roomId = match.params.id;
-        // 2. Пробуем подключаться к комнате с указанным id
-        // Если подключиться не получается, то обрабатываем ошибку
-        // Если подключение прошло успешно, то инициализируем интерфейс комнаты:
-        // - загружаем состояние комнаты
-        // - загружаем участников комнаты
-        console.log('--- init_connection ---', this.props);
+    if (exception) {
+        return <h3>{exception.message}</h3>
     }
 
-    redirectToAuth = () => {
-        const {history, location} = this.props;
-        history.push(Routes.AUTH, {
-            referer: location?.pathname
-        });
-    }
 
-    setMessage = (message) => {
-        this.setState({message});
-    }
-
-    sendMessage = () => {
-        const {createdRoom, joinedRoom} = this.state;
-        const roomId = createdRoom || joinedRoom;
-        // socket().emit(SEND_MESSAGE, {roomId, message});
-    }
-
-    renderSendMessage = () => {
-        const {message} = this.state;
-        const {classes} = this.props;
-        return <div>
-            <TextField
-                value={message}
-                onInput={(e) => this.setMessage(e.target.value)}
-                variant="outlined"
-                margin="normal"
-                fullWidth
-                id="message"
-                label="Message"
-                name="message"
-            />
-            <Button
-                disabled={!message}
-                type="submit"
-                fullWidth
-                variant="contained"
-                onClick={this.sendMessage}
-                className={classes.submit}
-            >
-                Отправить сообщение
-            </Button>
+    return !isLoggedIn
+        ? <Redirect to={{
+            pathname: Routes.AUTH,
+            state: {referer: pathname}
+        }}/>
+        : <div>
+            <h2>RoomID: {room?.uid || 'Нет созданных или присоединённых комнат'}</h2>
+            <p>OwnerID: {room?.ownerId || ''}</p>
+            <p>CreatedAt: {room?.createdAt || ''}</p>
+            <ul>
+                {room.users.map(({_id, name}) => <li key={_id}>{`${name} => ${_id}`}</li>)}
+            </ul>
         </div>
-    }
-
-    renderCreatedRoom = () => {
-        const {createdRoom} = this.state;
-        return <Container component="main" maxWidth="xs">
-            <div>Созданная комната: {createdRoom}</div>
-            <div>{this.renderSendMessage()}</div>
-        </Container>
-    }
-
-    renderJoinedRoom = () => {
-        const {joinedRoom} = this.state;
-        return <Container component="main" maxWidth="xs">
-            <div>Присоединение к комнате: {joinedRoom}</div>
-            <div>{this.renderSendMessage()}</div>
-        </Container>;
-    }
-
-    render() {
-        const {createdRoom, joinedRoom} = this.state;
-        if (createdRoom) {
-            return this.renderCreatedRoom(createdRoom);
-        }
-
-        if (joinedRoom) {
-            return this.renderJoinedRoom(joinedRoom);
-        }
-
-        return <h2>Нет созданных или присоединённых комнат</h2>
-    }
 }
-
-export default withRouter(withStyles(VotingRoomStyles)(VotingRoom));

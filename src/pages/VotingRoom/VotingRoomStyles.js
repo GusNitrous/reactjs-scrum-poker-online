@@ -1,4 +1,6 @@
-export const VotingRoomStyles = {
+import {makeStyles} from "@material-ui/core/styles";
+
+export const useStyles = makeStyles((theme) => ({
     paper: {
         marginTop: '0px',
         display: 'flex',
@@ -16,4 +18,4 @@ export const VotingRoomStyles = {
         margin: '2, 0, 2',
     },
 
-};
+}));

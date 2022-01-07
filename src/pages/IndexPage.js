@@ -1,7 +1,7 @@
 import React from "react";
 import {Route, Router, Switch,} from "react-router-dom";
 import {Home} from './Home/Home';
-import VotingRoom from './VotingRoom/VotingRoom';
+import {VotingRoom} from './VotingRoom/VotingRoom';
 import {NotFound} from './Errors/NotFound';
 
 import {makeStyles} from '@material-ui/core/styles';
