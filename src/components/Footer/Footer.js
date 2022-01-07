@@ -13,7 +13,6 @@ function Copyright() {
         GusNitrous
       </Link>{' '}
       {new Date().getFullYear()}
-      {'.'}
     </Typography>
   );
 }
