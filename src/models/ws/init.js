@@ -12,7 +12,7 @@ import {$authUser} from "../auth";
 import {getSocket} from "../../api/ws";
 
 socketInitFx.use(({socket, token}) => {
-    if (socket && socket.connected) {
+    if (socket?.connected) {
         return socket;
     }
     if (!token) {
