@@ -6,8 +6,7 @@ import Avatar from '@material-ui/core/Avatar';
 import {makeStyles} from "@material-ui/core/styles";
 import {UserBadge} from "./UserBadge";
 import {Divider} from "@material-ui/core";
-
-const avatarPlaceholder = "https://avataaars.io/?avatarStyle=Circle&topType=ShortHairTheCaesar&accessoriesType=Sunglasses&hairColor=Blue&facialHairType=BeardMajestic&facialHairColor=Red&clotheType=ShirtVNeck&clotheColor=Pink&eyeType=Close&eyebrowType=RaisedExcitedNatural&mouthType=Tongue&skinColor=Yellow";
+import PropTypes from "prop-types";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -15,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export const UserItemList = ({user, hasDivider}) => {
+export const UserItemList = ({avatar, username, score, hasDivider}) => {
     const styles = useStyles();
 
     return <>
@@ -30,13 +29,20 @@ export const UserItemList = ({user, hasDivider}) => {
                     }}
                 >
                 <Avatar
-                    alt={user.name}
-                    src={avatarPlaceholder} />
+                    alt={username}
+                    src={avatar} />
                 </UserBadge>
             </ListItemAvatar>
-            <ListItemText primary={user.name} className={styles.root}/>
-            <ListItemText>13</ListItemText>
+            <ListItemText primary={username} className={styles.root}/>
+            <ListItemText>{score}</ListItemText>
         </ListItem>
         {hasDivider && <Divider />}
     </>
+}
+
+UserItemList.propTypes = {
+    avatar: PropTypes.string,
+    username: PropTypes.string,
+    score: PropTypes.string,
+    hasDivider: PropTypes.bool
 }
