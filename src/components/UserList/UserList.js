@@ -1,9 +1,8 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import List from '@material-ui/core/List';
 import {UserItemList} from "./UserItemList";
-import {Card, Divider} from "@material-ui/core";
+import {Divider, Paper} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
-
 
 const useStyles = makeStyles((theme) => ({
     userList: {
@@ -14,16 +13,16 @@ const useStyles = makeStyles((theme) => ({
 
 export const UserList = ({users}) => {
     const styles = useStyles();
-    return <Card className={styles.userList}>
+    return <Paper className={styles.userList}>
         <List>
             {users.map((user, index) => {
-                return <>
-                    <UserItemList key={user._id} user={user}/>
+                return <Fragment key={user._id}>
+                    <UserItemList user={user}/>
                     {index+1 !== users.length && <Divider />}
-                </>
+                </Fragment>
             })}
         </List>
-    </Card>
+    </Paper>
 
 
 }
