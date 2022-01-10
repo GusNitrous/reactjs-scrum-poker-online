@@ -1,7 +1,7 @@
-import React, {Fragment} from 'react';
+import React from 'react';
 import List from '@material-ui/core/List';
 import {UserItemList} from "./UserItemList";
-import {Divider, Paper} from "@material-ui/core";
+import {Paper} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
@@ -15,14 +15,12 @@ export const UserList = ({users}) => {
     const styles = useStyles();
     return <Paper className={styles.userList}>
         <List>
-            {users.map((user, index) => {
-                return <Fragment key={user._id}>
-                    <UserItemList user={user}/>
-                    {index+1 !== users.length && <Divider />}
-                </Fragment>
-            })}
+            {users.map((user, index) => <UserItemList
+                    key={user._id}
+                    user={user}
+                    hasDivider={index+1 !== users.length}
+                />
+            )}
         </List>
     </Paper>
-
-
 }
