@@ -17,7 +17,7 @@ const useStyles = makeStyles(() => ({
         display: 'flex',
         flexDirection: 'column',
         minHeight: '100vh',
-        maxWidth: 800,
+        maxWidth: 1080,
         margin: "auto"
     },
 }));
