@@ -9,7 +9,6 @@ const avatar = "https://avataaars.io/?avatarStyle=Circle&topType=ShortHairTheCae
 const useStyles = makeStyles((theme) => ({
     userList: {
         backgroundColor: theme.palette.background.paper,
-        marginBottom: '20px',
     },
 }));
 

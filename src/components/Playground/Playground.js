@@ -21,13 +21,9 @@ const useStyles = makeStyles(() => {
     return {
         root: {
             display: "flex",
-            marginTop: 25,
-            marginBottom: 25,
             flexWrap: "wrap",
             justifyContent: "space-around",
             alignItems: "center",
-            maxWidth: 680,
-            margin: "auto"
         }
     }
 });
