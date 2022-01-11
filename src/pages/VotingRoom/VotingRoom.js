@@ -8,11 +8,22 @@ import {$room, joinToRoom} from "../../models/room";
 import {$wsState, socketInit} from "../../models/ws";
 import {UserList} from "../../components/UserList/UserList";
 import {Playground} from "../../components/Playground/Playground";
+import Grid from '@material-ui/core/Grid';
+import {makeStyles} from "@material-ui/core/styles";
+
+const useStyles = makeStyles(() => {
+    return {
+        root: {
+            flexGrow: 1,
+        },
+    }
+});
 
 /**
  * VotingRoom page component.
  */
 export const VotingRoom = () => {
+    const styles = useStyles();
     const { id } = useParams();
     const {pathname} = useLocation();
     const authUser = useStore($authUser);
@@ -38,17 +49,22 @@ export const VotingRoom = () => {
         return <h3>{exception.message}</h3>
     }
 
-
     return !isLoggedIn
         ? <Redirect to={{
             pathname: Routes.AUTH,
             state: {referrer: pathname}
         }}/>
-        : <div>
-            <h2>RoomID: {room?.uid || 'Нет созданных или присоединённых комнат'}</h2>
-            <p>OwnerID: {room?.ownerId || ''}</p>
-            <p>CreatedAt: {room?.createdAt || ''}</p>
-            <Playground />
-            <UserList users={room.users}/>
+        : <div className={styles.root}>
+            <Grid container>
+                <Grid item xs={7}>
+                    <h2>RoomID: {room?.uid || 'Нет созданных или присоединённых комнат'}</h2>
+                    <p>OwnerID: {room?.ownerId || ''}</p>
+                    <p>CreatedAt: {room?.createdAt || ''}</p>
+                    <Playground />
+                </Grid>
+                <Grid item xs={5}>
+                    <UserList users={room.users}/>
+                </Grid>
+            </Grid>
         </div>
 }
