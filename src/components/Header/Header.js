@@ -31,7 +31,7 @@ export default function Header({title}) {
                 <AuthButton
                     isAuth={isLoggedIn}
                     onLogin={() => history.push(Routes.AUTH)}
-                    onLogout={doLogout}/>
+                    onLogout={() => doLogout()}/>
             </Toolbar>
         </>
     );

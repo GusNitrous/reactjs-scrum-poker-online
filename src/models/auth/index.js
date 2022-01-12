@@ -4,6 +4,8 @@ export const updateAuthForm = createEvent();
 
 export const updateAuthUser = createEvent();
 
+export const clearAuthData = createEvent();
+
 export const doLogin = createEvent();
 
 export const doLogout = createEffect();

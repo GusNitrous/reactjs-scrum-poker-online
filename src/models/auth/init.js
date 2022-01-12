@@ -2,6 +2,7 @@ import {
     $authErrors,
     $authForm,
     $authUser,
+    clearAuthData,
     doLogin,
     doLogout,
     loginRequestFx,
@@ -14,6 +15,7 @@ import {history, Routes} from "../../utils/routing";
 import * as AuthAPI from '../../api/http/requests';
 import {HttpStatus} from "../../api/http";
 import {persist} from 'effector-storage/local'
+import {closeSocket} from "../../api/ws";
 
 
 loginRequestFx.use(async ({userName, referrer}) => {
@@ -26,6 +28,8 @@ loginRequestFx.use(async ({userName, referrer}) => {
 });
 
 logoutRequestFx.use(AuthAPI.logout).finally.watch(() => {
+    closeSocket();
+    clearAuthData();
     history.replace(Routes.AUTH);
 });
 
@@ -43,7 +47,7 @@ $authForm.reset(doLogin).on(updateAuthForm, (form, {key, value}) => ({
     [key]: value
 }));
 
-$authUser.reset(doLogout).on(updateAuthUser, (_, userData) => userData);
+$authUser.reset(clearAuthData).on(updateAuthUser, (_, userData) => userData);
 
 persist({
     store: $authUser,

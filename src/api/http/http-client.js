@@ -1,5 +1,6 @@
 import axios from 'axios';
-import {getAuthData} from "../../utils/auth";
+import {$authUser} from "../../models/auth";
+
 
 export const request = axios.create({
     baseURL: 'http://localhost:9000'
@@ -19,7 +20,7 @@ export const withAuth = (httpMethod) => {
 }
 
 const getAuthHeader = (prefix = 'Bearer') => {
-    const {jwtToken} = getAuthData() ?? {};
+    const {jwtToken} = $authUser.getState() ?? {};
     if (!jwtToken) {
         throw new Error('Empty auth token');
     }

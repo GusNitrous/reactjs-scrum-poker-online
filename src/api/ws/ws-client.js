@@ -22,3 +22,10 @@ export function getSocket(token = null) {
     }
     return ws;
 }
+
+export function closeSocket() {
+    if (ws) {
+        ws.close();
+        ws = null;
+    }
+}
