@@ -4,12 +4,13 @@ import {useLocation, useParams} from "react-router";
 import {useStore} from "effector-react";
 import {$authUser} from "../../models/auth";
 import {Redirect} from "react-router-dom";
-import {$room, joinToRoom} from "../../models/room";
+import {joinToRoom} from "../../models/room";
 import {$wsState, socketInit} from "../../models/ws";
-import {UserList} from "../../components/UserList/UserList";
 import {Playground} from "../../components/Playground/Playground";
 import Grid from '@material-ui/core/Grid';
 import {makeStyles} from "@material-ui/core/styles";
+import {Issues} from "../../components/Issues/Issues";
+import {Dashboard} from "../../components/Dashboard/Dashboard";
 
 const useStyles = makeStyles(() => {
     return {
@@ -28,7 +29,6 @@ export const VotingRoom = () => {
     const {pathname} = useLocation();
     const authUser = useStore($authUser);
     const {ws, error, exception} = useStore($wsState);
-    const room = useStore($room);
     const isLoggedIn = !!authUser?.userName;
 
     useEffect( () => {
@@ -57,13 +57,12 @@ export const VotingRoom = () => {
         : <div className={styles.root}>
             <Grid container>
                 <Grid item xs={7}>
-                    <h2>RoomID: {room?.uid || 'Нет созданных или присоединённых комнат'}</h2>
-                    <p>OwnerID: {room?.ownerId || ''}</p>
-                    <p>CreatedAt: {room?.createdAt || ''}</p>
+                    {/*<h3>Scores</h3>*/}
                     <Playground />
+                    <Issues />
                 </Grid>
                 <Grid item xs={5}>
-                    <UserList users={room.users}/>
+                    <Dashboard />
                 </Grid>
             </Grid>
         </div>
