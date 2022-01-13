@@ -34,6 +34,6 @@ const useStyles = makeStyles(() => {
 export const Playground = () =>  {
     const styles = useStyles();
 	return <div className={styles.root}>
-        {SCORES.map((score) => <PokerCard score={score} />)}
+        {SCORES.map((score, index) => <PokerCard key={index} score={score} />)}
     </div>;
 }
