@@ -17,14 +17,20 @@ const SCORES = [
     '100',
 ];
 
-const useStyles = makeStyles(() => {
+const useStyles = makeStyles((theme) => {
     return {
         root: {
             display: "flex",
             flexWrap: "wrap",
             justifyContent: "space-around",
             alignItems: "center",
-        }
+            margin: 'auto',
+            maxWidth: 460
+        },
+        heading: {
+            fontSize: theme.typography.pxToRem(15),
+            fontWeight: theme.typography.fontWeightRegular,
+        },
     }
 });
 
@@ -35,5 +41,5 @@ export const Playground = () =>  {
     const styles = useStyles();
 	return <div className={styles.root}>
         {SCORES.map((score, index) => <PokerCard key={index} score={score} />)}
-    </div>;
+    </div>
 }

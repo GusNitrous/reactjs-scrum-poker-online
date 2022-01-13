@@ -1,6 +1,6 @@
 import React from "react";
 import {makeStyles} from "@material-ui/core/styles";
-import {Card, CardContent, CardHeader, IconButton} from "@material-ui/core";
+import {Button, ButtonGroup, Card, CardActions, CardContent, CardHeader, Grid, IconButton} from "@material-ui/core";
 import {useStore} from "effector-react";
 import {$room} from "../../models/room";
 import {UserList} from "../UserList/UserList";
@@ -9,15 +9,24 @@ import Typography from "@material-ui/core/Typography";
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        marginTop: "20px",
+        margin: '8px auto',
+        width: '100%',
         backgroundColor: theme.palette.background.paper,
     },
     header: {
-        backgroundColor: '#2d8dc5',
+        backgroundColor: '#347ec9',
         color: '#fff',
+        padding: 12
     },
     title: {
-        textTransform: 'uppercase'
+
+    },
+    cardContent: {
+      padding: 10
+    },
+    actions: {
+        padding: 25,
+        justifyContent: "space-between"
     }
 }));
 
@@ -28,17 +37,20 @@ export const Dashboard = () => {
         <CardHeader
             className={styles.header}
             title={
-                <Typography align="center" className={styles.title} variant="h6" component="h3">
+                <Typography align="center" className={styles.title} variant="h5" component="h3">
                     Voting users
                 </Typography>
-            }
-            action={
-                <IconButton aria-label="settings">
-                    <MoreVertIcon />
-                </IconButton>
             }/>
-        <CardContent>
+        <CardContent className={styles.cardContent}>
             <UserList users={room.users}/>
         </CardContent>
+        <CardActions className={styles.actions}>
+            <Button variant="outlined">
+                Start voting
+            </Button>
+            <Button variant="outlined">
+                Stop voting
+            </Button>
+        </CardActions>
     </Card>
 }
