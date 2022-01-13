@@ -29,10 +29,10 @@ export const IndexPage = () => {
     const classes = useStyles();
     return (
         <Router history={history}>
+            <Header title="ScrumPokerOnline" />
             <div className={classes.root}>
                 <CssBaseline/>
                 <Container maxWidth="lg">
-                    <Header title="ScrumPokerOnline" />
                     <main>
                         <Switch>
                             <Route exact path={Routes.HOME}>
@@ -50,11 +50,11 @@ export const IndexPage = () => {
                         </Switch>
                     </main>
                 </Container>
-                <Footer
-                    title="ScrumPokerOnline"
-                    description="Online estimation tool for agile teams"
-                />
             </div>
+            <Footer
+                title="ScrumPokerOnline"
+                description="Online estimation tool for agile teams"
+            />
         </Router>
     );
 }

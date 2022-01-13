@@ -22,7 +22,6 @@ export default function Header({title}) {
                     component="h2"
                     variant="h5"
                     color="inherit"
-                    align="center"
                     noWrap
                     className={classes.toolbarTitle}
                 >
