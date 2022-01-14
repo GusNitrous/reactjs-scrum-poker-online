@@ -5,7 +5,6 @@ import {VotingRoom} from './VotingRoom/VotingRoom';
 import {NotFound} from './Errors/NotFound';
 
 import {makeStyles} from '@material-ui/core/styles';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 import Header from '../components/Header/Header';
 import Footer from '../components/Footer/Footer';
@@ -16,8 +15,7 @@ const useStyles = makeStyles(() => ({
     root: {
         display: 'flex',
         flexDirection: 'column',
-        minHeight: '100vh',
-        maxWidth: 1080,
+        minHeight: 'calc(100vh - 250px)',
         margin: "auto"
     },
 }));
@@ -31,8 +29,7 @@ export const IndexPage = () => {
         <Router history={history}>
             <Header title="ScrumPokerOnline" />
             <div className={classes.root}>
-                <CssBaseline/>
-                <Container maxWidth="lg">
+                <Container maxWidth="md">
                     <main>
                         <Switch>
                             <Route exact path={Routes.HOME}>
