@@ -1,10 +1,6 @@
 import {makeStyles} from "@material-ui/core/styles";
 
 export const useStyles = makeStyles(() => ({
-    card: {
-        marginTop: '25px',
-        marginBottom: '25px',
-    },
     content: {
         display: 'flex',
         flexDirection: 'column',

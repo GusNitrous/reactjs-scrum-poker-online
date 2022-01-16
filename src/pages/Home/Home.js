@@ -1,5 +1,4 @@
 import React from 'react';
-import Grid from '@material-ui/core/Grid';
 import {QuickStart} from '../../components/QuickStart/QuickStart';
 import {Redirect} from "react-router-dom";
 import {useStyles} from "./HomeStyles";
@@ -7,6 +6,7 @@ import {useStore} from "effector-react";
 import {$authUser} from "../../models/auth";
 import {Routes} from "../../utils/routing";
 import {$wsState} from "../../models/ws";
+import Container from "@material-ui/core/Container";
 
 /**
  * HomePage with QuickStart.
@@ -19,16 +19,13 @@ export const Home = () => {
 
     return (
         isLoggedIn ?
-            <Grid
-                container
-                direction="column"
-                justifyContent="center"
-                alignItems="center"
+            <Container
+                maxWidth="xs"
                 className={styles.root}>
                 <QuickStart />
                 <div>
                     {error && error?.message}
                 </div>
-            </Grid> : <Redirect to={Routes.AUTH}/>
+            </Container> : <Redirect to={Routes.AUTH}/>
     );
 }

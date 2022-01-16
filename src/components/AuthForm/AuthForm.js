@@ -1,10 +1,10 @@
+import React from "react";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import CardContent from "@material-ui/core/CardContent";
 import {Avatar, Button, TextField, Typography} from "@material-ui/core";
 import SupervisedUserCircleRoundedIcon from "@material-ui/icons/SupervisedUserCircleRounded";
 import {$authErrors, $authForm, doLogin, loginRequestFx, updateAuthForm} from "../../models/auth";
 import Card from "@material-ui/core/Card";
-import React from "react";
 import {useStyles} from "./AuthFormStyles";
 import {useStore} from "effector-react";
 import {useLocation} from "react-router";
@@ -24,7 +24,7 @@ export const AuthForm = () => {
         doLogin({userName, referrer: state?.referrer});
     }
 
-    return <Card className={styles.card}>
+    return <Card className={styles.root}>
         {isLoading && <LinearProgress/>}
         <CardContent>
             <form id="authForm" onSubmit={handleSubmit}>
