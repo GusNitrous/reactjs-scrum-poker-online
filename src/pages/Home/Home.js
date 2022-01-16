@@ -12,8 +12,8 @@ import {$wsState} from "../../models/ws";
  * HomePage with QuickStart.
  */
 export const Home = () => {
-    const classes = useStyles();
-    const {ws, error} = useStore($wsState);
+    const styles = useStyles();
+    const {error} = useStore($wsState);
     const authUser = useStore($authUser);
     const isLoggedIn = !!authUser?.userName;
 
@@ -24,13 +24,10 @@ export const Home = () => {
                 direction="column"
                 justifyContent="center"
                 alignItems="center"
-                className={classes.mainGrid}>
+                className={styles.root}>
                 <QuickStart />
                 <div>
                     {error && error?.message}
-                </div>
-                <div>
-                    {ws?.connected ? 'connected' : 'disconnected'}
                 </div>
             </Grid> : <Redirect to={Routes.AUTH}/>
     );

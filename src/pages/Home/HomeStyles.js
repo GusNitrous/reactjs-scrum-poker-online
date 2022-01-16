@@ -1,11 +1,7 @@
 import {makeStyles} from "@material-ui/core/styles";
 
-export const useStyles = makeStyles(() => ({
+export const useStyles = makeStyles((theme) => ({
     root: {
-        flexGrow: 1,
-    },
-    mainGrid: {
-        padding: 15,
-        textAlign: 'center'
+        marginTop: theme.spacing(2),
     },
 }));
