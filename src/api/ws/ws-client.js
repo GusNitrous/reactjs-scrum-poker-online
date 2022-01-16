@@ -6,7 +6,7 @@ let ws = null;
 
 export function getSocket(token = null) {
     if (!ws) {
-        ws = io('http://localhost:9000', {
+        ws = io(process.env.REACT_APP_API_BASE_URL, {
                 autoConnect: Boolean(token),
                 auth: {token},
             })

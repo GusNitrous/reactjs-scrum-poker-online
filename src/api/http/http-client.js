@@ -3,7 +3,7 @@ import {$authUser} from "../../models/auth";
 
 
 export const request = axios.create({
-    baseURL: 'http://localhost:9000'
+    baseURL: process.env.REACT_APP_API_BASE_URL
 });
 
 export const get = ({url, config}) => request.get(url, config);
