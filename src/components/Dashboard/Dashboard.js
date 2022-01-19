@@ -1,11 +1,11 @@
 import React from "react";
 import {makeStyles} from "@material-ui/core/styles";
-import {Button, ButtonGroup, Card, CardActions, CardContent, CardHeader, Grid, IconButton} from "@material-ui/core";
+import {Button, Card, CardActions, CardContent, CardHeader} from "@material-ui/core";
 import {useStore} from "effector-react";
 import {$room} from "../../models/room";
 import {UserList} from "../UserList/UserList";
-import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Typography from "@material-ui/core/Typography";
+import {startVoting, stopVoting} from "../../models/voting";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -18,11 +18,9 @@ const useStyles = makeStyles((theme) => ({
         color: '#fff',
         padding: 12
     },
-    title: {
-
-    },
+    title: {},
     cardContent: {
-      padding: 10
+        padding: 10
     },
     actions: {
         padding: 25,
@@ -45,10 +43,10 @@ export const Dashboard = () => {
             <UserList users={room.users}/>
         </CardContent>
         <CardActions className={styles.actions}>
-            <Button variant="outlined">
+            <Button onClick={() => startVoting()} variant="outlined">
                 Start voting
             </Button>
-            <Button variant="outlined">
+            <Button onClick={() => stopVoting()} variant="outlined">
                 Stop voting
             </Button>
         </CardActions>
