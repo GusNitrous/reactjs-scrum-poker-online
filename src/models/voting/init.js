@@ -51,27 +51,27 @@ showResultsFx.use(({ws, roomId}) => {
 sample({
     source: {$wsState, $room},
     clock: startVoting,
-    fn: ({$wsState, $room}) => ({ws: $wsState.ws, roomId: $room.uid}),
+    fn: ({$wsState, $room}) => ({ws: $wsState.ws, roomId: $room.id}),
     target: startVotingFx,
 });
 
 sample({
     source: {$wsState, $room},
     clock: stopVoting,
-    fn: ({$wsState, $room}) => ({ws: $wsState.ws, roomId: $room.uid}),
+    fn: ({$wsState, $room}) => ({ws: $wsState.ws, roomId: $room.id}),
     target: stopVotingFx,
 });
 
 sample({
     source: {$wsState, $room},
     clock: sendScore,
-    fn: ({$wsState, $room}, score) => ({ws: $wsState.ws, roomId: $room.uid, score}),
+    fn: ({$wsState, $room}, score) => ({ws: $wsState.ws, roomId: $room.id, score}),
     target: sendScoreFx,
 });
 
 sample({
     source: {$wsState, $room},
     clock: showResults,
-    fn: ({$wsState, $room}) => ({ws: $wsState.ws, roomId: $room.uid}),
+    fn: ({$wsState, $room}) => ({ws: $wsState.ws, roomId: $room.id}),
     target: showResultsFx,
 });

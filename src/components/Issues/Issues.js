@@ -6,7 +6,7 @@ import Grid from "@material-ui/core/Grid";
 export const Issues = () => {
     const room = useStore($room);
     return <Grid>
-        <h2>RoomID: {room?.uid || 'Нет созданных или присоединённых комнат'}</h2>
+        <h2>RoomID: {room?.id || 'Нет созданных или присоединённых комнат'}</h2>
         <p>OwnerID: {room?.ownerId || ''}</p>
         <p>CreatedAt: {room?.createdAt || ''}</p>
     </Grid>
