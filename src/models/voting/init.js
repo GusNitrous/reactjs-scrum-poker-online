@@ -23,25 +23,25 @@ import {
 import {$room} from "../room";
 
 startVotingFx.use(({ws, roomId}) => {
-    ws?.on(VOTING_STARTED, (payload) => {
+    ws?.once(VOTING_STARTED, (payload) => {
         console.log('--- VOTING_STARTED ---', payload);
     }).emit(VOTING_START, {roomId});
 });
 
 stopVotingFx.use(({ws, roomId}) => {
-    ws?.on(VOTING_FINISHED, (payload) => {
+    ws?.once(VOTING_FINISHED, (payload) => {
         console.log('--- VOTING_FINISHED ---', payload);
     }).emit(VOTING_FINISH, {roomId});
 });
 
 sendScoreFx.use(({ws, roomId, score}) => {
-    ws?.on(SCORE_DISPATCH, (score) => {
+    ws?.once(SCORE_DISPATCH, (score) => {
         console.log('--- SCORE_DISPATCH ---', score);
     }).emit(SEND_SCORE, {roomId, score});
 });
 
 showResultsFx.use(({ws, roomId}) => {
-    ws?.on(DISPATCH_RESULTS, (results) => {
+    ws?.once(DISPATCH_RESULTS, (results) => {
         console.log('--- DISPATCH_RESULTS ---', results);
     }).emit(SHOW_RESULTS, {roomId});
 });
