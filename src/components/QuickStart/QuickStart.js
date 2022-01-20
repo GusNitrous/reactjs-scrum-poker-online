@@ -1,24 +1,16 @@
 import React, {useEffect, useState} from 'react';
-import {
-    Button,
-    Card,
-    CardContent,
-    Container,
-    CssBaseline,
-    Divider,
-    Grid,
-    TextField,
-    Typography
-} from '@material-ui/core';
+import {Button, Card, CardContent, Divider, Grid, TextField, Typography} from '@material-ui/core';
 import {useStyles} from "./QuickStartStyles";
-import {createRoom, joinToRoom} from "../../models/room";
+import {createRoom} from "../../models/room";
 import {socketInit} from "../../models/ws";
+import {useHistory} from "react-router";
 
 /**
  * QuickStart page component.
  */
 export const QuickStart = () => {
     const styles = useStyles();
+    const history = useHistory();
     const [roomId, setRoomId] = useState('');
 
     useEffect(() => {
@@ -73,7 +65,7 @@ export const QuickStart = () => {
                 type="submit"
                 fullWidth
                 variant="contained"
-                onClick={() => joinToRoom(roomId)}
+                onClick={() => history.push(`/room/${roomId}`)}
                 className={styles.submit}
             >
                 Присоединиться
