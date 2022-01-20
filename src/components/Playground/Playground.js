@@ -1,6 +1,7 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {PokerCard} from "../PokerCard/PokerCard";
 import {makeStyles} from "@material-ui/core/styles";
+import {sendScore} from "../../models/voting";
 
 const SCORES = [
     '?',
@@ -34,12 +35,21 @@ const useStyles = makeStyles((theme) => {
     }
 });
 
-/**
- * Playground component.
- */
-export const Playground = () =>  {
+export const Playground = () => {
     const styles = useStyles();
-	return <div className={styles.root}>
-        {SCORES.map((score, index) => <PokerCard key={index} score={score} />)}
+    const [selectedScore, setSelectedScore] = useState('');
+    const selectScore = (score) => {
+        setSelectedScore(score);
+        sendScore(score);
+    }
+    return <div className={styles.root}>
+        {SCORES.map((score, index) =>
+            <PokerCard
+                key={index}
+                select={selectScore}
+                isSelected={selectedScore === score}
+                score={score}
+            />
+        )}
     </div>
 }
