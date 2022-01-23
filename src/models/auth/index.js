@@ -23,4 +23,9 @@ export const $authForm = createStore({
     userName: '',
 });
 
-export const $authUser = createStore({});
+export const $authUser = createStore({
+    jwtToken: '',
+    userId: '',
+    role: '',
+    userName: '',
+});
