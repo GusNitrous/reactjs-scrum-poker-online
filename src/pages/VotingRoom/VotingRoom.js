@@ -21,7 +21,8 @@ const useStyles = makeStyles(() => {
             paddingTop: 35
         },
         gridItem: {
-            margin: "auto"
+            margin: "auto",
+            flexGrow: 1
         }
     }
 });
