@@ -31,13 +31,13 @@ const useStyles = makeStyles(() => {
  */
 export const VotingRoom = () => {
     const styles = useStyles();
-    const { id } = useParams();
+    const {id} = useParams();
     const {pathname} = useLocation();
     const authUser = useStore($authUser);
     const {ws, error, exception} = useStore($wsState);
     const isLoggedIn = !!authUser?.userName;
 
-    useEffect( () => {
+    useEffect(() => {
         if (!ws) {
             socketInit();
         }
@@ -45,7 +45,7 @@ export const VotingRoom = () => {
         if (id && ws) {
             joinToRoom(id);
         }
-    }, [ws]);
+    }, [id, ws]);
 
     if (error) {
         return <h3>{error.message}</h3>
@@ -63,13 +63,13 @@ export const VotingRoom = () => {
         : <div className={styles.root}>
             <Grid container spacing={4} className={styles.mainContent}>
                 <Grid className={styles.gridItem} item lg={7} md={7} sm={12}>
-                    <Playground />
+                    <Playground/>
                 </Grid>
                 <Grid className={styles.gridItem} item lg={5} md={5} sm={12}>
-                    <Dashboard />
+                    <Dashboard/>
                 </Grid>
                 <Grid item xs={12}>
-                    <Issues />
+                    <Issues/>
                 </Grid>
             </Grid>
         </div>
