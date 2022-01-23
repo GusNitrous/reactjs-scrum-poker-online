@@ -8,7 +8,9 @@ import {
     startVoting,
     startVotingFx,
     stopVoting,
-    stopVotingFx
+    stopVotingFx,
+    votingInit,
+    votingInitFx
 } from "./index";
 import {
     DISPATCH_RESULTS,
@@ -22,22 +24,30 @@ import {
 } from "../../api/ws/events";
 import {$room} from "../room";
 
-startVotingFx.use(({ws, roomId}) => {
-    ws?.once(VOTING_STARTED, (payload) => {
+votingInitFx.use((ws) => {
+    console.log('--- voting_init ---', ws);
+
+    ws?.on(VOTING_STARTED, (payload) => {
         console.log('--- VOTING_STARTED ---', payload);
-    }).emit(VOTING_START, {roomId});
+    }).on(VOTING_FINISHED, (payload) => {
+        console.log('--- VOTING_FINISHED ---', payload);
+    }).on(SCORE_DISPATCH, (score) => {
+        console.log('--- SCORE_DISPATCH ---', score);
+    }).on(DISPATCH_RESULTS, (results) => {
+        console.log('--- DISPATCH_RESULTS ---', results);
+    });
+});
+
+startVotingFx.use(({ws, roomId}) => {
+    ws?.emit(VOTING_START, {roomId});
 });
 
 stopVotingFx.use(({ws, roomId}) => {
-    ws?.once(VOTING_FINISHED, (payload) => {
-        console.log('--- VOTING_FINISHED ---', payload);
-    }).emit(VOTING_FINISH, {roomId});
+    ws?.emit(VOTING_FINISH, {roomId});
 });
 
 sendScoreFx.use(({ws, roomId, score}) => {
-    ws?.once(SCORE_DISPATCH, (score) => {
-        console.log('--- SCORE_DISPATCH ---', score);
-    }).emit(SEND_SCORE, {roomId, score});
+    ws?.emit(SEND_SCORE, {roomId, score});
 });
 
 showResultsFx.use(({ws, roomId}) => {
@@ -47,6 +57,13 @@ showResultsFx.use(({ws, roomId}) => {
 });
 
 // $voting.on(startVotingFx, (_, votingState) => votingState);
+
+sample({
+    source: $wsState,
+    clock: votingInit,
+    fn: (wsState) => wsState.ws,
+    target: votingInitFx,
+});
 
 sample({
     source: {$wsState, $room},
