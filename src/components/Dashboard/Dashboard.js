@@ -25,7 +25,8 @@ const useStyles = makeStyles((theme) => ({
     },
     actions: {
         padding: 25,
-        justifyContent: "space-between"
+        flexDirection: 'column',
+        flexGrow: 1
     }
 }));
 
@@ -39,8 +40,12 @@ export const Dashboard = () => {
         <CardHeader
             className={styles.header}
             title={
-                <Typography align="center" className={styles.title} variant="h5" component="h3">
-                    Voting users
+                <Typography
+                    align="center"
+                    variant="subtitle1"
+                    component="h3"
+                    className={styles.title}>
+                    Voting round started
                 </Typography>
             }/>
         <CardContent className={styles.cardContent}>
