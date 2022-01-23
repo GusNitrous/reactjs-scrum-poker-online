@@ -10,6 +10,8 @@ export const stopVoting = createEvent();
 
 export const sendScore = createEvent();
 
+export const updateScore = createEvent();
+
 export const showResults = createEvent();
 
 export const startVotingFx = createEffect();

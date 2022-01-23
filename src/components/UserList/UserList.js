@@ -10,8 +10,8 @@ export const UserList = ({users}) => {
                 key={user._id}
                 username={user.name}
                 avatar={avatar}
-                score="13"
-                hasDivider={index+1 !== users.length}
+                score={user.score || '-'}
+                hasDivider={index + 1 !== users.length}
             />
         )}
     </List>

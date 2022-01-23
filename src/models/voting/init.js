@@ -9,6 +9,7 @@ import {
     startVotingFx,
     stopVoting,
     stopVotingFx,
+    updateScore,
     votingInit,
     votingInitFx
 } from "./index";
@@ -33,6 +34,7 @@ votingInitFx.use((ws) => {
         console.log('--- VOTING_FINISHED ---', payload);
     }).on(SCORE_DISPATCH, (score) => {
         console.log('--- SCORE_DISPATCH ---', score);
+        updateScore(score);
     }).on(DISPATCH_RESULTS, (results) => {
         console.log('--- DISPATCH_RESULTS ---', results);
     });
