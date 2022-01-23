@@ -18,7 +18,7 @@ const useStyles = makeStyles(() => {
             flexGrow: 1,
         },
         mainContent: {
-            paddingTop: 35
+            paddingTop: 25
         },
         gridItem: {
             margin: "auto",
@@ -62,7 +62,7 @@ export const VotingRoom = () => {
             state: {referrer: pathname}
         }}/>
         : <div className={styles.root}>
-            <Grid container spacing={4} className={styles.mainContent}>
+            <Grid container spacing={2} className={styles.mainContent}>
                 <Grid className={styles.gridItem} item lg={7} md={7} sm={12}>
                     <Playground/>
                 </Grid>
