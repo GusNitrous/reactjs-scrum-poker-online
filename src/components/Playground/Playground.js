@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {PokerCard} from "../PokerCard/PokerCard";
 import {makeStyles} from "@material-ui/core/styles";
 import {sendScore} from "../../models/voting";
+import {debounce} from "lodash/function";
 
 const SCORES = [
     '?',
@@ -38,10 +39,10 @@ const useStyles = makeStyles((theme) => {
 export const Playground = () => {
     const styles = useStyles();
     const [selectedScore, setSelectedScore] = useState('');
-    const selectScore = (score) => {
+    const selectScore = debounce((score) => {
         setSelectedScore(score);
         sendScore(score);
-    }
+    }, 250);
     return <div className={styles.root}>
         {SCORES.map((score, index) =>
             <PokerCard
