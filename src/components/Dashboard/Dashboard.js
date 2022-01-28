@@ -32,9 +32,9 @@ const useStyles = makeStyles((theme) => ({
 
 export const Dashboard = () => {
     const styles = useStyles();
-    const room = useStore($room);
+    const {ownerId, voting} = useStore($room);
     const auth = useStore($authUser);
-    const isOwner = auth.userId === room.ownerId;
+    const isOwner = auth.userId === ownerId;
 
     return <Card className={styles.root}>
         <CardHeader
@@ -49,7 +49,7 @@ export const Dashboard = () => {
                 </Typography>
             }/>
         <CardContent className={styles.cardContent}>
-            <UserList users={room.users}/>
+            <UserList users={voting.users}/>
         </CardContent>
         {isOwner && <CardActions className={styles.actions}>
             <ControlButtons/>

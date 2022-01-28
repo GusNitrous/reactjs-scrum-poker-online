@@ -29,12 +29,15 @@ $room.on(onJoinToRoom, (_, roomState) => {
 $room.on(updateScore, (roomState, score) => {
     return {
         ...roomState,
-        users: roomState.users.map((user) => {
-            if (user._id === score.userId) {
-                user.score = score.value;
-            }
-            return user;
-        })
+        voting: {
+            ...roomState.voting,
+            users: roomState.voting.users.map((user) => {
+                if (user.id === score.userId) {
+                    user.score = score.value;
+                }
+                return user;
+            })
+        }
     }
 });
 

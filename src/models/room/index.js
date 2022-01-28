@@ -17,6 +17,9 @@ export const joinToRoomFx = createEffect();
 export const $room = createStore({
     id: null,
     ownerId: null,
-    users: [],
     createdAt: null,
+    voting: {
+        status: null,
+        users: [],
+    },
 });

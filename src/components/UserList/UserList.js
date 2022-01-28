@@ -7,7 +7,7 @@ const avatar = "https://avataaars.io/?avatarStyle=Circle&topType=ShortHairTheCae
 export const UserList = ({users}) => {
     return <List>
         {users.map((user, index) => <UserItemList
-                key={user._id}
+                key={user.id}
                 username={user.name}
                 avatar={avatar}
                 score={user.score || '-'}
