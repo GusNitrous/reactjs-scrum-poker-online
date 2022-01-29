@@ -1,6 +1,7 @@
 import {sample} from "effector";
 import {$wsState} from "../ws";
 import {
+    $voting,
     sendScore,
     sendScoreFx,
     showResults,
@@ -9,9 +10,11 @@ import {
     startVotingFx,
     stopVoting,
     stopVotingFx,
+    updateResults,
     updateScore,
     votingInit,
-    votingInitFx
+    votingInitFx,
+    votingStarted
 } from "./index";
 import {
     DISPATCH_RESULTS,
@@ -26,17 +29,15 @@ import {
 import {$room} from "../room";
 
 votingInitFx.use((ws) => {
-    console.log('--- voting_init ---', ws);
-
     ws?.on(VOTING_STARTED, (payload) => {
         console.log('--- VOTING_STARTED ---', payload);
+        votingStarted(payload);
     }).on(VOTING_FINISHED, (payload) => {
         console.log('--- VOTING_FINISHED ---', payload);
     }).on(SCORE_DISPATCH, (score) => {
-        console.log('--- SCORE_DISPATCH ---', score);
         updateScore(score);
     }).on(DISPATCH_RESULTS, (results) => {
-        console.log('--- DISPATCH_RESULTS ---', results);
+        updateResults(results);
     });
 });
 
@@ -53,12 +54,11 @@ sendScoreFx.use(({ws, roomId, score}) => {
 });
 
 showResultsFx.use(({ws, roomId}) => {
-    ws?.once(DISPATCH_RESULTS, (results) => {
-        console.log('--- DISPATCH_RESULTS ---', results);
-    }).emit(SHOW_RESULTS, {roomId});
+    ws?.emit(SHOW_RESULTS, {roomId});
 });
 
-// $voting.on(startVotingFx, (_, votingState) => votingState);
+$voting.on(updateResults, (votingState, results) => ({...votingState, status: 1, results}));
+$voting.on(votingStarted, () => ({status: 'Active', results: null}));
 
 sample({
     source: $wsState,

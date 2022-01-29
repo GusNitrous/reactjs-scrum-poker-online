@@ -1,6 +1,6 @@
 import React from "react";
 import {Button} from "@material-ui/core";
-import {startVoting, stopVoting} from "../../models/voting";
+import {showResults, startVoting} from "../../models/voting";
 import Grid from "@material-ui/core/Grid";
 import {makeStyles} from "@material-ui/core/styles";
 
@@ -23,17 +23,17 @@ export const ControlButtons = () => {
                 color="primary"
                 className={styles.btn}
                 onClick={() => startVoting()}>
-                Reset voting
+                New voting
             </Button>
         </Grid>
 
-        <Grid className={styles.item} item xs={12}>
+        <Grid item className={styles.item} xs={12}>
             <Button
                 color="primary"
                 variant="outlined"
                 className={styles.btn}
-                onClick={() => stopVoting()}>
-                Show result
+                onClick={() => showResults()}>
+                Show results
             </Button>
         </Grid>
     </Grid>
