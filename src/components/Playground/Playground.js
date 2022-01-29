@@ -1,8 +1,10 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {PokerCard} from "../PokerCard/PokerCard";
 import {makeStyles} from "@material-ui/core/styles";
-import {sendScore} from "../../models/voting";
+import {$voting, sendScore} from "../../models/voting";
 import {debounce} from "lodash/function";
+import {useStore} from "effector-react";
+import {VotingResults} from "../VotingResults/VotingResults";
 
 const SCORES = [
     '?',
@@ -38,12 +40,18 @@ const useStyles = makeStyles((theme) => {
 
 export const Playground = () => {
     const styles = useStyles();
+    const {results} = useStore($voting);
     const [selectedScore, setSelectedScore] = useState('');
     const selectScore = debounce((score) => {
         setSelectedScore(score);
         sendScore(score);
     }, 250);
-    return <div className={styles.root}>
+    useEffect(() => {
+        if (!results) {
+            setSelectedScore('');
+        }
+    }, [results]);
+    return !results ? <div className={styles.root}>
         {SCORES.map((score, index) =>
             <PokerCard
                 key={index}
@@ -52,5 +60,5 @@ export const Playground = () => {
                 score={score}
             />
         )}
-    </div>
+    </div> : <VotingResults data={results}/>
 }
