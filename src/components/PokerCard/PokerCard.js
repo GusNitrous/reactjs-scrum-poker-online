@@ -4,10 +4,10 @@ import {useStyles} from "./PokerCardStyles";
 
 export const PokerCard = ({score, isSelected, select}) => {
     const styles = useStyles();
-    return <Paper elevation={1} className={styles.root}>
+    return <Paper elevation={isSelected ? 2 : 0} className={styles.root}>
         <Button
             color={isSelected ? "primary" : "default"}
-            variant="contained"
+            variant={isSelected ? "contained" : "outlined"}
             onClick={() => select(score)}
             className={styles.score}>
             <Typography>
