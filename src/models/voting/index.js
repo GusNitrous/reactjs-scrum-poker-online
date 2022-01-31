@@ -18,6 +18,8 @@ export const showResults = createEvent();
 
 export const updateResults = createEvent();
 
+export const userLeave = createEvent();
+
 export const startVotingFx = createEffect();
 
 export const votingInitFx = createEffect();
