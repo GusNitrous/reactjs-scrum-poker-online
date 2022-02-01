@@ -18,7 +18,7 @@ export const $room = createStore({
     id: null,
     ownerId: null,
     createdAt: null,
-    latestResults: [],
+    results: [],
     voting: {
         status: null,
         users: [],
