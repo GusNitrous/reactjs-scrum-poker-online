@@ -9,8 +9,8 @@ import {$wsState, socketInit} from "../../models/ws";
 import {Playground} from "../../components/Playground/Playground";
 import Grid from '@material-ui/core/Grid';
 import {makeStyles} from "@material-ui/core/styles";
-import {Issues} from "../../components/Issues/Issues";
 import {Dashboard} from "../../components/Dashboard/Dashboard";
+import {ResultList} from "../../components/ResultList/ResultList";
 
 const useStyles = makeStyles(() => {
     return {
@@ -70,7 +70,7 @@ export const VotingRoom = () => {
                     <Dashboard/>
                 </Grid>
                 <Grid item xs={12}>
-                    <Issues/>
+                    <ResultList/>
                 </Grid>
             </Grid>
         </div>
