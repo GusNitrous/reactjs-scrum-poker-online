@@ -5,27 +5,15 @@ import {useStore} from "effector-react";
 import {$authUser} from "../../models/auth";
 import {Redirect} from "react-router-dom";
 import {joinToRoom} from "../../models/room";
-import {$wsState, socketInit} from "../../models/ws";
+import {$wsState, resetErrors, socketInit} from "../../models/ws";
 import {Playground} from "../../components/Playground/Playground";
 import Grid from '@material-ui/core/Grid';
-import {makeStyles} from "@material-ui/core/styles";
 import {Dashboard} from "../../components/Dashboard/Dashboard";
 import {ResultList} from "../../components/ResultList/ResultList";
+import {Slide, Snackbar} from "@material-ui/core";
+import {Alert} from "@material-ui/lab";
+import {useStyles} from "./VotingRoomStyles";
 
-const useStyles = makeStyles(() => {
-    return {
-        root: {
-            flexGrow: 1,
-        },
-        mainContent: {
-            paddingTop: 25
-        },
-        gridItem: {
-            margin: "auto",
-            flexGrow: 1
-        }
-    }
-});
 
 /**
  * VotingRoom page component.
@@ -37,23 +25,21 @@ export const VotingRoom = () => {
     const authUser = useStore($authUser);
     const {ws, error, exception} = useStore($wsState);
     const isLoggedIn = !!authUser?.userName;
+    const errorMessage = (error || exception)?.message;
 
     useEffect(() => {
         if (!ws) {
             socketInit();
         }
-
         if (id && ws) {
             joinToRoom(id);
         }
     }, [id, ws]);
 
-    if (error) {
-        return <h3>{error.message}</h3>
-    }
-
-    if (exception) {
-        return <h3>{exception.message}</h3>
+    const handleClose = (event, reason) => {
+        if (reason !== 'clickaway') {
+            resetErrors();
+        }
     }
 
     return !isLoggedIn
@@ -62,11 +48,20 @@ export const VotingRoom = () => {
             state: {referrer: pathname}
         }}/>
         : <div className={styles.root}>
+            <Snackbar
+                TransitionComponent={(props) => <Slide {...props} direction="up"/>}
+                anchorOrigin={{vertical: "bottom", horizontal: "center"}}
+                open={!!errorMessage}
+            >
+                <Alert style={{width: '100%'}} onClose={handleClose} severity="error">
+                    {errorMessage}
+                </Alert>
+            </Snackbar>
             <Grid container spacing={2} className={styles.mainContent}>
-                <Grid className={styles.gridItem} item lg={7} md={7} sm={12}>
+                <Grid item className={styles.gridItem} lg={7} md={7} sm={12}>
                     <Playground/>
                 </Grid>
-                <Grid className={styles.gridItem} item lg={5} md={5} sm={12}>
+                <Grid item className={styles.gridItem} lg={5} md={5} sm={12}>
                     <Dashboard/>
                 </Grid>
                 <Grid item xs={12}>
