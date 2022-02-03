@@ -6,6 +6,8 @@ export const wsConnection = createEvent();
 
 export const wsError = createEvent();
 
+export const resetErrors = createEvent();
+
 export const wsException = createEvent();
 
 export const socketInitFx = createEffect();

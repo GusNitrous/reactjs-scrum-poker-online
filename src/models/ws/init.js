@@ -2,7 +2,10 @@ import {
     $wsState,
     handleWsConnectionFx,
     handleWsErrorFx,
-    handleWsExceptionFx, socketInit, socketInitFx,
+    handleWsExceptionFx,
+    resetErrors,
+    socketInit,
+    socketInitFx,
     wsConnection,
     wsError,
     wsException
@@ -36,6 +39,7 @@ handleWsConnectionFx.use((ws) => {
 $wsState.on(wsError, (state, error) => ({...state, error}));
 $wsState.on(wsException, (state, exception) => ({...state, exception}));
 $wsState.on(wsConnection, (state, ws) => ({...state, ws}));
+$wsState.on(resetErrors, (state, ws) => ({...state, error: null, exception: null,}));
 
 sample({
     source: {$wsState, $authUser},
