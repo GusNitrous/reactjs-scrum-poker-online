@@ -27,6 +27,7 @@ import {
     VOTING_STARTED,
 } from "../../api/ws/events";
 import {$room} from "../room";
+import * as navigator from "../../utils/navigator";
 
 votingInitFx.use((ws) => {
     ws?.on(VOTING_STARTED, (payload) => {
@@ -37,6 +38,7 @@ votingInitFx.use((ws) => {
     }).on(SCORE_DISPATCH, (score) => {
         updateScore(score);
     }).on(DISPATCH_RESULTS, (results) => {
+        navigator.vibrate([200, 200]);
         updateResults(results);
     });
 });
