@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useCallback, useState} from "react";
 import {makeStyles} from "@material-ui/core/styles";
 import {PokerCard} from "./PokerCard";
 import {debounce} from "lodash/function";
@@ -25,10 +25,10 @@ const useStyles = makeStyles((theme) => {
 export const CardDeck = ({onSelectCard}) => {
     const styles = useStyles();
     const [selectedScore, setSelectedScore] = useState('');
-    const selectScore = debounce((score) => {
+    const selectScore = useCallback(debounce((score) => {
         setSelectedScore(score);
         onSelectCard(score);
-    }, 250, {leading: true});
+    }, 250, {leading: true, trailing: false}), []);
     return <div className={styles.root}>
         {SCORES.map((score, index) =>
             <PokerCard
