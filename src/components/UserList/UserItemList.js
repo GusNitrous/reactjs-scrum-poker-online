@@ -10,15 +10,20 @@ import PropTypes from "prop-types";
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        flex: '1 1',
+        flex: '1',
+        justifyContent: "space-between"
     },
+    itemText: {
+        display: 'flex',
+        justifyContent: 'center',
+    }
 }));
 
-export const UserItemList = ({avatar, username, score, hasDivider}) => {
+export const UserItemList = ({avatar, username, score, isShowScore, hasDivider}) => {
     const styles = useStyles();
 
     return <>
-        <ListItem>
+        <ListItem className={styles.root}>
             <ListItemAvatar>
                 <UserBadge
                     variant="dot"
@@ -28,15 +33,17 @@ export const UserItemList = ({avatar, username, score, hasDivider}) => {
                         horizontal: 'right',
                     }}
                 >
-                <Avatar
-                    alt={username}
-                    src={avatar} />
+                    <Avatar
+                        alt={username}
+                        src={avatar}/>
                 </UserBadge>
             </ListItemAvatar>
-            <ListItemText primary={username} className={styles.root}/>
-            <ListItemText>{score}</ListItemText>
+            <ListItemText primary={username}/>
+            <ListItemText className={styles.itemText}>
+                {isShowScore ? score : '+'}
+            </ListItemText>
         </ListItem>
-        {hasDivider && <Divider />}
+        {hasDivider && <Divider/>}
     </>
 }
 
