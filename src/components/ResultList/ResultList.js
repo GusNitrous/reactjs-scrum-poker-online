@@ -11,7 +11,6 @@ import {makeStyles} from "@material-ui/core/styles";
 const useStyles = makeStyles(() => ({
     header: {
         backgroundColor: '#f2f2f6',
-        // color: '#fff',
         padding: 12
     },
 }));
@@ -45,8 +44,5 @@ export const ResultList = () => {
             </CardContent>
 
         </Card>
-        {/*<Typography variant="subtitle1" component="h2">*/}
-        {/*    Latest results*/}
-        {/*</Typography>*/}
     </Grid>
 }
