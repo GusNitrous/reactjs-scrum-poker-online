@@ -7,19 +7,20 @@ import {makeStyles} from "@material-ui/core/styles";
 import {UserBadge} from "./UserBadge";
 import {Divider} from "@material-ui/core";
 import PropTypes from "prop-types";
+import {UserScore} from "./UserScore";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
     root: {
         flex: '1',
         justifyContent: "space-between"
     },
     itemText: {
         display: 'flex',
-        justifyContent: 'center',
+        justifyContent: 'end',
     }
 }));
 
-export const UserItemList = ({avatar, username, score, isShowScore, hasDivider}) => {
+export const UserItemList = ({avatar, username, score, hasDivider}) => {
     const styles = useStyles();
 
     return <>
@@ -39,9 +40,7 @@ export const UserItemList = ({avatar, username, score, isShowScore, hasDivider})
                 </UserBadge>
             </ListItemAvatar>
             <ListItemText primary={username}/>
-            <ListItemText className={styles.itemText}>
-                {isShowScore ? score : '+'}
-            </ListItemText>
+            <UserScore score={score}/>
         </ListItem>
         {hasDivider && <Divider/>}
     </>

@@ -36,6 +36,7 @@ votingInitFx.use((ws) => {
     }).on(VOTING_FINISHED, (payload) => {
         console.log('--- VOTING_FINISHED ---', payload);
     }).on(SCORE_DISPATCH, (score) => {
+        console.log('--- SCORE_DISPATCH ---', score);
         updateScore(score);
     }).on(DISPATCH_RESULTS, (results) => {
         navigator.vibrate([200, 200]);

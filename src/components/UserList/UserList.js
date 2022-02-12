@@ -10,7 +10,7 @@ export const UserList = ({users}) => {
                 key={user.id}
                 username={user.name}
                 avatar={avatar}
-                score={user.score || '-'}
+                score={user.score}
                 hasDivider={index + 1 !== users.length}
             />
         )}
