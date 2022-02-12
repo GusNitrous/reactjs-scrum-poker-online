@@ -6,16 +6,17 @@ import {makeStyles} from "@material-ui/core/styles";
 const useStyles = makeStyles((theme) => ({
     root: {
         flex: '1 1',
+        justifyContent: 'space-between'
     },
 }));
 
 export const ResultItemList = ({id, avg, hasDivider}) => {
     const styles = useStyles();
-    return <>
+    return <div className={styles.root}>
         <ListItem>
-            <ListItemText primary={id} className={styles.root}/>
+            <ListItemText primary={'# ' + id}/>
             <ListItemText>{avg}</ListItemText>
         </ListItem>
         {hasDivider && <Divider/>}
-    </>
+    </div>
 }
