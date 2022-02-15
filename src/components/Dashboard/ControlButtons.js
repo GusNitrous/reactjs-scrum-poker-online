@@ -19,24 +19,24 @@ export const ControlButtons = () => {
     const styles = useStyles();
     const {results} = useStore($voting);
     return <Grid container spacing={1}>
-        <Grid className={styles.item} item xs={12}>
-            <Button
-                variant="contained"
-                color="primary"
-                className={styles.btn}
-                onClick={() => startVoting()}>
-                New voting
-            </Button>
-        </Grid>
-
         <Grid item className={styles.item} xs={12}>
             <Button
                 disabled={!!results}
                 color="primary"
-                variant="outlined"
+                variant="contained"
                 className={styles.btn}
                 onClick={() => showResults()}>
                 Show results
+            </Button>
+        </Grid>
+
+        <Grid className={styles.item} item xs={12}>
+            <Button
+                variant="outlined"
+                color="primary"
+                className={styles.btn}
+                onClick={() => startVoting()}>
+                New voting
             </Button>
         </Grid>
     </Grid>
