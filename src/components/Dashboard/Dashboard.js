@@ -1,16 +1,16 @@
 import React from "react";
 import {makeStyles} from "@material-ui/core/styles";
-import {Card, CardActions, CardContent, CardHeader} from "@material-ui/core";
+import {Card, CardActions, CardContent, CardHeader, Divider} from "@material-ui/core";
 import {useStore} from "effector-react";
 import {$room} from "../../models/room";
 import {UserList} from "../UserList/UserList";
 import Typography from "@material-ui/core/Typography";
 import {$authUser} from "../../models/auth";
-import {ControlButtons} from "./ControlButtons";
+import {VotingControlPanel} from "./VotingControlPanel";
+import {RoomControlPanel} from "./RoomControlPanel";
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        margin: '8px auto',
         width: '100%',
         backgroundColor: theme.palette.background.paper,
     },
@@ -19,7 +19,9 @@ const useStyles = makeStyles((theme) => ({
         color: '#fff',
         padding: 12
     },
-    title: {},
+    title: {
+        // fontSize: 18,
+    },
     cardContent: {
         padding: 10
     },
@@ -42,17 +44,20 @@ export const Dashboard = () => {
             title={
                 <Typography
                     align="center"
-                    variant="subtitle1"
+                    variant="overline"
                     component="h3"
                     className={styles.title}>
                     Voting round started
                 </Typography>
-            }/>
+            }
+        />
         <CardContent className={styles.cardContent}>
             <UserList users={voting.users}/>
         </CardContent>
-        {isOwner && <CardActions className={styles.actions}>
-            <ControlButtons/>
-        </CardActions>}
+        <CardActions className={styles.actions}>
+            {isOwner && <VotingControlPanel/>}
+        </CardActions>
+        <Divider/>
+        <RoomControlPanel/>
     </Card>
 }

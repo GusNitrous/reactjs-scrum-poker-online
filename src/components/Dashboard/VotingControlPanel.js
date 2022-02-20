@@ -6,7 +6,8 @@ import {makeStyles} from "@material-ui/core/styles";
 import {useStore} from "effector-react";
 
 const useStyles = makeStyles((theme) => ({
-    item: {
+    root: {},
+    grid: {
         flexGrow: 1,
         width: '100%'
     },
@@ -15,12 +16,13 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export const ControlButtons = () => {
+export const VotingControlPanel = () => {
     const styles = useStyles();
     const {results} = useStore($voting);
-    return <Grid container spacing={1}>
-        <Grid item className={styles.item} xs={12}>
+    return <Grid className={styles.root} container spacing={3}>
+        <Grid item className={styles.grid} xs={12}>
             <Button
+                disableElevation
                 disabled={!!results}
                 color="primary"
                 variant="contained"
@@ -30,7 +32,7 @@ export const ControlButtons = () => {
             </Button>
         </Grid>
 
-        <Grid className={styles.item} item xs={12}>
+        <Grid className={styles.grid} item xs={12}>
             <Button
                 variant="outlined"
                 color="primary"
