@@ -12,6 +12,14 @@ export const useStyles = makeStyles(() => {
         gridItem: {
             margin: "auto",
             flexGrow: 1
+        },
+        playgroundBlock: {
+            paddingTop: '25px',
+            // justifyContent: "top",
+            // maxWidth: '350px'
+        },
+        dashboardBlock: {
+            justifyContent: "top",
         }
     }
 });

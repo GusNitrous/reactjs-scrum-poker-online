@@ -57,11 +57,23 @@ export const VotingRoom = () => {
                     {errorMessage}
                 </Alert>
             </Snackbar>
-            <Grid container spacing={2} className={styles.mainContent}>
-                <Grid item className={styles.gridItem} lg={7} md={7} sm={12}>
+            <Grid container justifyContent="center" spacing={2} className={styles.mainContent}>
+                <Grid item
+                      className={
+                          {...styles.gridItem, ...styles.playgroundBlock}
+                      }
+                      lg={7}
+                      md={7}
+                      sm={12}>
                     <Playground/>
                 </Grid>
-                <Grid item className={styles.gridItem} lg={5} md={5} sm={12}>
+                <Grid item
+                      className={
+                          {...styles.gridItem, ...styles.dashboardBlock}
+                      }
+                      lg={5}
+                      md={5}
+                      sm={12}>
                     <Dashboard/>
                 </Grid>
                 <Grid item xs={12}>
