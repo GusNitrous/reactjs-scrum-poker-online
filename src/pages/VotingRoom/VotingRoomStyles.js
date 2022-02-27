@@ -15,11 +15,9 @@ export const useStyles = makeStyles(() => {
         },
         playgroundBlock: {
             paddingTop: '25px',
-            // justifyContent: "top",
-            // maxWidth: '350px'
         },
         dashboardBlock: {
-            justifyContent: "top",
+            margin: 0,
         }
     }
 });
