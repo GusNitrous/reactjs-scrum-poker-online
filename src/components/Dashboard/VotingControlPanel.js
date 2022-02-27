@@ -21,25 +21,26 @@ export const VotingControlPanel = () => {
     const {results} = useStore($voting);
     return <Grid className={styles.root} container spacing={3}>
         <Grid item className={styles.grid} xs={12}>
-            <Button
-                disableElevation
-                disabled={!!results}
-                color="primary"
-                variant="contained"
-                className={styles.btn}
-                onClick={() => showResults()}>
-                Show results
-            </Button>
-        </Grid>
-
-        <Grid className={styles.grid} item xs={12}>
-            <Button
-                variant="outlined"
-                color="primary"
-                className={styles.btn}
-                onClick={() => startVoting()}>
-                New voting
-            </Button>
+            {
+                !results ?
+                    <Button
+                        disableElevation
+                        disabled={!!results}
+                        color="primary"
+                        variant="contained"
+                        className={styles.btn}
+                        onClick={() => showResults()}>
+                        Show results
+                    </Button>
+                    :
+                    <Button
+                        variant="outlined"
+                        color="primary"
+                        className={styles.btn}
+                        onClick={() => startVoting()}>
+                        New voting
+                    </Button>
+            }
         </Grid>
     </Grid>
 }
