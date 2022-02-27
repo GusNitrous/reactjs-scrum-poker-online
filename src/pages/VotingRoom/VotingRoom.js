@@ -13,6 +13,7 @@ import {ResultList} from "../../components/ResultList/ResultList";
 import {Slide, Snackbar} from "@material-ui/core";
 import {Alert} from "@material-ui/lab";
 import {useStyles} from "./VotingRoomStyles";
+import clsx from 'clsx';
 
 
 /**
@@ -57,20 +58,19 @@ export const VotingRoom = () => {
                     {errorMessage}
                 </Alert>
             </Snackbar>
-            <Grid container justifyContent="center" spacing={2} className={styles.mainContent}>
+            <Grid container
+                  justifyContent="center"
+                  spacing={2}
+                  className={styles.mainContent}>
                 <Grid item
-                      className={
-                          {...styles.gridItem, ...styles.playgroundBlock}
-                      }
+                      className={clsx(styles.gridItem, styles.playgroundBlock)}
                       lg={7}
                       md={7}
                       sm={12}>
                     <Playground/>
                 </Grid>
                 <Grid item
-                      className={
-                          {...styles.gridItem, ...styles.dashboardBlock}
-                      }
+                      className={clsx(styles.gridItem, styles.dashboardBlock)}
                       lg={5}
                       md={5}
                       sm={12}>
