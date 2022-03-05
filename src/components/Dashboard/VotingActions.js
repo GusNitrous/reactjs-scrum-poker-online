@@ -16,7 +16,9 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export const VotingControlPanel = () => {
+// SharedVoting
+
+export const VotingActions = () => {
     const styles = useStyles();
     const {results} = useStore($voting);
     return <Grid className={styles.root} container spacing={3}>

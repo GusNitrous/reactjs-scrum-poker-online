@@ -6,8 +6,8 @@ import {$room} from "../../models/room";
 import {UserList} from "../UserList/UserList";
 import Typography from "@material-ui/core/Typography";
 import {$authUser} from "../../models/auth";
-import {VotingControlPanel} from "./VotingControlPanel";
-import {RoomControlPanel} from "./RoomControlPanel";
+import {VotingActions} from "./VotingActions";
+import {BottomPanel} from "./BottomPanel";
 
 const useStyles = makeStyles((theme) => ({
     card: {
@@ -63,10 +63,10 @@ export const Dashboard = () => {
                 <UserList users={voting.users}/>
             </CardContent>
             <CardActions className={styles.actions}>
-                {isOwner && <VotingControlPanel/>}
+                {isOwner && <VotingActions/>}
             </CardActions>
             <Divider/>
-            <RoomControlPanel/>
+            <BottomPanel/>
         </Card>
     </>
 }
