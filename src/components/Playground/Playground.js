@@ -5,8 +5,7 @@ import {VotingResults} from "../VotingResults/VotingResults";
 import {CardDeck} from "../CardDeck/CardDeck";
 import FileCopyIcon from '@material-ui/icons/FileCopy';
 import {$room} from "../../models/room";
-import {Button, Grid, IconButton} from "@material-ui/core";
-import CachedIcon from '@material-ui/icons/Cached';
+import {Button, Grid} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
 
 const useStyles = makeStyles(() => ({
@@ -28,10 +27,6 @@ export const Playground = () => {
             <Button size="large" type="text" endIcon={<FileCopyIcon/>}>
                 Room: {roomId}
             </Button>
-
-            <IconButton className={styles.shareIcon}>
-                <CachedIcon/>
-            </IconButton>
         </Grid>
 
         <Grid container justifyContent="center">
