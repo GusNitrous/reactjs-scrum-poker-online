@@ -1,25 +1,51 @@
 import React from "react";
-import Dialog from '@material-ui/core/Dialog';
-import MuiDialogTitle from '@material-ui/core/DialogTitle';
-import MuiDialogContent from '@material-ui/core/DialogContent';
-import MuiDialogActions from '@material-ui/core/DialogActions';
-import {Button, Typography} from "@material-ui/core";
+import {Button, Grid} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
+import FileCopyIcon from '@material-ui/icons/FileCopy';
+import LinkIcon from '@material-ui/icons/Link';
+import QRCode from "react-qr-code";
+import {AppDialog, DialogContent, DialogTitle} from "../Common/AppDialog";
 
 const useStyles = makeStyles(() => {
-    return {}
+    return {
+        buttonsBlock: {
+            marginTop: 15
+        }
+    }
 });
 
 export const ShareVoting = ({isOpen, handleClose}) => {
-    return <Dialog onClose={handleClose} open={isOpen}>
-        <MuiDialogTitle>
-            <Typography>Title</Typography>
-        </MuiDialogTitle>
-        <MuiDialogContent>
-            <Typography>Content</Typography>
-        </MuiDialogContent>
-        <MuiDialogActions>
-            <Button>Actions</Button>
-        </MuiDialogActions>
-    </Dialog>
+    const styles = useStyles();
+
+    return <AppDialog onClose={handleClose} open={isOpen}>
+        <DialogTitle onClose={handleClose}>
+            Share this room
+        </DialogTitle>
+        <DialogContent dividers>
+            <Grid container>
+                <Grid container justifyContent="center">
+                    <QRCode value="test"/>
+                </Grid>
+                <Grid container spacing={2} className={styles.buttonsBlock}>
+                    <Grid item xs={12}>
+                        <Button
+                            fullWidth
+                            variant="outlined"
+                            endIcon={<LinkIcon/>}>
+                            Copy link
+                        </Button>
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <Button
+                            fullWidth
+                            variant="outlined"
+                            endIcon={<FileCopyIcon/>}>
+                            Copy RoomId
+                        </Button>
+                    </Grid>
+                </Grid>
+            </Grid>
+        </DialogContent>
+    </AppDialog>
 }

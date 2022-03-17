@@ -1,9 +1,13 @@
-import {IconButton, Typography, withStyles} from "@material-ui/core";
+import {Dialog, IconButton, Slide, Typography, withStyles} from "@material-ui/core";
 import MuiDialogTitle from "@material-ui/core/DialogTitle";
 import CloseIcon from "@material-ui/icons/Close";
 import MuiDialogContent from "@material-ui/core/DialogContent";
 import MuiDialogActions from "@material-ui/core/DialogActions";
 import React from "react";
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+    return <Slide direction="up" ref={ref} {...props} />;
+});
 
 const styles = (theme) => ({
     root: {
@@ -17,6 +21,8 @@ const styles = (theme) => ({
         color: theme.palette.grey[500],
     },
 });
+
+export const AppDialog = (props) => <Dialog TransitionComponent={Transition} {...props} />;
 
 export const DialogTitle = withStyles(styles)((props) => {
     const {children, classes, onClose, ...other} = props;
