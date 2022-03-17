@@ -10,19 +10,17 @@ export const get = ({url, config}) => request.get(url, config);
 
 export const post = ({url, data, config}) => request.post(url, data, config);
 
-export const withAuth = (httpMethod) => {
-    return (opt) => {
-        const authHeaders = {headers: getAuthHeader()};
-        const prop = 'config';
-        opt[prop] = !opt[prop] ? authHeaders : {...opt[prop], ...authHeaders};
-        return httpMethod(opt);
-    }
+export const withAuth = (httpMethod) => (options) => {
+    const prop = 'config';
+    const authHeaders = {headers: createAuthHeader()};
+    options[prop] = !options[prop] ? authHeaders : {...options[prop], ...authHeaders};
+    return httpMethod(options);
 }
 
-const getAuthHeader = (prefix = 'Bearer') => {
+const createAuthHeader = (prefix = 'Bearer') => {
     const {jwtToken} = $authUser.getState() ?? {};
     if (!jwtToken) {
-        throw new Error('Empty auth token');
+        throw new Error('Empty JWT token');
     }
     return {
         'Authorization': `${prefix} ${jwtToken}`
