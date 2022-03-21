@@ -1,17 +1,14 @@
 import React from 'react';
-import {QuickStart} from '../../components/QuickStart/QuickStart';
+import {QuickStart} from '../components/QuickStart/QuickStart';
 import {Redirect} from "react-router-dom";
-import {useStyles} from "./HomeStyles";
 import {useStore} from "effector-react";
-import {$authUser} from "../../models/auth";
-import {Routes} from "../../utils/routing";
-import {$wsState} from "../../models/ws";
+import {$authUser} from "../models/auth";
+import {Routes} from "../utils/routing";
+import {$wsState} from "../models/ws";
 import Container from "@material-ui/core/Container";
+import {makeStyles} from "@material-ui/core/styles";
 
-/**
- * HomePage with QuickStart.
- */
-export const Home = () => {
+const HomePage = () => {
     const styles = useStyles();
     const {error} = useStore($wsState);
     const authUser = useStore($authUser);
@@ -22,10 +19,20 @@ export const Home = () => {
             <Container
                 maxWidth="xs"
                 className={styles.root}>
-                <QuickStart />
+                <QuickStart/>
                 <div>
                     {error && error?.message}
                 </div>
             </Container> : <Redirect to={Routes.AUTH}/>
     );
 }
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+        marginTop: theme.spacing(2),
+        padding: 0,
+        maxWidth: 350
+    },
+}));
+
+export default HomePage;

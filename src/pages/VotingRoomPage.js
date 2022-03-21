@@ -1,25 +1,21 @@
 import React, {useEffect} from 'react';
-import {Routes} from "../../utils/routing";
+import {Routes} from "../utils/routing";
 import {useLocation, useParams} from "react-router";
 import {useStore} from "effector-react";
-import {$authUser} from "../../models/auth";
+import {$authUser} from "../models/auth";
 import {Redirect} from "react-router-dom";
-import {joinToRoom} from "../../models/room";
-import {$wsState, resetErrors, socketInit} from "../../models/ws";
-import {Playground} from "../../components/Playground/Playground";
+import {joinToRoom} from "../models/room";
+import {$wsState, resetErrors, socketInit} from "../models/ws";
+import {Playground} from "../components/Playground/Playground";
 import Grid from '@material-ui/core/Grid';
-import {Dashboard} from "../../components/Dashboard/Dashboard";
-import {ResultList} from "../../components/ResultList/ResultList";
+import {Dashboard} from "../components/Dashboard/Dashboard";
+import {ResultList} from "../components/ResultList/ResultList";
 import {Slide, Snackbar} from "@material-ui/core";
 import {Alert} from "@material-ui/lab";
-import {useStyles} from "./VotingRoomStyles";
 import clsx from 'clsx';
+import {makeStyles} from "@material-ui/core/styles";
 
-
-/**
- * VotingRoom page component.
- */
-export const VotingRoom = () => {
+const VotingRoomPage = () => {
     const styles = useStyles();
     const {id} = useParams();
     const {pathname} = useLocation();
@@ -49,6 +45,7 @@ export const VotingRoom = () => {
             state: {referrer: pathname}
         }}/>
         : <div className={styles.root}>
+            {/*TODO: moving to common components*/}
             <Snackbar
                 TransitionComponent={(props) => <Slide {...props} direction="up"/>}
                 anchorOrigin={{vertical: "bottom", horizontal: "center"}}
@@ -82,3 +79,25 @@ export const VotingRoom = () => {
             </Grid>
         </div>
 }
+
+const useStyles = makeStyles(() => ({
+    root: {
+        flexGrow: 1,
+        width: '100%'
+    },
+    mainContent: {
+        paddingTop: 25
+    },
+    gridItem: {
+        margin: "auto",
+        flexGrow: 1
+    },
+    playgroundBlock: {
+        paddingTop: '25px',
+    },
+    dashboardBlock: {
+        margin: 0,
+    }
+}));
+
+export default VotingRoomPage;
