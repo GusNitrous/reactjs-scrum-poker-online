@@ -9,35 +9,6 @@ import {$authUser} from "../../models/auth";
 import {VotingActions} from "./VotingActions";
 import {BottomPanel} from "./BottomPanel";
 
-const useStyles = makeStyles((theme) => ({
-    card: {
-        width: '100%',
-        backgroundColor: theme.palette.background.paper,
-        position: 'relative',
-        borderRadius: '1rem',
-        boxShadow: '0 6px 20px 0 #dbdbe8',
-        transition: '0.4s',
-        '&:hover': {
-            boxShadow: '-12px 12px 64px 0 #bcc3d6',
-        },
-    },
-    header: {
-        backgroundColor: '#347ec9',
-        color: '#fff',
-        padding: 12
-    },
-    title: {
-        fontSize: 14,
-    },
-    cardContent: {
-        padding: 10
-    },
-    actions: {
-        padding: 25,
-        flexDirection: 'column',
-        flexGrow: 1
-    }
-}));
 
 export const Dashboard = () => {
     const styles = useStyles();
@@ -70,3 +41,33 @@ export const Dashboard = () => {
         </Card>
     </>
 }
+
+const useStyles = makeStyles((theme) => ({
+    card: {
+        width: '100%',
+        backgroundColor: theme.palette.background.paper,
+        position: 'relative',
+        borderRadius: '1rem',
+        boxShadow: '0 6px 20px 0 #dbdbe8',
+        transition: '0.4s',
+        '&:hover': {
+            boxShadow: '-12px 12px 64px 0 #bcc3d6',
+        },
+    },
+    header: {
+        backgroundColor: '#347ec9',
+        color: '#fff',
+        padding: 12
+    },
+    title: {
+        fontSize: 14,
+    },
+    cardContent: {
+        padding: 10
+    },
+    actions: {
+        padding: 25,
+        flexDirection: 'column',
+        flexGrow: 1
+    }
+}));
