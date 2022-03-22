@@ -21,7 +21,7 @@ export const ShareVoting = () => {
     useEffect(() => {
         setLink(window.location.href);
     }, []);
-    
+
     // TODO: moving to common utils
     const copy = (value) => {
         navigator
@@ -40,7 +40,7 @@ export const ShareVoting = () => {
             onClick={() => setIsOpen(true)}>
             Room: {roomId}
         </Button>
-        <AppDialog onClose={handleClose} open={isOpen}>
+        <AppDialog maxWidth="xs" onClose={handleClose} open={isOpen}>
             <DialogTitle onClose={handleClose}>
                 Share this room
             </DialogTitle>
