@@ -43,7 +43,6 @@ export const DialogTitle = withStyles(styles)((props) => {
 export const DialogContent = withStyles((theme) => ({
     root: {
         padding: theme.spacing(2),
-        maxWidth: 280,
     },
 }))(MuiDialogContent);
 
