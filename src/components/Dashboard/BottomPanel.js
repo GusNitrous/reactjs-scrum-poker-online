@@ -1,28 +1,34 @@
-import React, {useState} from "react";
+import React from "react";
 import {BottomNavigation, BottomNavigationAction} from "@material-ui/core";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
-import {AppConfirm} from "../Common/AppConfirm";
+import {useConfirm} from 'material-ui-confirm';
 
 export const BottomPanel = () => {
-    const [showAlert, setShowAlert] = useState(false);
+    const confirm = useConfirm();
+
+    const showAlert = (question) => {
+        confirm({title: 'Confirm action', description: question})
+            .then(() => {
+
+            })
+            .catch(() => {
+
+            });
+    };
 
     return <>
-        <AppConfirm
-            description="Leave from room"
-            isOpen={showAlert}
-            handleClose={() => setShowAlert(false)}/>
+
         <BottomNavigation>
             <BottomNavigationAction
-                onClick={() => setShowAlert(true)}
-                label="Leave"
-                icon={<ExitToAppIcon/>}
-            />
-
-            <BottomNavigationAction
-                onClick={() => setShowAlert(false)}
+                onClick={() => showAlert('Create new room?')}
                 label="Create"
                 icon={<AddCircleOutlineIcon/>}
+            />
+            <BottomNavigationAction
+                onClick={() => showAlert('Leave room?')}
+                label="Leave"
+                icon={<ExitToAppIcon/>}
             />
         </BottomNavigation>
     </>

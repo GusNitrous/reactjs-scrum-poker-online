@@ -6,6 +6,7 @@ import Container from '@material-ui/core/Container';
 
 import Header from '../components/Header/Header';
 import Footer from '../components/Footer/Footer';
+import {ConfirmProvider} from "material-ui-confirm";
 
 const AuthPage = lazy(() => import('./AuthPage'))
 const HomePage = lazy(() => import('./HomePage'))
@@ -16,33 +17,41 @@ const IndexPage = () => {
     const classes = useStyles();
     return (
         <Router history={history}>
-            <Header title="ScrumPokerOnline"/>
-            <div className={classes.root}>
-                <Container maxWidth="md">
-                    <main>
-                        <Suspense fallback={<div>Loading</div>}>
-                            <Switch>
-                                <Route exact path={Routes.HOME}>
-                                    <HomePage/>
-                                </Route>
-                                <Route exact path={Routes.AUTH}>
-                                    <AuthPage/>
-                                </Route>
-                                <Route path={Routes.VOTING_ROOM}>
-                                    <VotingRoomPage/>
-                                </Route>
-                                <Route path={Routes.ROOT}>
-                                    <NotFoundErrorPage/>
-                                </Route>
-                            </Switch>
-                        </Suspense>
-                    </main>
-                </Container>
-            </div>
-            <Footer
-                title="ScrumPokerOnline"
-                description="Online estimation tool for agile teams"
-            />
+            <ConfirmProvider defaultOptions={{
+                dialogProps: {
+                    fullWidth: true,
+                    maxWidth: "xs"
+                },
+                confirmationButtonProps: {autoFocus: true}
+            }}>
+                <Header title="ScrumPokerOnline"/>
+                <div className={classes.root}>
+                    <Container maxWidth="md">
+                        <main>
+                            <Suspense fallback={<div>Loading</div>}>
+                                <Switch>
+                                    <Route exact path={Routes.HOME}>
+                                        <HomePage/>
+                                    </Route>
+                                    <Route exact path={Routes.AUTH}>
+                                        <AuthPage/>
+                                    </Route>
+                                    <Route path={Routes.VOTING_ROOM}>
+                                        <VotingRoomPage/>
+                                    </Route>
+                                    <Route path={Routes.ROOT}>
+                                        <NotFoundErrorPage/>
+                                    </Route>
+                                </Switch>
+                            </Suspense>
+                        </main>
+                    </Container>
+                </div>
+                <Footer
+                    title="ScrumPokerOnline"
+                    description="Online estimation tool for agile teams"
+                />
+            </ConfirmProvider>
         </Router>
     );
 }
