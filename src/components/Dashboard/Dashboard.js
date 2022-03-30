@@ -12,7 +12,7 @@ import {BottomPanel} from "./BottomPanel";
 
 export const Dashboard = () => {
     const styles = useStyles();
-    const {ownerId, voting} = useStore($room);
+    const {id: roomId, ownerId, voting} = useStore($room);
     const auth = useStore($authUser);
     const isOwner = auth.userId === ownerId;
 
@@ -37,7 +37,7 @@ export const Dashboard = () => {
                 {isOwner && <VotingActions/>}
             </CardActions>
             <Divider/>
-            <BottomPanel/>
+            <BottomPanel roomId={roomId}/>
         </Card>
     </>
 }
