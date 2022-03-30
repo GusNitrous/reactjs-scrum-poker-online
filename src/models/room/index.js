@@ -6,15 +6,19 @@ export const onCreateRoom = createEvent();
 
 export const joinToRoom = createEvent();
 
-// export const joinToRoom = createEvent();
-
 export const onJoinToRoom = createEvent();
+
+export const leaveFromRoom = createEvent();
+
+export const onLeaveFromRoom = createEvent();
+
+export const leaveRoomFx = createEffect();
 
 export const createRoomFx = createEffect();
 
 export const joinToRoomFx = createEffect();
 
-export const $room = createStore({
+export const initRoomState = {
     id: null,
     ownerId: null,
     createdAt: null,
@@ -23,4 +27,6 @@ export const $room = createStore({
         status: null,
         users: [],
     },
-});
+};
+
+export const $room = createStore(initRoomState);

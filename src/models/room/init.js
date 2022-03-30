@@ -1,7 +1,26 @@
 import {sample} from "effector";
-import {history} from "../../utils/routing";
-import {$room, createRoom, createRoomFx, joinToRoom, joinToRoomFx, onJoinToRoom} from "./index";
-import {CREATE_ROOM, JOIN_USER, ROOM_CREATED, USER_JOINED, USER_JOINED_TO_ROOM, USER_LEAVE} from "../../api/ws/events";
+import {history, Routes} from "../../utils/routing";
+import {
+    $room,
+    createRoom,
+    createRoomFx,
+    initRoomState,
+    joinToRoom,
+    joinToRoomFx,
+    leaveFromRoom,
+    leaveRoomFx,
+    onJoinToRoom,
+    onLeaveFromRoom
+} from "./index";
+import {
+    CREATE_ROOM,
+    JOIN_USER,
+    LEAVE_ROOM,
+    ROOM_CREATED,
+    USER_JOINED,
+    USER_JOINED_TO_ROOM,
+    USER_LEAVE
+} from "../../api/ws/events";
 import {$wsState} from "../ws";
 import {updateScore, userLeave, votingInit, votingStarted} from "../voting";
 
@@ -10,6 +29,12 @@ createRoomFx.use((ws) => {
         //TODO using route helper
         history.push(`/room/${roomId}`);
     }).emit(CREATE_ROOM);
+});
+
+leaveRoomFx.use(({ws, roomId}) => {
+    ws?.emit(LEAVE_ROOM, {roomId});
+    history.push(Routes.HOME);
+    onLeaveFromRoom();
 });
 
 joinToRoomFx.use(({ws, roomId}) => {
@@ -21,6 +46,7 @@ joinToRoomFx.use(({ws, roomId}) => {
         .emit(JOIN_USER, {roomId});
 });
 
+$room.on(onLeaveFromRoom, () => initRoomState);
 $room.on(onJoinToRoom, (_, roomState) => roomState);
 $room.on(votingStarted, (_, roomState) => roomState);
 $room.on(updateScore, (roomState, score) => {
@@ -60,4 +86,11 @@ sample({
     clock: joinToRoom,
     fn: ({ws}, roomId) => ({ws, roomId}),
     target: joinToRoomFx,
+});
+
+sample({
+    source: $wsState,
+    clock: leaveFromRoom,
+    fn: ({ws}, roomId) => ({ws, roomId}),
+    target: leaveRoomFx,
 });
