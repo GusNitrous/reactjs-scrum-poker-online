@@ -10,15 +10,19 @@ const SCORES = [
     '13', '20', '40', '100',
 ];
 
-const useStyles = makeStyles((theme) => {
+const useStyles = makeStyles(({breakpoints, ...theme}) => {
     return {
         root: {
             display: "flex",
             flexWrap: "wrap",
-            justifyContent: "space-around",
+            justifyContent: "space-between",
             alignItems: "center",
             margin: 'auto',
-            maxWidth: 460
+            // maxWidth: 480,
+            [breakpoints.between('lg', 'xl')]: {
+                justifyContent: "space-between",
+                maxWidth: 'auto',
+            },
         },
     }
 });
@@ -31,6 +35,7 @@ export const CardDeck = ({onSelectCard}) => {
         setSelectedScore(score);
         onSelectCard(score);
     }, 250, {leading: true, trailing: false}), []);
+
     return <div className={styles.root}>
         {SCORES.map((score, index) =>
             <PokerCard

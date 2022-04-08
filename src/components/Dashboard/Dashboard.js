@@ -17,7 +17,7 @@ export const Dashboard = () => {
     const isOwner = auth.userId === ownerId;
 
     return <>
-        <Card className={styles.card}>
+        <Card className={styles.root}>
             <CardHeader
                 className={styles.header}
                 title={
@@ -42,16 +42,15 @@ export const Dashboard = () => {
     </>
 }
 
-const useStyles = makeStyles((theme) => ({
-    card: {
+const useStyles = makeStyles(({palette, breakpoints, spacing}) => ({
+    root: {
         width: '100%',
-        backgroundColor: theme.palette.background.paper,
+        backgroundColor: palette.background.paper,
         position: 'relative',
-        borderRadius: '1rem',
+        borderRadius: spacing(2),
         boxShadow: '0 6px 20px 0 #dbdbe8',
-        transition: '0.4s',
-        '&:hover': {
-            boxShadow: '-12px 12px 64px 0 #bcc3d6',
+        [breakpoints.between('lg', 'xl')]: {
+            marginTop: 52,
         },
     },
     header: {
