@@ -46,13 +46,16 @@ export const Dashboard = () => {
     </>
 }
 
-const useStyles = makeStyles(({palette, spacing}) => ({
+const useStyles = makeStyles(({palette, breakpoints, spacing}) => ({
     root: {
         width: '100%',
         backgroundColor: palette.background.paper,
         position: 'relative',
         borderRadius: spacing(2),
-        boxShadow: '0px 14px 80px rgba(34, 35, 58, 0.2)',
+        boxShadow: '0 6px 20px 0 #dbdbe8',
+        [breakpoints.between('lg', 'xl')]: {
+            marginTop: 52,
+        },
     },
     header: {
         backgroundColor: '#347ec9',

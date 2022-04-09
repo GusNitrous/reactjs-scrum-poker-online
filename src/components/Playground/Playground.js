@@ -25,8 +25,8 @@ export const Playground = () => {
 
 const useStyles = makeStyles(() => ({
     header: {
-        marginBottom: 15,
-        paddingRight: 12,
+        // marginBottom: 10,
+        // paddingRight: 12,
     },
     shareIcon: {
         boxShadow: '0px 0px 4px #ccc'
