@@ -4,6 +4,7 @@ import {$voting, showResults, startVoting} from "../../models/voting";
 import Grid from "@material-ui/core/Grid";
 import {makeStyles} from "@material-ui/core/styles";
 import {useStore} from "effector-react";
+import cx from 'clsx';
 
 const useStyles = makeStyles((theme) => ({
     root: {},
@@ -15,8 +16,6 @@ const useStyles = makeStyles((theme) => ({
         width: '100%'
     }
 }));
-
-// SharedVoting
 
 export const VotingActions = () => {
     const styles = useStyles();
@@ -30,7 +29,7 @@ export const VotingActions = () => {
                         disabled={!!results}
                         color="primary"
                         variant="contained"
-                        className={styles.btn}
+                        className={cx("MuiButton--gradient", styles.btn)}
                         onClick={() => showResults()}>
                         Show results
                     </Button>

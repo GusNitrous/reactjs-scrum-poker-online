@@ -8,16 +8,20 @@ import Typography from "@material-ui/core/Typography";
 import {$authUser} from "../../models/auth";
 import {VotingActions} from "./VotingActions";
 import {BottomPanel} from "./BottomPanel";
+import { useOverShadowStyles } from '@mui-treasury/styles/shadow/over';
+import cx from 'clsx';
 
 
 export const Dashboard = () => {
     const styles = useStyles();
+    const shadowStyles = useOverShadowStyles();
+
     const {id: roomId, ownerId, voting} = useStore($room);
     const auth = useStore($authUser);
     const isOwner = auth.userId === ownerId;
 
     return <>
-        <Card className={styles.card}>
+        <Card className={cx(styles.root, shadowStyles.root)}>
             <CardHeader
                 className={styles.header}
                 title={
@@ -42,17 +46,13 @@ export const Dashboard = () => {
     </>
 }
 
-const useStyles = makeStyles((theme) => ({
-    card: {
+const useStyles = makeStyles(({palette, spacing}) => ({
+    root: {
         width: '100%',
-        backgroundColor: theme.palette.background.paper,
+        backgroundColor: palette.background.paper,
         position: 'relative',
-        borderRadius: '1rem',
-        boxShadow: '0 6px 20px 0 #dbdbe8',
-        transition: '0.4s',
-        '&:hover': {
-            boxShadow: '-12px 12px 64px 0 #bcc3d6',
-        },
+        borderRadius: spacing(2),
+        boxShadow: '0px 14px 80px rgba(34, 35, 58, 0.2)',
     },
     header: {
         backgroundColor: '#347ec9',
