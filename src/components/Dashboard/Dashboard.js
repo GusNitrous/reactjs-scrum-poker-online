@@ -58,8 +58,8 @@ const useStyles = makeStyles(({palette, breakpoints, spacing}) => ({
         },
     },
     header: {
-        backgroundColor: '#347ec9',
-        color: '#fff',
+        backgroundColor: '#5d82c7',
+        color: '#fafafa',
         padding: 12
     },
     title: {

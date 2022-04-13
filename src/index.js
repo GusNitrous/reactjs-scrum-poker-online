@@ -1,39 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import IndexPage from './pages/IndexPage';
-import {MuiThemeProvider} from '@material-ui/core/styles';
-import {JssProvider} from "react-jss";
-import {ConfirmProvider} from "material-ui-confirm";
-
-// Import global styles and theme
-import {generateClassName, createTheme, getTheme, baseTheme} from './styles/theme.js';
-import './styles/main.css';
+import {ConfirmProvider} from "./providers/confirm.provider";
+import {AppThemeProvider} from "./providers/theme.provider";
 
 // Import Effector models
 import './models/init';
 
+// Import global styles
+import './index.css';
+
 ReactDOM.render(
     <React.StrictMode>
-        <JssProvider generateClassName={generateClassName}>
-            <MuiThemeProvider
-                theme={createTheme({
-                    typography: {
-                        useNextVariants: true
-                    },
-                    overrides: getTheme(baseTheme)
-                })}>
-                <ConfirmProvider 
-                    defaultOptions={{
-                        dialogProps: {
-                            fullWidth: true,
-                            maxWidth: "xs"
-                        },
-                        confirmationButtonProps: {autoFocus: true}
-                    }}>
-                    <IndexPage/>
-                </ConfirmProvider>
-            </MuiThemeProvider>
-        </JssProvider>
+        <AppThemeProvider>
+            <ConfirmProvider >
+                <IndexPage/>
+            </ConfirmProvider>
+        </AppThemeProvider>
     </React.StrictMode>,
     document.getElementById('root')
 );

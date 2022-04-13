@@ -1,5 +1,8 @@
+import React from 'react';
 import { createGenerateClassName } from "@material-ui/core/styles";
 import {unstable_createMuiStrictModeTheme as createTheme} from '@material-ui/core/styles';
+import {MuiThemeProvider} from '@material-ui/core/styles';
+import {JssProvider} from "react-jss";
 
 export const baseTheme = createTheme();
 
@@ -43,3 +46,19 @@ export const getTheme = () => ({
     }
   }
 });
+
+export const AppThemeProvider = ({children, ...props}) => {
+    return  <JssProvider generateClassName={generateClassName}>
+        <MuiThemeProvider
+            theme={createTheme({
+                typography: {
+                    useNextVariants: true
+                },
+                overrides: getTheme(baseTheme)
+            })} 
+            {...props}
+        >
+            {children}
+        </MuiThemeProvider>
+    </JssProvider>
+}
