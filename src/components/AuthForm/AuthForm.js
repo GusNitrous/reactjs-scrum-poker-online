@@ -8,36 +8,48 @@ import Card from "@material-ui/core/Card";
 import {useStore} from "effector-react";
 import {useLocation} from "react-router";
 import {makeStyles} from "@material-ui/core/styles";
+import { useOverShadowStyles } from '@mui-treasury/styles/shadow/over';
+import cx from 'clsx';
 
 
-export const useStyles = makeStyles(() => ({
+export const useStyles = makeStyles(({spacing}) => ({
+    root: {
+        marginTop: spacing(8),
+        borderRadius: spacing(1)
+    },
     content: {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
     },
+    submit: {
+        margin: spacing(2, 0, 2),
+        transition: 'filter 250ms',
+    },
+    disabled: {
+        opacity: '0.5'
+    },
     avatar: {
         margin: 5,
         backgroundColor: '#6b74b1'
-    },
-    submit: {
-        margin: '2, 0, 2'
     },
 }));
 
 export const AuthForm = () => {
     const styles = useStyles();
-    const { userName } = useStore($authForm);
+    const shadowStyles = useOverShadowStyles();
     const { state } = useLocation();
-    const isLoading = useStore(loginRequestFx.pending);
+    const { userName } = useStore($authForm);
     const {inputError} = useStore($authErrors);
+    const isLoading = useStore(loginRequestFx.pending);
+    const isDisabled = !userName || isLoading;
 
     const handleSubmit = (e) => {
         e.preventDefault();
         doLogin({userName, referrer: state?.referrer});
     }
 
-    return <Card className={styles.root}>
+    return <Card className={cx(styles.root, shadowStyles.root)}>
         {isLoading && <LinearProgress/>}
         <CardContent>
             <form id="authForm" onSubmit={handleSubmit}>
@@ -64,15 +76,17 @@ export const AuthForm = () => {
                         autoFocus
                     />
                     <Button
-                        disabled={!userName || isLoading}
+                        disabled={isDisabled}
                         form="authForm"
                         type="submit"
                         fullWidth
-                        variant="contained"
-                        color="primary"
-                        className={styles.submit}
+                        className={
+                            isDisabled 
+                            ? cx("MuiButton--gradient MuiButton--gradient-label", styles.submit, styles.disabled)
+                            : cx("MuiButton--gradient MuiButton--gradient-label", styles.submit)
+                        }
                     >
-                        Войти
+                        Login
                     </Button>
                 </div>
             </form>
