@@ -14,7 +14,7 @@ export const getAppTheme = () => ({
   MuiButton: {
     root: {
       "&.MuiButton--gradient": {
-        transition: "background 0.2s ease-in-out 0s",
+        transition: "all 0.2s ease-in-out 0s",
         background: 'none',
         backgroundSize: '140% 140%',
         backgroundImage: "linear-gradient(to right, #5175B4, #FF8383)",
