@@ -2,44 +2,57 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import {useStyles} from "./HeaderStyles";
 import {history, Routes} from '../../utils/routing';
 import {AuthButton} from "./AuthButton";
 import {useStore} from "effector-react";
 import {$authUser, doLogout} from "../../models/auth";
 import Container from "@material-ui/core/Container";
+import {makeStyles} from "@material-ui/core/styles";
 
-/**
- * Header component
- */
-export default function Header({title}) {
+
+const  Header = ({title}) => {
     const styles = useStyles();
     const authUser = useStore($authUser);
     const isLoggedIn = !!authUser?.userName;
-    return (
-        <>
-            <Toolbar className={styles.toolbar}>
-                <Container className={styles.headerContainer} maxWidth="md">
-                    <Typography
-                        component="h2"
-                        variant="h5"
-                        color="inherit"
-                        noWrap
-                        className={styles.toolbarTitle}
-                    >
-                        {title}
-                    </Typography>
-                    <AuthButton
-                        isAuth={isLoggedIn}
-                        onLogin={() => history.push(Routes.AUTH)}
-                        onLogout={() => doLogout()}/>
-                </Container>
-            </Toolbar>
-        </>
-    );
+    
+    return <Toolbar className={styles.root}>
+        <Container className={styles.header} maxWidth="md">
+            <Typography
+                component="h1"
+                variant="h4"
+                color="inherit"
+                noWrap
+                className={styles.title}
+            >
+                {title}
+            </Typography>
+            <AuthButton
+                isAuth={isLoggedIn}
+                onLogin={() => history.push(Routes.AUTH)}
+                onLogout={() => doLogout()}/>
+        </Container>
+    </Toolbar>
 }
 
 Header.propTypes = {
     sections: PropTypes.array,
     title: PropTypes.string,
 };
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+        borderBottom: `1px solid ${theme.palette.divider}`,
+    },
+    header: {
+        display: 'flex',
+        justifyContent: 'space-between',
+    },
+    title: {
+        fontWeight: 'bold',
+        background: 'linear-gradient(to right, #5175B4, #FF8383)',
+        textFillColor: 'transparent',
+        backgroundClip: 'text',
+    }
+}));
+
+export default Header;
