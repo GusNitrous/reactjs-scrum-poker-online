@@ -29,7 +29,7 @@ export const VotingActions = () => {
                         disabled={!!results}
                         color="primary"
                         variant="contained"
-                        className={cx("MuiButton--gradient", styles.btn)}
+                        className={cx("MuiButton--gradient MuiButton--gradient-label", styles.btn)}
                         onClick={() => showResults()}>
                         Show results
                     </Button>

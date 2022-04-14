@@ -10,26 +10,24 @@ export const generateClassName = createGenerateClassName({
   dangerouslyUseGlobalCSS: true
 });
 
-export const getTheme = () => ({
+export const getAppTheme = () => ({
   MuiButton: {
     root: {
-      "&.MuiButton--chubby": {
-        borderRadius: 50
-      },
       "&.MuiButton--gradient": {
-        boxShadow: '0px 4px 24px rgba(252, 56, 56, 0.4)',
-        transition: "0.3s cubic-bezier(.47,1.64,.41,.8)",
-        background: "linear-gradient(to right, #FFC371, #FF5F6D)",
+        transition: "background 0.2s ease-in-out 0s",
+        background: 'none',
+        backgroundSize: '140% 140%',
+        backgroundImage: "linear-gradient(to right, #5175B4, #FF8383)",
         "&:hover": {
-           boxShadow: '0px 4px 24px rgba(252, 56, 56, 0.4)',
+            backgroundSize: '100% 100%',
+        },
+      },
+      "&.MuiButton--gradient-label": {
+              color: baseTheme.palette.common.white,
+              textTransform: "uppercase",
+              fontSize: 13,
+              fontWeight: 700
         }
-      }
-    },
-    label: {
-      color: baseTheme.palette.common.white,
-      textTransform: "none",
-      fontSize: 15,
-      fontWeight: 700
     },
     contained: {
       minHeight: 30,
@@ -46,15 +44,15 @@ export const getTheme = () => ({
     }
   }
 });
-
+ 
 export const AppThemeProvider = ({children, ...props}) => {
-    return  <JssProvider generateClassName={generateClassName}>
+    return <JssProvider generateClassName={generateClassName}>
         <MuiThemeProvider
             theme={createTheme({
                 typography: {
                     useNextVariants: true
                 },
-                overrides: getTheme(baseTheme)
+                overrides: getAppTheme(baseTheme)
             })} 
             {...props}
         >
