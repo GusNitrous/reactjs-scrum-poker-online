@@ -14,7 +14,7 @@ export const PokerCard = ({score, isSelected, select}) => {
     const styles = useStyles({
         color: {
             default: '#333',
-            selected: '#fafafa'
+            selected: '#ffff'
         },
         background: {
             default: '#fff',
@@ -70,10 +70,14 @@ const useStyles = makeStyles(({breakpoints, spacing}) => ({
             margin: 10
         },
     }),
-    selected: ({color, background}) => ({
+    selected: ({color}) => ({
         transform: 'scale(1.1)',
-        background: `${background.selected}`,
-        color: `${color.selected}`
+        background: "linear-gradient(to top, #5175B4, #FF8383)",
+        color: `${color.selected}`,
+        boxShadow: `0 6px 12px 0 ${Color('#5175B4')
+            .rotate(-12)
+            .darken(0.2)
+            .fade(0.5)}`,
     }),
     card: {
         display: 'flex',
