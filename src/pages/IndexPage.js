@@ -16,7 +16,7 @@ const IndexPage = () => {
     const classes = useStyles();
     return (
         <Router history={history}>
-            <Header title="ScrumPokerOnline"/>
+            <Header title="Scrummarly"/>
             <div className={classes.root}>
                 <Container maxWidth="md">
                     <main>
