@@ -40,7 +40,7 @@ const IndexPage = () => {
                 </Container>
             </div>
             <Footer
-                title="ScrumPokerOnline"
+                title="Scrummarly"
                 description="Online estimation tool for agile teams"
             />
         </Router>
