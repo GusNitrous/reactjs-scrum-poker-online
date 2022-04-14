@@ -5,13 +5,26 @@ import {Avatar, Button, TextField, Typography} from "@material-ui/core";
 import SupervisedUserCircleRoundedIcon from "@material-ui/icons/SupervisedUserCircleRounded";
 import {$authErrors, $authForm, doLogin, loginRequestFx, updateAuthForm} from "../../models/auth";
 import Card from "@material-ui/core/Card";
-import {useStyles} from "./AuthFormStyles";
 import {useStore} from "effector-react";
 import {useLocation} from "react-router";
+import {makeStyles} from "@material-ui/core/styles";
 
-/**
- * AuthForm.
- */
+
+export const useStyles = makeStyles(() => ({
+    content: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+    },
+    avatar: {
+        margin: 5,
+        backgroundColor: '#6b74b1'
+    },
+    submit: {
+        margin: '2, 0, 2'
+    },
+}));
+
 export const AuthForm = () => {
     const styles = useStyles();
     const { userName } = useStore($authForm);
@@ -33,7 +46,7 @@ export const AuthForm = () => {
                         <SupervisedUserCircleRoundedIcon/>
                     </Avatar>
                     <Typography component="h1" variant="h5">
-                        Авторизация
+                        Authorization
                     </Typography>
                     <TextField
                         error={!!inputError.userName}
