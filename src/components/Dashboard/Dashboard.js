@@ -51,7 +51,7 @@ const useStyles = makeStyles(({palette, breakpoints, spacing}) => ({
         width: '100%',
         backgroundColor: palette.background.paper,
         position: 'relative',
-        borderRadius: spacing(2),
+        borderRadius: spacing(1),
         boxShadow: '0 6px 20px 0 #dbdbe8',
         [breakpoints.between('lg', 'xl')]: {
             marginTop: 52,
