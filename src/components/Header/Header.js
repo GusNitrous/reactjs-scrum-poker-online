@@ -22,10 +22,11 @@ const useStyles = makeStyles(({palette}) => {
         justifyContent: 'space-between',
     },
     title: {
+        userSelect: 'none',
         fontWeight: 'bold',
         background: 'linear-gradient(to right, #5175B4, #FF8383)',
-        textFillColor: 'transparent',
-        backgroundClip: 'text',
+        '-webkit-text-fill-color': 'transparent',
+        '-webkit-background-clip': 'text',
     }
 }});
 
