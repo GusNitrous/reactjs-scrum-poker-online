@@ -7,10 +7,10 @@ import Container from '@material-ui/core/Container';
 import Header from '../components/Header/Header';
 import Footer from '../components/Footer/Footer';
 
-const AuthPage = lazy(() => import('./AuthPage'))
-const HomePage = lazy(() => import('./HomePage'))
-const VotingRoomPage = lazy(() => import('./VotingRoomPage'))
-const NotFoundErrorPage = lazy(() => import('./Errors/NotFound'))
+const AuthPage = lazy(() => import('./AuthPage'));
+const HomePage = lazy(() => import('./HomePage'));
+const VotingRoomPage = lazy(() => import('./VotingRoomPage'));
+const NotFoundErrorPage = lazy(() => import('./Errors/NotFound'));
 
 const IndexPage = () => {
     const classes = useStyles();
