@@ -17,6 +17,6 @@ export const ResultItemList = ({id, avg, hasDivider}) => {
             <ListItemText primary={'# ' + id}/>
             <ListItemText>{avg}</ListItemText>
         </ListItem>
-        {hasDivider && <Divider/>}
+        {hasDivider && <Divider light/>}
     </div>
 }

@@ -3,7 +3,7 @@ import {Button, Card, CardContent, Divider, Grid, TextField, Typography} from '@
 import {createRoom} from "../../models/room";
 import {socketInit} from "../../models/ws";
 import {useHistory} from "react-router";
-import { useOverShadowStyles } from '@mui-treasury/styles/shadow/over';
+import {useOverShadowStyles} from '@mui-treasury/styles/shadow/over';
 import {makeStyles} from "@material-ui/core/styles";
 import cx from 'clsx';
 

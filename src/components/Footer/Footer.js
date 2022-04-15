@@ -5,8 +5,7 @@ import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
 
-function Copyright() {
-  return (
+const Copyright = () => (
     <Typography align="center" variant="body2" color="textSecondary">
       {'Copyright © '}
       <Link color="inherit" href="https://github.com/GusNitrous">
@@ -14,8 +13,7 @@ function Copyright() {
       </Link>{' '}
       {new Date().getFullYear()}
     </Typography>
-  );
-}
+);
 
 const useStyles = makeStyles((theme) => ({
   footer: {

@@ -10,7 +10,26 @@ import Container from "@material-ui/core/Container";
 import {makeStyles} from "@material-ui/core/styles";
 
 
-const  Header = ({title}) => {
+const useStyles = makeStyles(({palette}) => {
+    console.log(palette);
+    
+    return {
+    root: {
+        borderBottom: `1px solid ${palette.divider}`,
+    },
+    header: {
+        display: 'flex',
+        justifyContent: 'space-between',
+    },
+    title: {
+        fontWeight: 'bold',
+        background: 'linear-gradient(to right, #5175B4, #FF8383)',
+        textFillColor: 'transparent',
+        backgroundClip: 'text',
+    }
+}});
+
+const Header = ({title}) => {
     const styles = useStyles();
     const authUser = useStore($authUser);
     const isLoggedIn = !!authUser?.userName;
@@ -39,20 +58,6 @@ Header.propTypes = {
     title: PropTypes.string,
 };
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-        borderBottom: `1px solid ${theme.palette.divider}`,
-    },
-    header: {
-        display: 'flex',
-        justifyContent: 'space-between',
-    },
-    title: {
-        fontWeight: 'bold',
-        background: 'linear-gradient(to right, #5175B4, #FF8383)',
-        textFillColor: 'transparent',
-        backgroundClip: 'text',
-    }
-}));
+
 
 export default Header;
