@@ -56,15 +56,11 @@ const useStyles = makeStyles(({breakpoints, spacing}) => ({
         '&:hover': {
             transform: 'scale(1.1)',
         },
-        [breakpoints.between('xs', 'sm')]: {
+        [breakpoints.down('xs')]: {
             width: 70,
             height: 100,
         },
-        [breakpoints.between('sm', 'lg')]: {
-            width: 70,
-            height: 100,
-        },
-        [breakpoints.between('lg', 'xl')]: {
+        [breakpoints.up('sm')]: {
             width: 90,
             height: 140,
             margin: 10

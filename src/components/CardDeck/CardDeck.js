@@ -10,7 +10,7 @@ const SCORES = [
     '13', '20', '40', '100',
 ];
 
-const useStyles = makeStyles(({breakpoints, ...theme}) => {
+const useStyles = makeStyles(({breakpoints}) => {
     return {
         root: {
             display: "flex",
@@ -18,7 +18,6 @@ const useStyles = makeStyles(({breakpoints, ...theme}) => {
             justifyContent: "space-between",
             alignItems: "center",
             margin: 'auto',
-            // maxWidth: 480,
             [breakpoints.between('lg', 'xl')]: {
                 justifyContent: "space-between",
                 maxWidth: 'auto',
