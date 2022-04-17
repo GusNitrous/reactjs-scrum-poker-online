@@ -1,8 +1,7 @@
 import React from 'react';
 import List from '@material-ui/core/List';
 import {UserItemList} from "./UserItemList";
-
-const avatar = "https://avataaars.io/?avatarStyle=Circle&topType=ShortHairTheCaesar&accessoriesType=Sunglasses&hairColor=Blue&facialHairType=BeardMajestic&facialHairColor=Red&clotheType=ShirtVNeck&clotheColor=Pink&eyeType=Close&eyebrowType=RaisedExcitedNatural&mouthType=Tongue&skinColor=Yellow";
+import avatar from '../../assets/images/avatars/man-with-beard.svg';
 
 export const UserList = ({users}) => {
     return <List>
