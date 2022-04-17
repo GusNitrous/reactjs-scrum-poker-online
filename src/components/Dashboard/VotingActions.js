@@ -6,38 +6,35 @@ import {makeStyles} from "@material-ui/core/styles";
 import {useStore} from "effector-react";
 import cx from 'clsx';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
     root: {},
     grid: {
         flexGrow: 1,
         width: '100%'
     },
-    btn: {
-        width: '100%'
-    }
 }));
 
 export const VotingActions = () => {
     const styles = useStyles();
     const {results} = useStore($voting);
+    
     return <Grid className={styles.root} container spacing={3}>
         <Grid item className={styles.grid} xs={12}>
             {
                 !results ?
                     <Button
+                        fullWidth
                         disableElevation
                         disabled={!!results}
-                        color="primary"
                         variant="contained"
-                        className={cx("MuiButton--gradient MuiButton--gradient-label", styles.btn)}
+                        className={cx("MuiButton--gradient MuiButton--gradient-label")}
                         onClick={() => showResults()}>
                         Show results
                     </Button>
                     :
                     <Button
-                        variant="outlined"
+                        fullWidth
                         color="primary"
-                        className={styles.btn}
                         onClick={() => startVoting()}>
                         New voting
                     </Button>

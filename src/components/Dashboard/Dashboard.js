@@ -4,13 +4,11 @@ import {Card, CardActions, CardContent, CardHeader, Divider} from "@material-ui/
 import {useStore} from "effector-react";
 import {$room} from "../../models/room";
 import {UserList} from "../UserList/UserList";
-import Typography from "@material-ui/core/Typography";
 import {$authUser} from "../../models/auth";
 import {VotingActions} from "./VotingActions";
 import {BottomPanel} from "./BottomPanel";
 import { useOverShadowStyles } from '@mui-treasury/styles/shadow/over';
 import { useContainedCardHeaderStyles } from '@mui-treasury/styles/cardHeader/contained';
-import { useSoftRiseShadowStyles } from '@mui-treasury/styles/shadow/softRise';
 import { useFadedShadowStyles } from '@mui-treasury/styles/shadow/faded';
 import cx from 'clsx';
 
@@ -54,7 +52,6 @@ export const Dashboard = () => {
     const shadowStyles = useOverShadowStyles();
 
     const cardHeaderStyles = useContainedCardHeaderStyles();
-    const cardShadowStyles = useSoftRiseShadowStyles({ inactive: true });
     const cardHeaderShadowStyles = useFadedShadowStyles();
 
     const {id: roomId, ownerId, voting} = useStore($room);
@@ -63,25 +60,10 @@ export const Dashboard = () => {
 
     return <>
         <Card className={cx(styles.root, shadowStyles.root)}>
-            {/* <CardHeader
-                className={styles.header}
-                title={
-                    <Typography
-                        align="center"
-                        variant="overline"
-                        component="h3"
-                        className={styles.title}>
-                        Voting started
-                    </Typography>
-                }
-            /> */}
-
-
             <CardHeader
                 className={cx(cardHeaderShadowStyles.root, styles.header)}
                 classes={cardHeaderStyles}
                 title='Voting started'
-                // subheader={'In reversed order'}
             />
 
             <CardContent className={styles.cardContent}>
