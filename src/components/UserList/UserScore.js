@@ -15,10 +15,10 @@ const useStyles = makeStyles(() => ({
     score: {
         background: '#ec8188',
         color: '#fff',
-        width: 28,
-        height: 28,
+        width: 32,
+        height: 32,
         borderRadius: '100%',
-        lineHeight: '28px',
+        lineHeight: '32px',
         textAlign: 'center',
         fontSize: 16
     }
