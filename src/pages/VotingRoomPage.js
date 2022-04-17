@@ -15,6 +15,36 @@ import {Alert} from "@material-ui/lab";
 import clsx from 'clsx';
 import {makeStyles} from "@material-ui/core/styles";
 
+
+const useStyles = makeStyles(({breakpoints}) => ({
+    root: {
+        flexGrow: 1,
+        width: '100%',
+        [breakpoints.only('sm')]: {
+            margin: 'auto',
+            maxWidth: 520
+        },
+        [breakpoints.down('xs')]: {
+            margin: 'auto',
+            maxWidth: 440
+        }
+    },
+    mainContent: {
+        paddingTop: 25
+    },
+    gridItem: {
+        margin: "auto",
+        flexGrow: 1
+    },
+    playgroundBlock: {
+        paddingTop: '25px',
+    },
+    dashboardBlock: {
+        margin: 0,
+    }
+}));
+
+
 const VotingRoomPage = () => {
     const styles = useStyles();
     const {id} = useParams();
@@ -79,25 +109,5 @@ const VotingRoomPage = () => {
             </Grid>
         </div>
 }
-
-const useStyles = makeStyles(() => ({
-    root: {
-        flexGrow: 1,
-        width: '100%'
-    },
-    mainContent: {
-        paddingTop: 25
-    },
-    gridItem: {
-        margin: "auto",
-        flexGrow: 1
-    },
-    playgroundBlock: {
-        paddingTop: '25px',
-    },
-    dashboardBlock: {
-        margin: 0,
-    }
-}));
 
 export default VotingRoomPage;
