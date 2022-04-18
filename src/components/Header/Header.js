@@ -10,25 +10,30 @@ import Container from "@material-ui/core/Container";
 import {makeStyles} from "@material-ui/core/styles";
 
 
-const useStyles = makeStyles(({palette}) => {
-    console.log(palette);
-    
+const useStyles = makeStyles(() => {
     return {
-    root: {
-        borderBottom: `1px solid ${palette.divider}`,
-    },
-    header: {
-        display: 'flex',
-        justifyContent: 'space-between',
-    },
-    title: {
-        userSelect: 'none',
-        fontWeight: 'bold',
-        background: 'linear-gradient(to right, #5175B4, #FF8383)',
-        '-webkit-text-fill-color': 'transparent',
-        '-webkit-background-clip': 'text',
+        root: {
+            borderBottom: '1px solid #f2f2f2',
+            background: '#fff'
+        },
+        header: {
+            display: 'flex',
+            justifyContent: 'space-between',
+        },
+        title: {
+            userSelect: 'none',
+            fontWeight: 'bold',
+            backgroundSize: '100% 100%',
+            backgroundImage: 'linear-gradient(to right, #5175B4, #FF8383)',
+            transition: 'all 0.3s ease-in-out 0s',
+            '-webkit-text-fill-color': 'transparent',
+            '-webkit-background-clip': 'text',
+            '&:hover': {
+                backgroundSize: '160% 160%',
+            }
+        }
     }
-}});
+});
 
 const Header = ({title}) => {
     const styles = useStyles();
@@ -58,7 +63,6 @@ Header.propTypes = {
     sections: PropTypes.array,
     title: PropTypes.string,
 };
-
 
 
 export default Header;
