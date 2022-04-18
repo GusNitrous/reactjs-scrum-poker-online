@@ -9,11 +9,11 @@ import {$voting} from "../../models/voting";
 const useStyles = makeStyles(() => ({
     root: {
         display: 'flex',
-        justifyContent: 'end',
+        justifyContent: 'flex-end',
         color: '#6877ad'
     },
     score: {
-        background: '#ec8188',
+        background: '#ff8383',
         color: '#fff',
         width: 32,
         height: 32,
