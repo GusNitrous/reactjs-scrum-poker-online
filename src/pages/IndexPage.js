@@ -12,6 +12,16 @@ const HomePage = lazy(() => import('./HomePage'));
 const VotingRoomPage = lazy(() => import('./VotingRoomPage'));
 const NotFoundErrorPage = lazy(() => import('./Errors/NotFound'));
 
+const useStyles = makeStyles(() => ({
+    root: {
+        display: 'flex',
+        flexDirection: 'column',
+        minHeight: 'calc(100vh - 250px)',
+        margin: "auto",
+        background: '#fff '
+    },
+}));
+
 const IndexPage = () => {
     const classes = useStyles();
     return (
@@ -46,14 +56,5 @@ const IndexPage = () => {
         </Router>
     );
 }
-
-const useStyles = makeStyles(() => ({
-    root: {
-        display: 'flex',
-        flexDirection: 'column',
-        minHeight: 'calc(100vh - 250px)',
-        margin: "auto"
-    },
-}));
 
 export default IndexPage;
