@@ -7,7 +7,7 @@ export const ConfirmProvider = ({children, ...props}) => {
             defaultOptions={{
                 dialogProps: {
                     fullWidth: true,
-                    maxWidth: "xs"
+                    maxWidth: "xs",
                 },
                 confirmationButtonProps: {autoFocus: true}
             }}
