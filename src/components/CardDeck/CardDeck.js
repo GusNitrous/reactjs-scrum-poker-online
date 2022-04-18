@@ -1,8 +1,6 @@
-import React, {useCallback, useState} from "react";
+import React, {useState} from "react";
 import {makeStyles} from "@material-ui/core/styles";
 import {PokerCard} from "./PokerCard";
-import {debounce} from "lodash/function";
-import * as navigator from "../../utils/navigator";
 
 const SCORES = [
     '?', '0', '0.5', '1',
@@ -29,11 +27,10 @@ const useStyles = makeStyles(({breakpoints}) => {
 export const CardDeck = ({onSelectCard}) => {
     const styles = useStyles();
     const [selectedScore, setSelectedScore] = useState('');
-    const selectScore = useCallback(debounce((score) => {
-        navigator.vibrate(100);
+    const selectScore = (score) => {
         setSelectedScore(score);
         onSelectCard(score);
-    }, 250, {leading: true, trailing: false}), []);
+    };
 
     return <div className={styles.root}>
         {SCORES.map((score, index) =>
