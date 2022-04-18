@@ -50,8 +50,10 @@ export const AppThemeProvider = ({children, ...props}) => {
         <MuiThemeProvider
             theme={createTheme({
                 typography: {
-                    useNextVariants: true
+                    fontFamily: "'Montserrat', 'Roboto', 'Helvetica', 'Arial', sans-serif",
+                    useNextVariants: false,
                 },
+                
                 overrides: getAppTheme(baseTheme)
             })} 
             {...props}
