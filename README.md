@@ -1,3 +1,3 @@
-# React.js · Scrum Poker Online
+# Scrummarly · React.js
 
-Scrum Poker Online frontend on React.js
+### Scrummarly - this is online estimation tool for agile teams.
