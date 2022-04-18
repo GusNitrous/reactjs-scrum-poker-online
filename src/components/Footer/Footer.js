@@ -7,11 +7,10 @@ import Link from '@material-ui/core/Link';
 
 const Copyright = () => (
     <Typography align="center" variant="body2" color="textSecondary">
-      {'Copyright © '}
-      <Link color="inherit" href="https://github.com/GusNitrous">
-        GusNitrous
-      </Link>{' '}
-      {new Date().getFullYear()}
+        Fork me on <Link 
+        color="inherit"
+        target="blank"
+        href="https://github.com/GusNitrous/reactjs-scrum-poker-online">GitHub</Link>
     </Typography>
 );
 
