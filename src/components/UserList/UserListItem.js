@@ -11,12 +11,8 @@ import {UserScore} from "./UserScore";
 
 const useStyles = makeStyles(() => ({
     root: {
-        flex: '1',
+        flex: '1 1',
         justifyContent: "space-between"
-    },
-    itemText: {
-        display: 'flex',
-        justifyContent: 'end',
     }
 }));
 
@@ -42,7 +38,7 @@ export const UserListItem = ({avatar, username, score, hasDivider}) => {
             <ListItemText primary={username}/>
             <UserScore score={score}/>
         </ListItem>
-        {hasDivider && <Divider/>}
+        {hasDivider && <Divider light/>}
     </>
 }
 
