@@ -7,9 +7,10 @@ let ws = null;
 export function getSocket(token = null) {
     if (!ws) {
         ws = io(process.env.REACT_APP_API_BASE_URL, {
-                autoConnect: Boolean(token),
-                auth: {token},
-            })
+            transports: ["websocket"],
+            autoConnect: true,
+            auth: {token},
+        })
             .on(CONNECT, () => {
                 wsConnection(ws);
             })
