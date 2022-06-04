@@ -16,12 +16,14 @@ import * as AuthAPI from '../../api/http/requests';
 import {HttpStatus} from "../../api/http";
 import {persist} from 'effector-storage/local'
 import {closeSocket} from "../../api/ws";
+import {resetWsErrors} from "../ws";
 
 
 loginRequestFx.use(async ({userName, referrer}) => {
     const {data} = await AuthAPI.register(userName);
     return {data, referrer};
 }).doneData.watch(({data, referrer}) => {
+    resetWsErrors();
     updateAuthUser(data);
     const path = referrer ?? Routes.HOME;
     history.replace(path);
@@ -55,8 +57,8 @@ persist({
 });
 
 forward({
-   from: doLogin,
-   to: loginRequestFx
+    from: doLogin,
+    to: loginRequestFx
 });
 
 forward({
