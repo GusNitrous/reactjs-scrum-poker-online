@@ -5,13 +5,11 @@ import {useStore} from "effector-react";
 import {$authUser} from "../models/auth";
 import {Redirect} from "react-router-dom";
 import {joinToRoom} from "../models/room";
-import {$wsState, resetErrors, socketInit} from "../models/ws";
+import {$wsState, socketInit} from "../models/ws";
 import {Playground} from "../components/Playground/Playground";
 import Grid from '@material-ui/core/Grid';
 import {Dashboard} from "../components/Dashboard/Dashboard";
 import {ResultList} from "../components/ResultList/ResultList";
-import {Slide, Snackbar} from "@material-ui/core";
-import {Alert} from "@material-ui/lab";
 import clsx from 'clsx';
 import {makeStyles} from "@material-ui/core/styles";
 
@@ -44,15 +42,13 @@ const useStyles = makeStyles(({breakpoints}) => ({
     }
 }));
 
-
 const VotingRoomPage = () => {
     const styles = useStyles();
     const {id} = useParams();
     const {pathname} = useLocation();
     const authUser = useStore($authUser);
-    const {ws, error, exception} = useStore($wsState);
+    const {ws} = useStore($wsState);
     const isLoggedIn = !!authUser?.userName;
-    const errorMessage = (error || exception)?.message;
 
     useEffect(() => {
         if (!ws) {
@@ -63,28 +59,12 @@ const VotingRoomPage = () => {
         }
     }, [id, ws]);
 
-    const handleClose = (event, reason) => {
-        if (reason !== 'clickaway') {
-            resetErrors();
-        }
-    }
-
     return !isLoggedIn
         ? <Redirect to={{
             pathname: Routes.AUTH,
             state: {referrer: pathname}
         }}/>
         : <div className={styles.root}>
-            {/*TODO: moving to common components*/}
-            <Snackbar
-                TransitionComponent={(props) => <Slide {...props} direction="up"/>}
-                anchorOrigin={{vertical: "bottom", horizontal: "center"}}
-                open={!!errorMessage}
-            >
-                <Alert style={{width: '100%'}} onClose={handleClose} severity="error">
-                    {errorMessage}
-                </Alert>
-            </Snackbar>
             <Grid container
                   justifyContent="center"
                   spacing={2}
