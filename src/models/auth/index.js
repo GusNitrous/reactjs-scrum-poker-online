@@ -8,7 +8,7 @@ export const clearAuthData = createEvent();
 
 export const doLogin = createEvent();
 
-export const doLogout = createEffect();
+export const doLogout = createEvent();
 
 export const loginRequestFx = createEffect();
 
