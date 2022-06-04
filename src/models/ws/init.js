@@ -3,7 +3,7 @@ import {
     handleWsConnectionFx,
     handleWsErrorFx,
     handleWsExceptionFx,
-    resetErrors,
+    resetWsErrors,
     socketInit,
     socketInitFx,
     wsConnection,
@@ -11,8 +11,9 @@ import {
     wsException
 } from "./index";
 import {forward, sample} from "effector";
-import {$authUser} from "../auth";
+import {$authUser, doLogout} from "../auth";
 import {getSocket} from "../../api/ws";
+import {HttpStatus} from "../../api/http";
 
 socketInitFx.use(({socket, token}) => {
     if (socket?.connected) {
@@ -24,12 +25,14 @@ socketInitFx.use(({socket, token}) => {
     return getSocket(token);
 });
 
-handleWsExceptionFx.use((err) => {
-    console.err('WS_EXCEPTION', err);
+handleWsExceptionFx.use(({status}) => {
+    if (status === HttpStatus.UNAUTHORIZED) {
+        doLogout();
+    }
 });
 
 handleWsErrorFx.use((err) => {
-    console.err('WS_ERROR', err);
+    console.log('WS_ERROR', err);
 });
 
 handleWsConnectionFx.use((ws) => {
@@ -39,7 +42,7 @@ handleWsConnectionFx.use((ws) => {
 $wsState.on(wsError, (state, error) => ({...state, error}));
 $wsState.on(wsException, (state, exception) => ({...state, exception}));
 $wsState.on(wsConnection, (state, ws) => ({...state, ws}));
-$wsState.on(resetErrors, (state, ws) => ({...state, error: null, exception: null,}));
+$wsState.on(resetWsErrors, (state, ws) => ({...state, error: null, exception: null,}));
 
 sample({
     source: {$wsState, $authUser},
@@ -49,6 +52,17 @@ sample({
         token: $authUser.jwtToken
     }),
     target: socketInitFx
+});
+
+forward({
+    from: wsException,
+    to: handleWsExceptionFx
+});
+
+
+forward({
+    from: wsError,
+    to: handleWsErrorFx
 });
 
 forward({
