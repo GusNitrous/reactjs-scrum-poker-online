@@ -61,8 +61,8 @@ export const Dashboard = () => {
 
     const {results} = useStore($voting);
     const {id: roomId, ownerId, voting} = useStore($room);
-    const auth = useStore($authUser);
-    const isOwner = auth.userId === ownerId;
+    const currentUser = useStore($authUser);
+    const isOwner = currentUser.userId === ownerId;
     const isShowScore = !!results;
 
     const headerStyles = isShowScore 
@@ -78,7 +78,10 @@ export const Dashboard = () => {
             />
 
             <CardContent className={styles.cardContent}>
-                <UserList users={voting.users}/>
+                <UserList
+                    currentUser={currentUser}
+                    users={voting.users}
+                />
             </CardContent>
             <CardActions className={styles.actions}>
                 {isOwner && <VotingActions/>}

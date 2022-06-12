@@ -16,24 +16,24 @@ const useStyles = makeStyles(() => ({
     }
 }));
 
-export const UserListItem = ({avatar, username, score, hasDivider}) => {
+export const UserListItem = ({avatar, username, score, hasDivider, isCurrent}) => {
     const styles = useStyles();
-
     return <>
         <ListItem className={styles.root}>
             <ListItemAvatar>
-                <UserBadge
-                    variant="dot"
-                    overlap="circular"
-                    anchorOrigin={{
-                        vertical: 'bottom',
-                        horizontal: 'right',
-                    }}
-                >
-                    <Avatar
-                        alt={username}
-                        src={avatar}/>
-                </UserBadge>
+                {isCurrent
+                    ? <UserBadge
+                        variant="dot"
+                        overlap="circular"
+                        anchorOrigin={{
+                            vertical: 'bottom',
+                            horizontal: 'right',
+                        }}
+                    >
+                        <Avatar alt={username} src={avatar}/>
+                    </UserBadge>
+                    : <Avatar alt={username} src={avatar}/>
+                }
             </ListItemAvatar>
             <ListItemText primary={username}/>
             <UserScore score={score}/>
@@ -46,5 +46,6 @@ UserListItem.propTypes = {
     avatar: PropTypes.string,
     username: PropTypes.string,
     score: PropTypes.string,
-    hasDivider: PropTypes.bool
+    hasDivider: PropTypes.bool,
+    isCurrent: PropTypes.bool,
 }
