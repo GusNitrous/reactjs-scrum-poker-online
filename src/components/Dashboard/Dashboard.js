@@ -8,9 +8,9 @@ import {UserList} from "../UserList/UserList";
 import {$authUser} from "../../models/auth";
 import {VotingActions} from "./VotingActions";
 import {BottomPanel} from "./BottomPanel";
-import { useOverShadowStyles } from '@mui-treasury/styles/shadow/over';
-import { useContainedCardHeaderStyles } from '@mui-treasury/styles/cardHeader/contained';
-import { useFadedShadowStyles } from '@mui-treasury/styles/shadow/faded';
+import {useOverShadowStyles} from '@mui-treasury/styles/shadow/over';
+import {useContainedCardHeaderStyles} from '@mui-treasury/styles/cardHeader/contained';
+import {useFadedShadowStyles} from '@mui-treasury/styles/shadow/faded';
 import cx from 'clsx';
 
 
@@ -35,9 +35,6 @@ const useStyles = makeStyles(({palette, spacing}) => ({
     },
     finished: {
         backgroundSize: '100% 100%',
-    },
-    vatingResuls: {
-
     },
     title: {
         fontSize: 15,
@@ -65,7 +62,7 @@ export const Dashboard = () => {
     const isOwner = currentUser.userId === ownerId;
     const isShowScore = !!results;
 
-    const headerStyles = isShowScore 
+    const headerStyles = isShowScore
         ? cx(cardHeaderShadowStyles.root, styles.header, styles.finished)
         : cx(cardHeaderShadowStyles.root, styles.header)
 
