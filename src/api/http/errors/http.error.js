@@ -1,12 +1,10 @@
-/**
- * HttpError.
- */
 export class HttpError extends Error {
-    static fromAxios({response}) {
+    static fromAxios(error) {
+        const {response} = error ?? {};
         return new HttpError(
-            response.status,
-            response.statusText,
-            response.data,
+            response?.status,
+            response?.statusText,
+            response?.data,
         );
     }
 
