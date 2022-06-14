@@ -35,11 +35,11 @@ logoutRequestFx.use(AuthAPI.logout).finally.watch(() => {
     history.replace(Routes.AUTH);
 });
 
-$authErrors.on(loginRequestFx.failData, (errors, {status, data}) => {
-    if (status === HttpStatus.BAD_REQUEST) {
-        errors.inputError = {userName: data.message};
+$authErrors.on(loginRequestFx.failData, (errors, httpError) => {
+    if (httpError?.status === HttpStatus.BAD_REQUEST) {
+        errors.inputError = {userName: httpError.message};
     } else {
-        errors.commonError = data.message;
+        errors.commonError = httpError?.message;
     }
     return errors;
 });
