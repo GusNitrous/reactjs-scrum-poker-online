@@ -1,19 +1,23 @@
 import {
     $wsState,
     handleWsConnectionFx,
+    handleWsDisconnectFx,
     handleWsErrorFx,
     handleWsExceptionFx,
     resetWsErrors,
     socketInit,
     socketInitFx,
     wsConnection,
+    wsDisconnect,
     wsError,
     wsException
 } from "./index";
 import {forward, sample} from "effector";
 import {$authUser, doLogout} from "../auth";
-import {getSocket} from "../../api/ws";
+import {openSocket} from "../../api/ws";
 import {HttpStatus} from "../../api/http";
+import {networkError} from "../app";
+import {WsError} from "../../api/ws/errors/ws.error";
 
 socketInitFx.use(({socket, token}) => {
     if (socket?.connected) {
@@ -22,13 +26,17 @@ socketInitFx.use(({socket, token}) => {
     if (!token) {
         throw new Error('Socket init error');
     }
-    return getSocket(token);
+    return openSocket(token);
 });
 
 handleWsExceptionFx.use(({status}) => {
     if (status === HttpStatus.UNAUTHORIZED) {
         doLogout();
     }
+});
+
+handleWsDisconnectFx.use((reason) => {
+    networkError(new WsError(reason));
 });
 
 handleWsErrorFx.use((err) => {
@@ -68,4 +76,9 @@ forward({
 forward({
     from: wsConnection,
     to: handleWsConnectionFx
+});
+
+forward({
+    from: wsDisconnect,
+    to: handleWsDisconnectFx
 });

@@ -1,10 +1,10 @@
 import {io} from 'socket.io-client';
-import {wsConnection, wsError, wsException} from "../../models/ws";
-import {CONNECT, ERROR, EXCEPTION} from "./events";
+import {wsConnection, wsDisconnect, wsError, wsException} from "../../models/ws";
+import {CONNECT, DISCONNECT, ERROR, EXCEPTION} from "./events";
 
 let ws = null;
 
-export function getSocket(token = null) {
+export function openSocket(token = null) {
     if (!ws) {
         ws = io(process.env.REACT_APP_API_BASE_URL, {
             transports: ["websocket"],
@@ -13,6 +13,9 @@ export function getSocket(token = null) {
         })
             .on(CONNECT, () => {
                 wsConnection(ws);
+            })
+            .on(DISCONNECT, (reason) => {
+                wsDisconnect(reason);
             })
             .on(ERROR, (err) => {
                 wsError(err);
