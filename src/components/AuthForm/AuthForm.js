@@ -8,7 +8,7 @@ import Card from "@material-ui/core/Card";
 import {useStore} from "effector-react";
 import {useLocation} from "react-router";
 import {makeStyles} from "@material-ui/core/styles";
-import { useOverShadowStyles } from '@mui-treasury/styles/shadow/over';
+import {useOverShadowStyles} from '@mui-treasury/styles/shadow/over';
 import cx from 'clsx';
 
 
@@ -38,8 +38,8 @@ export const useStyles = makeStyles(({spacing}) => ({
 export const AuthForm = () => {
     const styles = useStyles();
     const shadowStyles = useOverShadowStyles();
-    const { state } = useLocation();
-    const { userName } = useStore($authForm);
+    const {state} = useLocation();
+    const {userName} = useStore($authForm);
     const {inputError} = useStore($authErrors);
     const isLoading = useStore(loginRequestFx.pending);
     const isDisabled = !userName || isLoading;
@@ -61,8 +61,8 @@ export const AuthForm = () => {
                         Authorization
                     </Typography>
                     <TextField
-                        error={!!inputError.userName}
-                        helperText={inputError.userName}
+                        error={Boolean(inputError?.userName)}
+                        helperText={inputError?.userName}
                         value={userName}
                         onChange={(e) => updateAuthForm({
                             key: 'userName',
@@ -81,9 +81,9 @@ export const AuthForm = () => {
                         type="submit"
                         fullWidth
                         className={
-                            isDisabled 
-                            ? cx("MuiButton--gradient MuiButton--gradient-label", styles.submit, styles.disabled)
-                            : cx("MuiButton--gradient MuiButton--gradient-label", styles.submit)
+                            isDisabled
+                                ? cx("MuiButton--gradient MuiButton--gradient-label", styles.submit, styles.disabled)
+                                : cx("MuiButton--gradient MuiButton--gradient-label", styles.submit)
                         }
                     >
                         Login
