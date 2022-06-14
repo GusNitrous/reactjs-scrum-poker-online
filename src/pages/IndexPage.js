@@ -3,13 +3,10 @@ import {Route, Router, Switch,} from "react-router-dom";
 import {history, Routes} from '../utils/routing';
 import {makeStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import {Slide, Snackbar} from "@material-ui/core";
-import {Alert} from "@material-ui/lab";
 
 import Header from '../components/Header/Header';
 import Footer from '../components/Footer/Footer';
-import {useStore} from "effector-react";
-import {$wsState, resetWsErrors} from "../models/ws";
+import {AppAlert} from "../components/Common/AppAlert";
 
 const AuthPage = lazy(() => import('./AuthPage'));
 const HomePage = lazy(() => import('./HomePage'));
@@ -28,19 +25,11 @@ const useStyles = makeStyles(() => ({
 
 const IndexPage = () => {
     const classes = useStyles();
-    const {error, exception} = useStore($wsState);
-    const errorMessage = (error || exception)?.message;
-
-    const handleClose = (event, reason) => {
-        if (reason !== 'clickaway') {
-            resetWsErrors();
-        }
-    }
-
+    const appName = 'Scrummarly';
     return (
         <>
             <Router history={history}>
-                <Header title="Scrummarly"/>
+                <Header title={appName}/>
                 <div className={classes.root}>
                     <Container maxWidth="md">
                         <main>
@@ -55,6 +44,9 @@ const IndexPage = () => {
                                     <Route path={Routes.VOTING_ROOM}>
                                         <VotingRoomPage/>
                                     </Route>
+                                    <Route exact path={Routes.ROOT}>
+                                        <AuthPage/>
+                                    </Route>
                                     <Route path={Routes.ROOT}>
                                         <NotFoundErrorPage/>
                                     </Route>
@@ -64,22 +56,12 @@ const IndexPage = () => {
                     </Container>
                 </div>
                 <Footer
-                    title="Scrummarly"
+                    title={appName}
                     description="Online estimation tool for agile teams"
                 />
             </Router>
-            {/*TODO: moving to common components*/}
-            <Snackbar
-                TransitionComponent={(props) => <Slide {...props} direction="up"/>}
-                anchorOrigin={{vertical: "bottom", horizontal: "center"}}
-                open={!!errorMessage}
-            >
-                <Alert style={{width: '100%'}} onClose={handleClose} severity="error">
-                    {errorMessage}
-                </Alert>
-            </Snackbar>
+            <AppAlert/>
         </>
-
     );
 }
 
