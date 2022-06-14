@@ -20,7 +20,7 @@ const useStyles = makeStyles(() => ({
         borderRadius: '100%',
         lineHeight: '32px',
         textAlign: 'center',
-        fontSize: 16
+        fontSize: 15
     }
 }));
 
