@@ -9,7 +9,7 @@ import {useStore} from "effector-react";
 import {$room} from "../../models/room";
 import ShareIcon from "@material-ui/icons/Share";
 
-
+// TODO rename to the ShareRoom
 export const ShareVoting = () => {
     const styles = useStyles();
     const [link, setLink] = useState('');
