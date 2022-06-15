@@ -25,8 +25,8 @@ loginRequestFx.use(async ({userName, referrer}) => {
 }).doneData.watch(({data, referrer}) => {
     resetWsErrors();
     updateAuthUser(data);
-    const path = referrer ?? Routes.HOME;
-    history.replace(path);
+    const redirectTo = referrer ?? Routes.HOME;
+    history.replace(redirectTo);
 });
 
 logoutRequestFx.use(AuthAPI.logout).finally.watch(() => {
@@ -35,11 +35,9 @@ logoutRequestFx.use(AuthAPI.logout).finally.watch(() => {
     history.replace(Routes.AUTH);
 });
 
-$authErrors.on(loginRequestFx.failData, (errors, httpError) => {
-    if (httpError?.status === HttpStatus.BAD_REQUEST) {
-        errors.inputError = {userName: httpError.message};
-    } else {
-        errors.commonError = httpError?.message;
+$authErrors.on(loginRequestFx.failData, (errors, {status, data}) => {
+    if (status === HttpStatus.BAD_REQUEST) {
+        errors.inputError = {userName: data?.message};
     }
     return errors;
 });

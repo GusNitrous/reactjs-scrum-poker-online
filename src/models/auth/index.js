@@ -15,7 +15,6 @@ export const loginRequestFx = createEffect();
 export const logoutRequestFx = createEffect();
 
 export const $authErrors = createStore({
-    commonError: '',
     inputError: {}
 });
 

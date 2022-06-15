@@ -1,4 +1,3 @@
-import axios from "axios";
 import {HttpError} from "./errors/http.error";
 import {NetworkError} from "../../errors/network.error";
 import {$authUser} from "../../models/auth";
@@ -7,14 +6,12 @@ import {MissingAuthDataError} from "../../errors/missing-auth-data.error";
 
 const {jwtToken} = $authUser.getState() ?? {};
 
-
-export const handleRequestError = (err) => {
-    if (err instanceof axios) {
-        return HttpError.fromAxios(err);
+export const handleRequestError = ({response}) => {
+    const requestError = !response ? new NetworkError() : HttpError.fromResponse(response);
+    if (!requestError.status) {
+        networkError(requestError);
     }
-    const error = new NetworkError();
-    networkError(error);
-    return error;
+    return Promise.reject(requestError);
 };
 
 export const makeAuthHeader = (prefix = 'Bearer', authToken = jwtToken) => {

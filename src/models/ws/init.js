@@ -56,8 +56,8 @@ sample({
     source: {$wsState, $authUser},
     clock: socketInit,
     fn: ({$wsState, $authUser}) => ({
-        socket: $wsState.ws,
-        token: $authUser.jwtToken
+        socket: $wsState?.ws,
+        token: $authUser?.jwtToken
     }),
     target: socketInitFx
 });

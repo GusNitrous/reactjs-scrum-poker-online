@@ -1,6 +1,5 @@
 export class HttpError extends Error {
-    static fromAxios(error) {
-        const {response} = error ?? {};
+    static fromResponse(response) {
         return new HttpError(
             response?.status,
             response?.statusText,
