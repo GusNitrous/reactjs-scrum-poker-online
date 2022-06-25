@@ -1,0 +1,83 @@
+name: Create and publish a Docker image
+
+on:
+  push:
+    branches: [ 'main', 'release/**' ]
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  build-and-push-image:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Log in to the Container registry
+        uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+  deploy:
+    name: Deploy to production
+    runs-on: ubuntu-latest
+    needs: build-and-push-image
+    env:
+      APP_IMAGE: ghcr.io/gusnitrous/nestjs-scrum-poker-online:test
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v3
+
+      - name: Add environment variables to .env
+        run: |
+          echo COMPOSE_PROJECT_NAME=scrummarly-server >> .env
+          echo APP_IMAGE=$APP_IMAGE >> .env
+          echo APP_NAME=ScrummarlyServer >> .env
+          echo APP_ENV=prod >> .env
+          echo APP_HOST=0.0.0.0 >> .env
+          echo APP_PORT=9000 >> .env
+          echo BASE_URL=https://scrummarly.com >> .env
+          echo JWT_SECRET=${{ secrets.PROD_JWT_SECRET }} >> .env
+
+      - name: Add the private SSH key to the ssh-agent
+        env:
+          SSH_AUTH_SOCK: /tmp/ssh_agent.sock
+        run: |
+          mkdir -p ~/.ssh
+          ssh-agent -a $SSH_AUTH_SOCK > /dev/null
+          ssh-keyscan github.com >> ~/.ssh/known_hosts
+          ssh-add - <<< "${{ secrets.SSH_PRIVATE_KEY }}"
+
+      - name: Build and deploy image to production
+        env:
+          SSH_AUTH_SOCK: /tmp/ssh_agent.sock
+        run: |
+          scp -o StrictHostKeyChecking=no -P 4921 -r ./.env ./docker-compose.yml scrummarly@${{ secrets.PROD_INSTANCE_IP }}:scrummarly.com/server
+          ssh -o StrictHostKeyChecking=no scrummarly@${{ secrets.PROD_INSTANCE_IP }} -p 4921 << 'ENDSSH'
+            cd ./scrummarly.com/server
+            cat .env
+            source .env
+            docker pull $APP_IMAGE
+            docker-compose up -d
+          ENDSSH
