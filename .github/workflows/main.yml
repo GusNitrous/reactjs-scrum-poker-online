@@ -57,6 +57,7 @@ jobs:
         run: |
           echo COMPOSE_PROJECT_NAME=scrummarly-client >> .env
           echo APP_IMAGE=$APP_IMAGE >> .env
+          echo APP_PORT=3000 >> .env
 
       - name: Add the private SSH key to the ssh-agent
         env:
@@ -71,11 +72,11 @@ jobs:
         env:
           SSH_AUTH_SOCK: /tmp/ssh_agent.sock
         run: |
-          scp -o StrictHostKeyChecking=no -P 4921 -r ./.env scrummarly@${{ secrets.PROD_INSTANCE_IP }}:scrummarly.com/client
+          scp -o StrictHostKeyChecking=no -P 4921 -r ./.env ./docker-compose.yml scrummarly@${{ secrets.PROD_INSTANCE_IP }}:scrummarly.com/client
           ssh -o StrictHostKeyChecking=no scrummarly@${{ secrets.PROD_INSTANCE_IP }} -p 4921 << 'ENDSSH'
             cd ./scrummarly.com/client
             cat .env
             source .env
             docker pull $APP_IMAGE
-            docker run -p 3000:80 $APP_IMAGE
+            docker-compose up -d
           ENDSSH

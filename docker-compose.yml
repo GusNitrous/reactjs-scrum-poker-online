@@ -1,0 +1,10 @@
+version: '3'
+services:
+  app:
+    image: "${APP_IMAGE}"
+    restart: "always"
+    tty: true
+    env_file:
+      - .env
+    ports:
+      - "${APP_PORT}:80"
