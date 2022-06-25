@@ -32,6 +32,10 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
 
+      - name: Add environment variables to .env.production.local
+        run: |
+          echo REACT_APP_API_BASE_URL=https://api.scrummarly.com >> .env.production.local
+
       - name: Build and push Docker image
         uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
         with:
@@ -44,21 +48,15 @@ jobs:
     runs-on: ubuntu-latest
     needs: build-and-push-image
     env:
-      APP_IMAGE: ghcr.io/gusnitrous/nestjs-scrum-poker-online:test
+      APP_IMAGE: ghcr.io/gusnitrous/reactjs-scrum-poker-online:test
     steps:
       - name: Checkout main
         uses: actions/checkout@v3
 
       - name: Add environment variables to .env
         run: |
-          echo COMPOSE_PROJECT_NAME=scrummarly-server >> .env
+          echo COMPOSE_PROJECT_NAME=scrummarly-client >> .env
           echo APP_IMAGE=$APP_IMAGE >> .env
-          echo APP_NAME=ScrummarlyServer >> .env
-          echo APP_ENV=prod >> .env
-          echo APP_HOST=0.0.0.0 >> .env
-          echo APP_PORT=9000 >> .env
-          echo BASE_URL=https://scrummarly.com >> .env
-          echo JWT_SECRET=${{ secrets.PROD_JWT_SECRET }} >> .env
 
       - name: Add the private SSH key to the ssh-agent
         env:
@@ -73,11 +71,11 @@ jobs:
         env:
           SSH_AUTH_SOCK: /tmp/ssh_agent.sock
         run: |
-          scp -o StrictHostKeyChecking=no -P 4921 -r ./.env ./docker-compose.yml scrummarly@${{ secrets.PROD_INSTANCE_IP }}:scrummarly.com/server
+          scp -o StrictHostKeyChecking=no -P 4921 -r ./.env scrummarly@${{ secrets.PROD_INSTANCE_IP }}:scrummarly.com/client
           ssh -o StrictHostKeyChecking=no scrummarly@${{ secrets.PROD_INSTANCE_IP }} -p 4921 << 'ENDSSH'
-            cd ./scrummarly.com/server
+            cd ./scrummarly.com/client
             cat .env
             source .env
             docker pull $APP_IMAGE
-            docker-compose up -d
+            docker run -p 3000:80 $APP_IMAGE
           ENDSSH
