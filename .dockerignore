@@ -1,4 +1,7 @@
 node_modules
 build
-.dockerignore
 Dockerfile
+.github
+.vscode
+.idea
+.dockerignore
