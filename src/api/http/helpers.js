@@ -4,7 +4,6 @@ import {$authUser} from "../../models/auth";
 import {networkError} from "../../models/app";
 import {MissingAuthDataError} from "../../errors/missing-auth-data.error";
 
-const {jwtToken} = $authUser.getState() ?? {};
 
 export const handleRequestError = ({response}) => {
     const requestError = !response ? new NetworkError() : HttpError.fromResponse(response);
@@ -14,7 +13,8 @@ export const handleRequestError = ({response}) => {
     return Promise.reject(requestError);
 };
 
-export const makeAuthHeader = (prefix = 'Bearer', authToken = jwtToken) => {
+export const makeAuthHeader = (prefix = 'Bearer') => {
+    const {jwtToken} = $authUser.getState() ?? {};
     if (!jwtToken) {
         throw new MissingAuthDataError();
     }
@@ -25,13 +25,7 @@ export const makeAuthHeader = (prefix = 'Bearer', authToken = jwtToken) => {
 
 export const makeHttpRequest = (httpClient) => (config) => httpClient.request(config).catch(handleRequestError);
 
-export const withAuth = (httpRequest, authHeader = makeAuthHeader()) => (options) => {
-    const authHeaders = {headers: authHeader};
-    if ('config' in options) {
-        return httpRequest({...options['config'], ...authHeaders});
-    }
-    if ('method' in options) {
-        return httpRequest({...options, ...authHeaders});
-    }
-    return httpRequest({config: authHeaders});
-}
+export const withAuth = (
+    httpRequest,
+    authHeader = makeAuthHeader(),
+) => (options) => httpRequest({...options, headers: authHeader});
