@@ -29,7 +29,7 @@ export const AppAlert = () => {
         <Alert
             style={{width: '100%'}}
             onClose={handleClose}
-            severity="error">
+            severity={networkError?.level || "error"}>
             {errorMessage}
         </Alert>
     </Snackbar>
