@@ -1,15 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {ConnectRoutes} from "./routing";
 import {AppThemeProvider, ConfirmProvider} from "./providers";
 import CssBaseline from '@material-ui/core/CssBaseline';
 import GoogleFontLoader from 'react-google-font-loader';
 import NoSsr from '@material-ui/core/NoSsr';
-import {AppLayout} from "./layout/AppLayout";
+import {AppLayout} from "./layout";
+import {RoutesInit} from "./RoutesInit";
 
 
 // Import Effector models
 import './models/init';
+
 
 const appName = "Scrummarly";
 const description = "Online estimation tool for agile teams";
@@ -21,15 +22,13 @@ ReactDOM.render(
                 <AppThemeProvider>
                     <CssBaseline/>
                     <ConfirmProvider>
-                        <ConnectRoutes
-                                layout={{
-                                    component: AppLayout,
-                                    props: {
-                                        appName,
-                                        description,
-                                    }
-                                }}
-                        />
+                        <RoutesInit layout={{
+                            component: AppLayout,
+                            props: {
+                                appName,
+                                description,
+                            }
+                        }}/>
                     </ConfirmProvider>
                 </AppThemeProvider>
             </NoSsr>
