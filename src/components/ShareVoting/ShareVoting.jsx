@@ -4,7 +4,7 @@ import {makeStyles} from "@material-ui/core/styles";
 import FileCopyIcon from '@material-ui/icons/FileCopy';
 import LinkIcon from '@material-ui/icons/Link';
 import QRCode from "react-qr-code";
-import {AppDialog, DialogContent, DialogTitle} from "../Common/AppDialog";
+import {AppDialog, DialogContent, DialogTitle} from "../AppDialog/AppDialog";
 import {useStore} from "effector-react";
 import {$room} from "../../models/room";
 import ShareIcon from "@material-ui/icons/Share";
@@ -25,19 +25,19 @@ export const ShareVoting = () => {
     // TODO: moving to common utils
     const copy = (value) => {
         navigator
-            .clipboard
-            ?.writeText(value)
-            .catch((err) => {
-                console.error(err);
-            });
+                .clipboard
+                ?.writeText(value)
+                .catch((err) => {
+                    console.error(err);
+                });
     }
 
     return <>
         <Button
-            size="large"
-            type="text"
-            endIcon={<ShareIcon/>}
-            onClick={() => setIsOpen(true)}>
+                size="large"
+                type="text"
+                endIcon={<ShareIcon/>}
+                onClick={() => setIsOpen(true)}>
             Room: {roomId}
         </Button>
         <AppDialog maxWidth="xs" onClose={handleClose} open={isOpen}>
@@ -52,24 +52,24 @@ export const ShareVoting = () => {
                     <Grid container spacing={2} className={styles.buttonsBlock}>
                         <Grid item xs={12}>
                             <Button
-                                fullWidth
-                                variant="outlined"
-                                onClick={() => {
-                                    copy(link);
-                                }}
-                                endIcon={<LinkIcon/>}>
+                                    fullWidth
+                                    variant="outlined"
+                                    onClick={() => {
+                                        copy(link);
+                                    }}
+                                    endIcon={<LinkIcon/>}>
                                 Copy link
                             </Button>
                         </Grid>
 
                         <Grid item xs={12}>
                             <Button
-                                fullWidth
-                                variant="outlined"
-                                onClick={() => {
-                                    copy(roomId);
-                                }}
-                                endIcon={<FileCopyIcon/>}>
+                                    fullWidth
+                                    variant="outlined"
+                                    onClick={() => {
+                                        copy(roomId);
+                                    }}
+                                    endIcon={<FileCopyIcon/>}>
                                 Copy RoomId
                             </Button>
                         </Grid>

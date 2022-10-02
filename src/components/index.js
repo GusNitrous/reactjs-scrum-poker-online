@@ -8,5 +8,5 @@ export * from './ShareVoting/ShareVoting';
 export * from './UserList/UserList';
 export * from './VotingResults/VotingResults';
 export * from './AuthButton/AuthButton';
-export * from './Common/AppAlert';
-export * from './Common/AppDialog';
+export * from './AppAlert/AppAlert';
+export * from './AppDialog/AppDialog';
