@@ -1,10 +1,10 @@
 import React from 'react';
-import {QuickStart} from '../components/QuickStart/QuickStart';
+import {QuickStart} from '../../components/QuickStart/QuickStart';
 import {Redirect} from "react-router-dom";
 import {useStore} from "effector-react";
-import {$authUser} from "../models/auth";
-import {Routes} from "../utils/routing";
-import {$wsState} from "../models/ws";
+import {$authUser} from "../../models/auth";
+import {Routes} from "../../utils/routing";
+import {$wsState} from "../../models/ws";
 import Container from "@material-ui/core/Container";
 import {makeStyles} from "@material-ui/core/styles";
 

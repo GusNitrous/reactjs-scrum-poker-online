@@ -1,15 +1,15 @@
 import React, {useEffect} from 'react';
-import {Routes} from "../utils/routing";
+import {Routes} from "../../utils/routing";
 import {useLocation, useParams} from "react-router";
 import {useStore} from "effector-react";
-import {$authUser} from "../models/auth";
+import {$authUser} from "../../models/auth";
 import {Redirect} from "react-router-dom";
-import {joinToRoom} from "../models/room";
-import {$wsState, socketInit} from "../models/ws";
-import {Playground} from "../components/Playground/Playground";
+import {joinToRoom} from "../../models/room";
+import {$wsState, socketInit} from "../../models/ws";
+import {Playground} from "../../components/Playground/Playground";
 import Grid from '@material-ui/core/Grid';
-import {Dashboard} from "../components/Dashboard/Dashboard";
-import {ResultList} from "../components/ResultList/ResultList";
+import {Dashboard} from "../../components/Dashboard/Dashboard";
+import {ResultList} from "../../components/ResultList/ResultList";
 import clsx from 'clsx';
 import {makeStyles} from "@material-ui/core/styles";
 
