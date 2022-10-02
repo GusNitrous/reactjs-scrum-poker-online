@@ -5,14 +5,18 @@ import Footer from "./Footer/Footer";
 import {AppAlert} from "../components";
 import {useStyles} from "./AppLayout.styles";
 
+
+// Import Main App styles
+import '../styles/global.css';
+
 export function AppLayout({children, appName, description}) {
     const styles = useStyles();
-    return <>
+    return <div className={styles.root}>
         <Header title={appName}/>
-        <Container component="main" className={styles.root} maxWidth="md">
+        <Container component="main" className={styles.container} maxWidth="md">
             {children}
         </Container>
         <Footer title={appName} description={description}/>
         <AppAlert/>
-    </>;
+    </div>;
 }
