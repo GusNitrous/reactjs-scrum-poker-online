@@ -6,9 +6,6 @@ import {AppAlert} from "../components";
 import {useStyles} from "./AppLayout.styles";
 
 
-// Import Main App styles
-import '../styles/global.css';
-
 export function AppLayout({children, appName, description}) {
     const styles = useStyles();
     return <div className={styles.root}>
